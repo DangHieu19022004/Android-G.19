@@ -2,43 +2,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeManager {
-    private List<Employee> employeeList;
+    private List<Employee> employees;
 
     public EmployeeManager() {
-        employeeList = new ArrayList<>();
-        initializeEmployees();
+        this.employees = new ArrayList<>();
+        initEmployees(); // Khởi tạo danh sách nhân viên ban đầu
     }
 
-    private void initializeEmployees() {
-        employeeList.add(new Employee(1, "John Doe", 30, "Engineering", "ENG01", 5000));
-        employeeList.add(new Employee(2, "Jane Smith", 28, "Marketing", "MKT01", 4500));
-        employeeList.add(new Employee(3, "James Brown", 35, "Finance", "FIN01", 6000));
-        employeeList.add(new Employee(4, "Emily Davis", 32, "Human Resources", "HR01", 4800));
-        employeeList.add(new Employee(5, "Michael Johnson", 29, "Sales", "SLS01", 4700));
-        employeeList.add(new Employee(6, "Sarah Wilson", 27, "Engineering", "ENG02", 5100));
-        employeeList.add(new Employee(7, "David Miller", 33, "Operations", "OPS01", 5500));
-        employeeList.add(new Employee(8, "Nancy Garcia", 31, "Customer Service", "CS01", 4300));
-        employeeList.add(new Employee(9, "Steven Martinez", 34, "Legal", "LEG01", 6300));
-        employeeList.add(new Employee(10, "Jessica Anderson", 26, "Information Technology", "IT01", 5200));
+    private void initEmployees() {
+        employees.add(new Employee(1, "John Doe", 30, "IT", "A001", 3000));
+        employees.add(new Employee(2, "Jane Smith", 28, "HR", "B002", 3200));
+        employees.add(new Employee(3, "Mike Johnson", 35, "Finance", "C003", 3500));
+        employees.add(new Employee(4, "Emily Davis", 27, "Marketing", "D004", 3100));
+        employees.add(new Employee(5, "Chris Brown", 32, "Operations", "E005", 3400));
+        employees.add(new Employee(6, "David Wilson", 29, "IT", "F006", 2900));
+        employees.add(new Employee(7, "Laura Garcia", 26, "HR", "G007", 3150));
+        employees.add(new Employee(8, "Robert Martinez", 31, "Finance", "H008", 3350));
+        employees.add(new Employee(9, "Mary Anderson", 33, "Marketing", "I009", 3050));
+        employees.add(new Employee(10, "Linda White", 34, "Operations", "J010", 3300));
     }
 
-    // Hiển thị danh sách nhân viên
-    public void displayAllEmployees() {
-        System.out.println("Danh sách nhân viên:");
-        for (Employee employee : employeeList) {
+    public void displayEmployees() {
+        // Tiêu đề cột
+        System.out.format("%-5s %-15s %-5s %-15s %-10s %-10s%n", 
+                          "ID", "Name", "Age", "Department", "Code", "Salary Rate");
+        System.out.println("--------------------------------------------------------------------");
+
+        // Hiển thị danh sách nhân viên
+        for (Employee employee : employees) {
             System.out.println(employee);
         }
     }
 
-    // Thêm nhân viên mới
     public void addEmployee(Employee newEmployee) {
-        employeeList.add(newEmployee);
-        System.out.println("Nhân viên mới đã được thêm vào danh sách.");
+        employees.add(newEmployee);
+        System.out.println("Da them nhan vien moi: " + newEmployee);
     }
 
-    // Xóa nhân viên theo ID
-    public void deleteEmployee(int employeeId) {
-        employeeList.removeIf(employee -> employee.getId() == employeeId);
-        System.out.println("Nhân viên đã được xóa khỏi danh sách.");
+    public boolean deleteEmployee(int employeeId) {
+        boolean isDeleted = employees.removeIf(employee -> employee.getId() == employeeId);
+        if (isDeleted) {
+            System.out.println("Da xoa nhan vien co ID: " + employeeId);
+        } else {
+            System.out.println("Khong tim thay nhan vien co ID: " + employeeId);
+        }
+        return isDeleted;
     }
 }
