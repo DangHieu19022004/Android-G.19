@@ -67,14 +67,8 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", department='" + department + '\'' +
-                ", code='" + code + '\'' +
-                ", salaryRate=" + salaryRate +
-                '}';
+        // Định dạng theo cột với chiều rộng cố định
+        return String.format("%-5d %-15s %-5d %-15s %-10s %-10.2f", 
+            id, name, age, department, code, salaryRate);
     }
 }
-
