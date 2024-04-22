@@ -1,23 +1,42 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        EmployeeManager employeeManager = new EmployeeManager();
+        EmployeeManager manager = new EmployeeManager();
+        Scanner scanner = new Scanner(System.in);
 
         // Hiển thị danh sách nhân viên ban đầu
-        employeeManager.displayAllEmployees();
+        manager.displayEmployees();
 
-        // Thêm nhân viên mới
-        Employee newEmployee = new Employee(11, "William Robinson", 36, "Management", "MGT01", 7000);
-        employeeManager.addEmployee(newEmployee);
+        // Thêm một nhân viên mới bằng cách nhập từ bàn phím
+        System.out.println("Nhap thong tin cho nhan vien moi:");
+        System.out.print("ID: ");
+        int newId = scanner.nextInt();
+        scanner.nextLine(); // Đọc newline còn lại
+        System.out.print("Name: ");
+        String newName = scanner.nextLine();
+        System.out.print("Age: ");
+        int newAge = scanner.nextInt();
+        scanner.nextLine(); // Đọc newline còn lại
+        System.out.print("Deparment: ");
+        String newDepartment = scanner.nextLine();
+        System.out.print("Code: ");
+        String newCode = scanner.nextLine();
+        System.out.print("salaryRate: ");
+        double newSalaryRate = scanner.nextDouble();
 
-        // Hiển thị lại danh sách nhân viên sau khi thêm nhân viên mới
-        System.out.println("\nDanh sách sau khi thêm nhân viên:");
-        employeeManager.displayAllEmployees();
+        Employee newEmployee = new Employee(newId, newName, newAge, newDepartment, newCode, newSalaryRate);
+        manager.addEmployee(newEmployee);
 
-        // Xóa một nhân viên
-        employeeManager.deleteEmployee(3);
+        // Hiển thị lại danh sách sau khi thêm
+        manager.displayEmployees();
 
-        // Hiển thị lại danh sách nhân viên sau khi xóa nhân viên
-        System.out.println("\nDanh sách sau khi xóa nhân viên:");
-        employeeManager.displayAllEmployees();
+        // Xóa một nhân viên bằng cách nhập từ bàn phím
+        System.out.print("Nhap ID cua nhan vien muon xoa: ");
+        int deleteId = scanner.nextInt();
+        manager.deleteEmployee(deleteId);
+
+        // Hiển thị lại danh sách sau khi xóa
+        manager.displayEmployees();
     }
 }
