@@ -1,0 +1,142 @@
+[
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\drawable_facebook.png.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\drawable\\facebook.png"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\drawable_soulseed.png.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\drawable\\soulseed.png"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\drawable_twitter.png.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\drawable\\twitter.png"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\drawable_background.xml.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\drawable\\background.xml"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\drawable_startcolor.xml.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\drawable\\startcolor.xml"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\drawable_nen.xml.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\drawable\\nen.xml"
+    },
+    {
+        "merged": "com.example.login.app-debug-39:/layout_activity_main.xml.flat",
+        "source": "com.example.login.app-main-41:/layout/activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\layout_activity_sign_up.xml.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\layout\\activity_sign_up.xml"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\drawable_background_edittext.xml.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\drawable\\background_edittext.xml"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\layout_activity_second.xml.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\layout\\activity_second.xml"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\layout_activity_start.xml.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\layout\\activity_start.xml"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\drawable_babylon.png.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\drawable\\babylon.png"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\drawable_alchemy.png.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\drawable\\alchemy.png"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\drawable_crime.png.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\drawable\\crime.png"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\drawable_book.png.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\drawable\\book.png"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\drawable_background_forget_pass.xml.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\drawable\\background_forget_pass.xml"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\drawable_google.png.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\drawable\\google.png"
+    },
+    {
+        "merged": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-debug-39:\\drawable_thickgrow.png.flat",
+        "source": "C:\\Users\\Acer\\.gradle\\daemon\\8.4\\com.example.login.app-main-41:\\drawable\\thickgrow.png"
+    }
+]

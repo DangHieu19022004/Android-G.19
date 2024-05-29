@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="app_name">Login</string>
+    <string name="facebook_app_id">744751507542999</string>
+    <string name="facebook_client_token">5d94c33b206857c58f5dcd46d102551b</string>
+    <string name="fb_login_protocol_scheme">fb744751507542999</string>
+    <string name="web_client_id">522991300389-t08h97b1bo5qkr2rlemr3hj23i2pu7ap.apps.googleusercontent.com</string>
+    <style name="Base.Theme.Login" parent="Theme.Material3.DayNight.NoActionBar">
+        
+        
+    </style>
+    <style name="Theme.Login" parent="Base.Theme.Login"/>
+</resources>
