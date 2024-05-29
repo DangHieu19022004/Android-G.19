@@ -1,0 +1,17 @@
+<!-- res/menu/bottom_navigation_menu.xml -->
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Home"
+        android:icon="@drawable/homeicon"
+        android:id="@+id/home"/>
+    <item android:title="Save"
+        android:icon="@drawable/saveicon"
+        android:id="@+id/save"/>
+    <item android:title="Write"
+        android:icon="@drawable/pen"
+        android:id="@+id/pen"/>
+    <item android:title="User"
+        android:icon="@drawable/usericon"
+        android:id="@+id/user"/>
+</menu>

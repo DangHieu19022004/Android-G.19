@@ -25,7 +25,7 @@ public class StartActivity extends AppCompatActivity {
 
         Button start = findViewById(R.id.button3);
         start.setOnClickListener(v->{
-            Intent intent = new Intent(StartActivity.this, MainActivity.class);
+            Intent intent = new Intent(StartActivity.this, LoginActivity.class);
             startActivity(intent);
 
         });

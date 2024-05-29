@@ -29,7 +29,7 @@ import com.google.android.gms.tasks.Task;
 
 import java.util.Collections;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     ImageView fbBtn;
     CallbackManager callbackManager;
     GoogleSignInOptions gso;
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -52,14 +52,14 @@ public class MainActivity extends AppCompatActivity {
 
         loginButton.setOnClickListener(v -> {
             String username = editText.getText().toString();
-            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+            Intent intent = new Intent(LoginActivity.this, SecondActivity.class);
             intent.putExtra("USERNAME", username);
             startActivity(intent);
             finish();
         });
 
         TextView text = findViewById(R.id.textView4);
-        text.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SignUpActivity.class)));
+        text.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, SignUpActivity.class)));
 
         //Facebook
         callbackManager = CallbackManager.Factory.create();
@@ -68,20 +68,20 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         // App code
-                        startActivity(new Intent(MainActivity.this, SecondActivity.class));
+                        startActivity(new Intent(LoginActivity.this, SecondActivity.class));
                         finish();
                     }
 
                     @Override
                     public void onCancel() {
                         // App code
-                        Toast.makeText(MainActivity.this, "Facebook login canceled", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Facebook login canceled", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(@NonNull FacebookException error) {
                         // App code
-                        Toast.makeText(MainActivity.this, "Facebook login error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Facebook login error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     }
     // Login facebook
     void signInWithFacebook() {
-        LoginManager.getInstance().logInWithReadPermissions(MainActivity.this, Collections.singletonList("public_profile"));
+        LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Collections.singletonList("public_profile"));
     }
 
     // Login google
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 if (account != null) {
-                    Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, SecondActivity.class);
                     intent.putExtra("USERNAME", account.getDisplayName());
                     intent.putExtra("EMAIL", account.getEmail());
                     startActivity(intent);

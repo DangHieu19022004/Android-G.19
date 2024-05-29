@@ -62,7 +62,7 @@ public class SecondActivity extends AppCompatActivity {
         logoutButton.setOnClickListener(v -> signOut());
         logoutButton.setOnClickListener(v ->{
             LoginManager.getInstance().logOut();
-            startActivity(new Intent(SecondActivity.this,MainActivity.class));
+            startActivity(new Intent(SecondActivity.this, LoginActivity.class));
             finish();
         });
 
@@ -79,7 +79,7 @@ public class SecondActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         // Sign out successful, navigate back to MainActivity
-                        Intent intent = new Intent(SecondActivity.this, MainActivity.class);
+                        Intent intent = new Intent(SecondActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
