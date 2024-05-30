@@ -4,26 +4,7 @@
             "outputFile": "com.example.login.app-mergeDebugResources-37:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Acer\\AndroidStudioProjects\\Login\\app\\src\\main\\res\\values-night\\themes.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "100",
-                        "endLines": "5",
-                        "endColumns": "12",
-                        "endOffsets": "312"
-                    },
-                    "to": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endLines": "5",
-                        "endColumns": "12",
-                        "endOffsets": "163"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Acer\\.gradle\\caches\\transforms-3\\259b1140ab873d83556ca73173bbf0e5\\transformed\\appcompat-1.6.1\\res\\values-night-v8\\values-night-v8.xml",
+                    "source": "C:\\Users\\Acer\\.gradle\\caches\\transforms-3\\946f76cafaab3d24672e8af6327173a4\\transformed\\appcompat-1.7.0\\res\\values-night-v8\\values-night-v8.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -37,6 +18,25 @@
                         "startOffsets": "168,238,322,406,502,604,706,3688",
                         "endColumns": "69,83,83,95,101,101,93,88",
                         "endOffsets": "233,317,401,497,599,701,795,3772"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Acer\\AndroidStudioProjects\\Login\\app\\src\\main\\res\\values-night\\themes.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "102",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "317"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "163"
                     }
                 },
                 {

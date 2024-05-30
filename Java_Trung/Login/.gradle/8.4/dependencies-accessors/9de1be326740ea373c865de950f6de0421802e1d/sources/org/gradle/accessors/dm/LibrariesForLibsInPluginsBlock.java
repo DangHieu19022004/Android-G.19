@@ -336,7 +336,7 @@ public class LibrariesForLibsInPluginsBlock extends AbstractExternalDependencyFa
             public Provider<String> getEspressoCore() { return getVersion("espressoCore"); }
 
             /**
-             * Returns the version associated to this alias: facebookAndroidSdk (5.0.0)
+             * Returns the version associated to this alias: facebookAndroidSdk (12.1.0)
              * If the version is a rich version and that its not expressible as a
              * single version string, then an empty string is returned.
              * This version was declared in catalog libs.versions.toml

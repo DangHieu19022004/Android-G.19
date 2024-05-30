@@ -38,7 +38,7 @@
 24-->[com.android.installreferrer:installreferrer:1.0] C:\Users\Acer\.gradle\caches\transforms-3\2b65dcdde275e205332ba3c084cd21e0\transformed\jetified-installreferrer-1.0\AndroidManifest.xml:9:22-107
 25
 26    <application
-26-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:7:5-55:19
+26-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:7:5-62:19
 27        android:allowBackup="true"
 27-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:8:9-35
 28        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -60,254 +60,268 @@
 37        android:testOnly="true"
 38        android:theme="@style/Theme.Login" >
 38-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:15:9-43
-39        <meta-data
-39-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:18:9-107
-40            android:name="com.facebook.sdk.ApplicationId"
-40-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:18:20-65
-41            android:value="@string/facebook_app_id" />
-41-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:18:66-105
-42        <meta-data
-42-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:19:9-111
-43            android:name="com.facebook.sdk.ClientToken"
-43-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:19:20-63
-44            android:value="@string/facebook_client_token" />
-44-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:19:64-109
+39        <activity
+39-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:17:9-19:40
+40            android:name="com.example.login.Setting"
+40-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:18:13-36
+41            android:exported="false" />
+41-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:19:13-37
+42        <activity
+42-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:20:9-22:40
+43            android:name="com.example.login.UserActivity"
+43-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:21:13-41
+44            android:exported="false" />
+44-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:22:13-37
 45
-46        <activity
-46-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:21:9-28:20
-47            android:name="com.example.login.StartActivity"
-47-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:21:19-48
-48            android:exported="true" >
-48-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:22:13-36
-49            <intent-filter>
-49-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:23:13-27:29
-50                <action android:name="android.intent.action.MAIN" />
-50-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:24:17-69
-50-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:24:25-66
-51
-52                <category android:name="android.intent.category.LAUNCHER" />
-52-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:26:17-77
-52-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:26:27-74
-53            </intent-filter>
-54        </activity>
-55        <activity
-55-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:30:9-33:15
-56            android:name="com.facebook.FacebookActivity"
-56-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:30:19-63
-57            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-57-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:31:13-114
-58            android:theme="@style/com_facebook_activity_theme" />
-58-->[com.facebook.android:facebook-common:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\67cc142ae1f2a0f59a809e1ba2482a36\transformed\jetified-facebook-common-17.0.0\AndroidManifest.xml:25:13-63
-59        <activity
-59-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:34:9-43:20
-60            android:name="com.facebook.CustomTabActivity"
-60-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:35:13-58
-61            android:exported="true" >
-61-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:36:13-36
-62            <intent-filter>
-62-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:37:13-42:29
-63                <action android:name="android.intent.action.VIEW" />
-63-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:38:17-69
-63-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:38:25-66
-64
-65                <category android:name="android.intent.category.DEFAULT" />
-65-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:39:17-76
-65-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:39:27-73
-66                <category android:name="android.intent.category.BROWSABLE" />
-66-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:40:17-78
-66-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:40:27-75
-67
-68                <data android:scheme="@string/fb_login_protocol_scheme" />
-68-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:41:17-75
-68-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:41:23-72
-69            </intent-filter>
-70            <intent-filter>
-70-->[com.facebook.android:facebook-common:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\67cc142ae1f2a0f59a809e1ba2482a36\transformed\jetified-facebook-common-17.0.0\AndroidManifest.xml:31:13-40:29
-71                <action android:name="android.intent.action.VIEW" />
-71-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:38:17-69
-71-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:38:25-66
-72
-73                <category android:name="android.intent.category.DEFAULT" />
-73-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:39:17-76
-73-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:39:27-73
-74                <category android:name="android.intent.category.BROWSABLE" />
-74-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:40:17-78
-74-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:40:27-75
-75
-76                <data
-76-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:41:17-75
-77                    android:host="cct.com.example.login"
-78                    android:scheme="fbconnect" />
-78-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:41:23-72
-79            </intent-filter>
-80        </activity>
-81        <activity
-81-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:46:9-48:40
-82            android:name="com.example.login.SecondActivity"
-82-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:47:13-43
-83            android:exported="false" />
-83-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:48:13-37
-84        <activity
-84-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:49:9-51:39
-85            android:name="com.example.login.MainActivity"
-85-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:50:13-41
-86            android:exported="false" />
-86-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:51:13-37
-87        <activity android:name="com.example.login.SignUpActivity" />
-87-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:53:9-52
-87-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:53:19-49
-88        <activity android:name="com.facebook.CustomTabMainActivity" />
-88-->[com.facebook.android:facebook-common:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\67cc142ae1f2a0f59a809e1ba2482a36\transformed\jetified-facebook-common-17.0.0\AndroidManifest.xml:26:9-71
-88-->[com.facebook.android:facebook-common:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\67cc142ae1f2a0f59a809e1ba2482a36\transformed\jetified-facebook-common-17.0.0\AndroidManifest.xml:26:19-68
-89        <activity
-89-->[com.google.android.gms:play-services-auth:21.1.1] C:\Users\Acer\.gradle\caches\transforms-3\471edd1cb4cdbfb8d39f62ef301d2880\transformed\jetified-play-services-auth-21.1.1\AndroidManifest.xml:23:9-27:75
-90            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
-90-->[com.google.android.gms:play-services-auth:21.1.1] C:\Users\Acer\.gradle\caches\transforms-3\471edd1cb4cdbfb8d39f62ef301d2880\transformed\jetified-play-services-auth-21.1.1\AndroidManifest.xml:24:13-93
-91            android:excludeFromRecents="true"
-91-->[com.google.android.gms:play-services-auth:21.1.1] C:\Users\Acer\.gradle\caches\transforms-3\471edd1cb4cdbfb8d39f62ef301d2880\transformed\jetified-play-services-auth-21.1.1\AndroidManifest.xml:25:13-46
-92            android:exported="false"
-92-->[com.google.android.gms:play-services-auth:21.1.1] C:\Users\Acer\.gradle\caches\transforms-3\471edd1cb4cdbfb8d39f62ef301d2880\transformed\jetified-play-services-auth-21.1.1\AndroidManifest.xml:26:13-37
-93            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-93-->[com.google.android.gms:play-services-auth:21.1.1] C:\Users\Acer\.gradle\caches\transforms-3\471edd1cb4cdbfb8d39f62ef301d2880\transformed\jetified-play-services-auth-21.1.1\AndroidManifest.xml:27:13-72
-94        <!--
-95            Service handling Google Sign-In user revocation. For apps that do not integrate with
-96            Google Sign-In, this service will never be started.
-97        -->
-98        <service
-98-->[com.google.android.gms:play-services-auth:21.1.1] C:\Users\Acer\.gradle\caches\transforms-3\471edd1cb4cdbfb8d39f62ef301d2880\transformed\jetified-play-services-auth-21.1.1\AndroidManifest.xml:33:9-37:51
-99            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
-99-->[com.google.android.gms:play-services-auth:21.1.1] C:\Users\Acer\.gradle\caches\transforms-3\471edd1cb4cdbfb8d39f62ef301d2880\transformed\jetified-play-services-auth-21.1.1\AndroidManifest.xml:34:13-89
-100            android:exported="true"
-100-->[com.google.android.gms:play-services-auth:21.1.1] C:\Users\Acer\.gradle\caches\transforms-3\471edd1cb4cdbfb8d39f62ef301d2880\transformed\jetified-play-services-auth-21.1.1\AndroidManifest.xml:35:13-36
-101            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
-101-->[com.google.android.gms:play-services-auth:21.1.1] C:\Users\Acer\.gradle\caches\transforms-3\471edd1cb4cdbfb8d39f62ef301d2880\transformed\jetified-play-services-auth-21.1.1\AndroidManifest.xml:36:13-107
-102            android:visibleToInstantApps="true" />
-102-->[com.google.android.gms:play-services-auth:21.1.1] C:\Users\Acer\.gradle\caches\transforms-3\471edd1cb4cdbfb8d39f62ef301d2880\transformed\jetified-play-services-auth-21.1.1\AndroidManifest.xml:37:13-48
-103
-104        <activity
-104-->[com.google.android.gms:play-services-base:18.3.0] C:\Users\Acer\.gradle\caches\transforms-3\aff6037c3d96cedcc15cf5993cd92c33\transformed\jetified-play-services-base-18.3.0\AndroidManifest.xml:20:9-22:45
-105            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-105-->[com.google.android.gms:play-services-base:18.3.0] C:\Users\Acer\.gradle\caches\transforms-3\aff6037c3d96cedcc15cf5993cd92c33\transformed\jetified-play-services-base-18.3.0\AndroidManifest.xml:20:19-85
-106            android:exported="false"
-106-->[com.google.android.gms:play-services-base:18.3.0] C:\Users\Acer\.gradle\caches\transforms-3\aff6037c3d96cedcc15cf5993cd92c33\transformed\jetified-play-services-base-18.3.0\AndroidManifest.xml:22:19-43
-107            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-107-->[com.google.android.gms:play-services-base:18.3.0] C:\Users\Acer\.gradle\caches\transforms-3\aff6037c3d96cedcc15cf5993cd92c33\transformed\jetified-play-services-base-18.3.0\AndroidManifest.xml:21:19-78
-108
-109        <meta-data
-109-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\Acer\.gradle\caches\transforms-3\5985835d1cb4930505aa88650b72261d\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:21:9-23:69
-110            android:name="com.google.android.gms.version"
-110-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\Acer\.gradle\caches\transforms-3\5985835d1cb4930505aa88650b72261d\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:22:13-58
-111            android:value="@integer/google_play_services_version" />
-111-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\Acer\.gradle\caches\transforms-3\5985835d1cb4930505aa88650b72261d\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:23:13-66
-112
-113        <provider
-113-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Acer\.gradle\caches\transforms-3\88ea68ab3a0e79b714fb4c0dde9accbc\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
-114            android:name="androidx.startup.InitializationProvider"
-114-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Acer\.gradle\caches\transforms-3\88ea68ab3a0e79b714fb4c0dde9accbc\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
-115            android:authorities="com.example.login.androidx-startup"
-115-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Acer\.gradle\caches\transforms-3\88ea68ab3a0e79b714fb4c0dde9accbc\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
-116            android:exported="false" >
-116-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Acer\.gradle\caches\transforms-3\88ea68ab3a0e79b714fb4c0dde9accbc\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
-117            <meta-data
-117-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Acer\.gradle\caches\transforms-3\88ea68ab3a0e79b714fb4c0dde9accbc\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
-118                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-118-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Acer\.gradle\caches\transforms-3\88ea68ab3a0e79b714fb4c0dde9accbc\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
-119                android:value="androidx.startup" />
-119-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Acer\.gradle\caches\transforms-3\88ea68ab3a0e79b714fb4c0dde9accbc\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
-120            <meta-data
-120-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Acer\.gradle\caches\transforms-3\49a4c321ed7ddbd1874df9473abc85a3\transformed\jetified-lifecycle-process-2.6.2\AndroidManifest.xml:29:13-31:52
-121                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-121-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Acer\.gradle\caches\transforms-3\49a4c321ed7ddbd1874df9473abc85a3\transformed\jetified-lifecycle-process-2.6.2\AndroidManifest.xml:30:17-78
-122                android:value="androidx.startup" />
-122-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Acer\.gradle\caches\transforms-3\49a4c321ed7ddbd1874df9473abc85a3\transformed\jetified-lifecycle-process-2.6.2\AndroidManifest.xml:31:17-49
-123            <meta-data
-123-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
-124                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-124-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
-125                android:value="androidx.startup" />
-125-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
-126        </provider>
-127        <!--
-128         The initialization ContentProvider will call FacebookSdk.sdkInitialize automatically
-129         with the application context. This config is merged in with the host app's manifest,
-130         but there can only be one provider with the same authority activated at any given
-131         point; so if the end user has two or more different apps that use Facebook SDK, only the
-132         first one will be able to use the provider. To work around this problem, we use the
-133         following placeholder in the authority to identify each host application as if it was
-134         a completely different provider.
-135        -->
-136        <provider
-136-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:29:9-32:40
-137            android:name="com.facebook.internal.FacebookInitProvider"
-137-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:30:13-70
-138            android:authorities="com.example.login.FacebookInitProvider"
-138-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:31:13-72
-139            android:exported="false" />
-139-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:32:13-37
-140
-141        <receiver
-141-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:34:9-40:20
-142            android:name="com.facebook.CurrentAccessTokenExpirationBroadcastReceiver"
-142-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:35:13-86
-143            android:exported="false" >
-143-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:36:13-37
-144            <intent-filter>
-144-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:37:13-39:29
-145                <action android:name="com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED" />
-145-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:38:17-95
-145-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:38:25-92
-146            </intent-filter>
-147        </receiver>
-148        <receiver
-148-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:41:9-47:20
-149            android:name="com.facebook.AuthenticationTokenManager$CurrentAuthenticationTokenChangedBroadcastReceiver"
-149-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:42:13-118
-150            android:exported="false" >
-150-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:43:13-37
-151            <intent-filter>
-151-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:44:13-46:29
-152                <action android:name="com.facebook.sdk.ACTION_CURRENT_AUTHENTICATION_TOKEN_CHANGED" />
-152-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:45:17-103
-152-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:45:25-100
-153            </intent-filter>
-154        </receiver>
-155        <receiver
-155-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
-156            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-156-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
-157            android:directBootAware="false"
-157-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
-158            android:enabled="true"
-158-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
-159            android:exported="true"
-159-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
-160            android:permission="android.permission.DUMP" >
-160-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
-161            <intent-filter>
-161-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
-162                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-162-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
-162-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
-163            </intent-filter>
-164            <intent-filter>
-164-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
-165                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-165-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
-165-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
-166            </intent-filter>
-167            <intent-filter>
-167-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
-168                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-168-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
-168-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
-169            </intent-filter>
-170            <intent-filter>
-170-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
-171                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-171-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
-171-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
-172            </intent-filter>
-173        </receiver>
-174    </application>
-175
-176</manifest>
+46        <meta-data
+46-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:24:9-26:55
+47            android:name="com.facebook.sdk.ApplicationId"
+47-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:25:13-58
+48            android:value="@string/facebook_app_id" />
+48-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:26:13-52
+49        <meta-data
+49-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:27:9-29:61
+50            android:name="com.facebook.sdk.ClientToken"
+50-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:28:13-56
+51            android:value="@string/facebook_client_token" />
+51-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:29:13-58
+52
+53        <activity
+53-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:31:9-39:20
+54            android:name="com.example.login.StartActivity"
+54-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:32:13-42
+55            android:exported="true" >
+55-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:33:13-36
+56            <intent-filter>
+56-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:34:13-38:29
+57                <action android:name="android.intent.action.MAIN" />
+57-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:35:17-69
+57-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:35:25-66
+58
+59                <category android:name="android.intent.category.LAUNCHER" />
+59-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:37:17-77
+59-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:37:27-74
+60            </intent-filter>
+61        </activity>
+62        <activity
+62-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:40:9-42:99
+63            android:name="com.facebook.FacebookActivity"
+63-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:41:13-57
+64            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+64-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:42:13-96
+65            android:theme="@style/com_facebook_activity_theme" />
+65-->[com.facebook.android:facebook-common:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\67cc142ae1f2a0f59a809e1ba2482a36\transformed\jetified-facebook-common-17.0.0\AndroidManifest.xml:25:13-63
+66        <activity
+66-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:43:9-54:20
+67            android:name="com.facebook.CustomTabActivity"
+67-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:44:13-58
+68            android:exported="true" >
+68-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:45:13-36
+69            <intent-filter>
+69-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:46:13-53:29
+70                <action android:name="android.intent.action.VIEW" />
+70-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:47:17-69
+70-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:47:25-66
+71
+72                <category android:name="android.intent.category.DEFAULT" />
+72-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:49:17-76
+72-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:49:27-73
+73                <category android:name="android.intent.category.BROWSABLE" />
+73-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:50:17-78
+73-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:50:27-75
+74
+75                <data android:scheme="@string/fb_login_protocol_scheme" />
+75-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:52:17-75
+75-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:52:23-72
+76            </intent-filter>
+77            <intent-filter>
+77-->[com.facebook.android:facebook-common:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\67cc142ae1f2a0f59a809e1ba2482a36\transformed\jetified-facebook-common-17.0.0\AndroidManifest.xml:31:13-40:29
+78                <action android:name="android.intent.action.VIEW" />
+78-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:47:17-69
+78-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:47:25-66
+79
+80                <category android:name="android.intent.category.DEFAULT" />
+80-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:49:17-76
+80-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:49:27-73
+81                <category android:name="android.intent.category.BROWSABLE" />
+81-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:50:17-78
+81-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:50:27-75
+82
+83                <data
+83-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:52:17-75
+84                    android:host="cct.com.example.login"
+85                    android:scheme="fbconnect" />
+85-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:52:23-72
+86            </intent-filter>
+87        </activity>
+88        <activity
+88-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:55:9-57:40
+89            android:name="com.example.login.SecondActivity"
+89-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:56:13-43
+90            android:exported="false" />
+90-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:57:13-37
+91        <activity
+91-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:58:9-60:40
+92            android:name="com.example.login.LoginActivity"
+92-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:59:13-42
+93            android:exported="false" />
+93-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:60:13-37
+94        <activity android:name="com.example.login.SignUpActivity" />
+94-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:61:9-52
+94-->C:\Users\Acer\AndroidStudioProjects\Login\app\src\main\AndroidManifest.xml:61:19-49
+95        <activity android:name="com.facebook.CustomTabMainActivity" />
+95-->[com.facebook.android:facebook-common:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\67cc142ae1f2a0f59a809e1ba2482a36\transformed\jetified-facebook-common-17.0.0\AndroidManifest.xml:26:9-71
+95-->[com.facebook.android:facebook-common:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\67cc142ae1f2a0f59a809e1ba2482a36\transformed\jetified-facebook-common-17.0.0\AndroidManifest.xml:26:19-68
+96        <activity
+96-->[com.google.android.gms:play-services-auth:21.2.0] C:\Users\Acer\.gradle\caches\transforms-3\51715fdda90be2520a24561b074c6266\transformed\jetified-play-services-auth-21.2.0\AndroidManifest.xml:23:9-27:75
+97            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+97-->[com.google.android.gms:play-services-auth:21.2.0] C:\Users\Acer\.gradle\caches\transforms-3\51715fdda90be2520a24561b074c6266\transformed\jetified-play-services-auth-21.2.0\AndroidManifest.xml:24:13-93
+98            android:excludeFromRecents="true"
+98-->[com.google.android.gms:play-services-auth:21.2.0] C:\Users\Acer\.gradle\caches\transforms-3\51715fdda90be2520a24561b074c6266\transformed\jetified-play-services-auth-21.2.0\AndroidManifest.xml:25:13-46
+99            android:exported="false"
+99-->[com.google.android.gms:play-services-auth:21.2.0] C:\Users\Acer\.gradle\caches\transforms-3\51715fdda90be2520a24561b074c6266\transformed\jetified-play-services-auth-21.2.0\AndroidManifest.xml:26:13-37
+100            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+100-->[com.google.android.gms:play-services-auth:21.2.0] C:\Users\Acer\.gradle\caches\transforms-3\51715fdda90be2520a24561b074c6266\transformed\jetified-play-services-auth-21.2.0\AndroidManifest.xml:27:13-72
+101        <!--
+102            Service handling Google Sign-In user revocation. For apps that do not integrate with
+103            Google Sign-In, this service will never be started.
+104        -->
+105        <service
+105-->[com.google.android.gms:play-services-auth:21.2.0] C:\Users\Acer\.gradle\caches\transforms-3\51715fdda90be2520a24561b074c6266\transformed\jetified-play-services-auth-21.2.0\AndroidManifest.xml:33:9-37:51
+106            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+106-->[com.google.android.gms:play-services-auth:21.2.0] C:\Users\Acer\.gradle\caches\transforms-3\51715fdda90be2520a24561b074c6266\transformed\jetified-play-services-auth-21.2.0\AndroidManifest.xml:34:13-89
+107            android:exported="true"
+107-->[com.google.android.gms:play-services-auth:21.2.0] C:\Users\Acer\.gradle\caches\transforms-3\51715fdda90be2520a24561b074c6266\transformed\jetified-play-services-auth-21.2.0\AndroidManifest.xml:35:13-36
+108            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
+108-->[com.google.android.gms:play-services-auth:21.2.0] C:\Users\Acer\.gradle\caches\transforms-3\51715fdda90be2520a24561b074c6266\transformed\jetified-play-services-auth-21.2.0\AndroidManifest.xml:36:13-107
+109            android:visibleToInstantApps="true" />
+109-->[com.google.android.gms:play-services-auth:21.2.0] C:\Users\Acer\.gradle\caches\transforms-3\51715fdda90be2520a24561b074c6266\transformed\jetified-play-services-auth-21.2.0\AndroidManifest.xml:37:13-48
+110
+111        <activity
+111-->[com.google.android.gms:play-services-base:18.3.0] C:\Users\Acer\.gradle\caches\transforms-3\aff6037c3d96cedcc15cf5993cd92c33\transformed\jetified-play-services-base-18.3.0\AndroidManifest.xml:20:9-22:45
+112            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+112-->[com.google.android.gms:play-services-base:18.3.0] C:\Users\Acer\.gradle\caches\transforms-3\aff6037c3d96cedcc15cf5993cd92c33\transformed\jetified-play-services-base-18.3.0\AndroidManifest.xml:20:19-85
+113            android:exported="false"
+113-->[com.google.android.gms:play-services-base:18.3.0] C:\Users\Acer\.gradle\caches\transforms-3\aff6037c3d96cedcc15cf5993cd92c33\transformed\jetified-play-services-base-18.3.0\AndroidManifest.xml:22:19-43
+114            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+114-->[com.google.android.gms:play-services-base:18.3.0] C:\Users\Acer\.gradle\caches\transforms-3\aff6037c3d96cedcc15cf5993cd92c33\transformed\jetified-play-services-base-18.3.0\AndroidManifest.xml:21:19-78
+115
+116        <meta-data
+116-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\Acer\.gradle\caches\transforms-3\5985835d1cb4930505aa88650b72261d\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:21:9-23:69
+117            android:name="com.google.android.gms.version"
+117-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\Acer\.gradle\caches\transforms-3\5985835d1cb4930505aa88650b72261d\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:22:13-58
+118            android:value="@integer/google_play_services_version" />
+118-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\Acer\.gradle\caches\transforms-3\5985835d1cb4930505aa88650b72261d\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:23:13-66
+119        <!--
+120         The initialization ContentProvider will call FacebookSdk.sdkInitialize automatically
+121         with the application context. This config is merged in with the host app's manifest,
+122         but there can only be one provider with the same authority activated at any given
+123         point; so if the end user has two or more different apps that use Facebook SDK, only the
+124         first one will be able to use the provider. To work around this problem, we use the
+125         following placeholder in the authority to identify each host application as if it was
+126         a completely different provider.
+127        -->
+128        <provider
+128-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:29:9-32:40
+129            android:name="com.facebook.internal.FacebookInitProvider"
+129-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:30:13-70
+130            android:authorities="com.example.login.FacebookInitProvider"
+130-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:31:13-72
+131            android:exported="false" />
+131-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:32:13-37
+132
+133        <receiver
+133-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:34:9-40:20
+134            android:name="com.facebook.CurrentAccessTokenExpirationBroadcastReceiver"
+134-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:35:13-86
+135            android:exported="false" >
+135-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:36:13-37
+136            <intent-filter>
+136-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:37:13-39:29
+137                <action android:name="com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED" />
+137-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:38:17-95
+137-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:38:25-92
+138            </intent-filter>
+139        </receiver>
+140        <receiver
+140-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:41:9-47:20
+141            android:name="com.facebook.AuthenticationTokenManager$CurrentAuthenticationTokenChangedBroadcastReceiver"
+141-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:42:13-118
+142            android:exported="false" >
+142-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:43:13-37
+143            <intent-filter>
+143-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:44:13-46:29
+144                <action android:name="com.facebook.sdk.ACTION_CURRENT_AUTHENTICATION_TOKEN_CHANGED" />
+144-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:45:17-103
+144-->[com.facebook.android:facebook-core:17.0.0] C:\Users\Acer\.gradle\caches\transforms-3\586a2f183753377a8812dfbe2cd5f3c7\transformed\jetified-facebook-core-17.0.0\AndroidManifest.xml:45:25-100
+145            </intent-filter>
+146        </receiver>
+147
+148        <provider
+148-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Acer\.gradle\caches\transforms-3\c6689432a52adf19e305bac3b8f2c8ad\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+149            android:name="androidx.startup.InitializationProvider"
+149-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Acer\.gradle\caches\transforms-3\c6689432a52adf19e305bac3b8f2c8ad\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:25:13-67
+150            android:authorities="com.example.login.androidx-startup"
+150-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Acer\.gradle\caches\transforms-3\c6689432a52adf19e305bac3b8f2c8ad\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:26:13-68
+151            android:exported="false" >
+151-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Acer\.gradle\caches\transforms-3\c6689432a52adf19e305bac3b8f2c8ad\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:27:13-37
+152            <meta-data
+152-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Acer\.gradle\caches\transforms-3\c6689432a52adf19e305bac3b8f2c8ad\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+153                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+153-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Acer\.gradle\caches\transforms-3\c6689432a52adf19e305bac3b8f2c8ad\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:30:17-75
+154                android:value="androidx.startup" />
+154-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Acer\.gradle\caches\transforms-3\c6689432a52adf19e305bac3b8f2c8ad\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:31:17-49
+155            <meta-data
+155-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Acer\.gradle\caches\transforms-3\49a4c321ed7ddbd1874df9473abc85a3\transformed\jetified-lifecycle-process-2.6.2\AndroidManifest.xml:29:13-31:52
+156                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+156-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Acer\.gradle\caches\transforms-3\49a4c321ed7ddbd1874df9473abc85a3\transformed\jetified-lifecycle-process-2.6.2\AndroidManifest.xml:30:17-78
+157                android:value="androidx.startup" />
+157-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Acer\.gradle\caches\transforms-3\49a4c321ed7ddbd1874df9473abc85a3\transformed\jetified-lifecycle-process-2.6.2\AndroidManifest.xml:31:17-49
+158            <meta-data
+158-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+159                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+159-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+160                android:value="androidx.startup" />
+160-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+161        </provider>
+162
+163        <receiver
+163-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+164            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+164-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+165            android:directBootAware="false"
+165-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+166            android:enabled="true"
+166-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+167            android:exported="true"
+167-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+168            android:permission="android.permission.DUMP" >
+168-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+169            <intent-filter>
+169-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+170                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+170-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+170-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+171            </intent-filter>
+172            <intent-filter>
+172-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+173                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+173-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+173-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+174            </intent-filter>
+175            <intent-filter>
+175-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+176                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+176-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+176-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+177            </intent-filter>
+178            <intent-filter>
+178-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+179                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+179-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+179-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Acer\.gradle\caches\transforms-3\a419d01aa6d04f792117c68ec007c655\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+180            </intent-filter>
+181        </receiver>
+182    </application>
+183
+184</manifest>
