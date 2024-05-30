@@ -50,7 +50,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SecondActivity"
+            android:name=".HomePageActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"

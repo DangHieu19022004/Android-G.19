@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton.setOnClickListener(v -> {
             String username = editText.getText().toString();
-            Intent intent = new Intent(LoginActivity.this, SecondActivity.class);
+            Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
             intent.putExtra("USERNAME", username);
             startActivity(intent);
             finish();
@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         // App code
-                        startActivity(new Intent(LoginActivity.this, SecondActivity.class));
+                        startActivity(new Intent(LoginActivity.this, HomePageActivity.class));
                         finish();
                     }
 
@@ -125,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 if (account != null) {
-                    Intent intent = new Intent(LoginActivity.this, SecondActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
                     intent.putExtra("USERNAME", account.getDisplayName());
                     intent.putExtra("EMAIL", account.getEmail());
                     startActivity(intent);

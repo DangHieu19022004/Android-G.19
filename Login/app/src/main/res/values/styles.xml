@@ -8,7 +8,8 @@
     </style>
 
     <style name="BottomNavigationIconStyle" parent="Widget.MaterialComponents.BottomNavigationView">
-        <item name="itemIconTint">#fff</item>
+        <item name="itemIconTint">@color/color_selected_nav</item>
+        <item name="itemTextColor">@color/color_selected_nav</item>
         <item name="itemIconSize">40dp</item>
     </style>
 
