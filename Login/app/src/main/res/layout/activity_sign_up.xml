@@ -34,7 +34,7 @@
             android:textSize="23sp" />
 
         <EditText
-            android:id="@+id/editTextText3"
+            android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="16dp"
@@ -59,7 +59,7 @@
             android:textSize="23sp" />
 
         <EditText
-            android:id="@+id/editTextText4"
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="16dp"
@@ -84,7 +84,7 @@
             android:textSize="23sp" />
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/confirm"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="16dp"
@@ -101,7 +101,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/SignUp"
         android:layout_width="134dp"
         android:layout_height="50dp"
         android:layout_marginTop="60dp"
