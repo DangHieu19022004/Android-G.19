@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Login</string>
+    <string name="app_name">Sách hay mỗi ngày</string>
     <string name="web_client_id">522991300389-t08h97b1bo5qkr2rlemr3hj23i2pu7ap.apps.googleusercontent.com</string>
     <string name="facebook_app_id">744751507542999</string>
     <string name="fb_login_protocol_scheme">fb744751507542999</string>

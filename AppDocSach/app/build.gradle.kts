@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.login"
+    namespace = "com.example.appdocsach"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.login"
+        applicationId = "com.example.appdocsach"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

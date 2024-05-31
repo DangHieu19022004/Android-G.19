@@ -1,19 +1,20 @@
-package com.example.login.fragment.typebook;
+package com.example.appdocsach.fragment.typebook;
 
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.fragment.app.Fragment;
+import com.example.appdocsach.R;
 
-import com.example.login.R;
-
-public class HistoryTypeFragment extends Fragment {
+public class AllTypeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history_type, container, false);
+        return inflater.inflate(R.layout.fragment_all_type, container, false);
     }
 }

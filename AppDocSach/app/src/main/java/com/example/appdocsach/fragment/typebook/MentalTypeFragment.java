@@ -1,4 +1,4 @@
-package com.example.login.fragment.typebook;
+package com.example.appdocsach.fragment.typebook;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.login.R;
+import com.example.appdocsach.R;
 
 public class MentalTypeFragment extends Fragment {
     @Override

@@ -1,4 +1,4 @@
-package com.example.login.viewpageradapter;
+package com.example.appdocsach.viewpageradapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -6,12 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.login.fragment.typebook.AllTypeFragment;
-import com.example.login.fragment.typebook.CultureTypeFragment;
-import com.example.login.fragment.typebook.HistoryTypeFragment;
-import com.example.login.fragment.typebook.MentalTypeFragment;
-import com.example.login.fragment.typebook.NovelTypeFragment;
-import com.example.login.fragment.typebook.ScienceTypeFragment;
+import com.example.appdocsach.fragment.typebook.AllTypeFragment;
+import com.example.appdocsach.fragment.typebook.CultureTypeFragment;
+import com.example.appdocsach.fragment.typebook.HistoryTypeFragment;
+import com.example.appdocsach.fragment.typebook.MentalTypeFragment;
+import com.example.appdocsach.fragment.typebook.NovelTypeFragment;
+import com.example.appdocsach.fragment.typebook.ScienceTypeFragment;
 
 public class viewpagerTypeBookAdapter extends FragmentStatePagerAdapter {
 
