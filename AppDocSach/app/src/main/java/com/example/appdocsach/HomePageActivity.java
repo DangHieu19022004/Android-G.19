@@ -1,12 +1,14 @@
 package com.example.appdocsach;
 
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.appdocsach.viewpageradapter.viewpagerTypeBookAdapter;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.tabs.TabLayout;
@@ -20,6 +22,8 @@ public class HomePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+
+
 
         Mapping();
         setupviewpagertablayout();
@@ -37,5 +41,7 @@ public class HomePageActivity extends AppCompatActivity {
         viewPagerType = findViewById(R.id.viewpageType);
         tabLayout = findViewById(R.id.tablayout);
     }
+
+
 
 }

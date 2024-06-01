@@ -1,4 +1,4 @@
-package com.example.login;
+package com.example.appdocsach;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,6 +35,8 @@ public class Setting extends AppCompatActivity {
                 .requestEmail()
                 .build();
         gsc = GoogleSignIn.getClient(this, gso);
+
+
     }
     // Method to sign out from Google account
     private void signOut() {

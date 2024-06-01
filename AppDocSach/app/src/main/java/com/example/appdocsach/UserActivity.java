@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
@@ -28,6 +29,7 @@ public class UserActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_user);
 
+
         // Get username and email from Intent
         Intent intent = getIntent();
         String username = intent.getStringExtra("USERNAME");
@@ -38,6 +40,7 @@ public class UserActivity extends AppCompatActivity {
         TextView emailTextView = findViewById(R.id.email);
         usernameTextView.setText(username);
         emailTextView.setText(email);
+
 
         //Graph API facebook
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
