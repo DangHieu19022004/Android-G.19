@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Sách hay mỗi ngày</string>
+    <string name="web_client_id">522991300389-t08h97b1bo5qkr2rlemr3hj23i2pu7ap.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">744751507542999</string>
+    <string name="fb_login_protocol_scheme">fb744751507542999</string>
+    <string name="facebook_client_token">5d94c33b206857c58f5dcd46d102551b</string>
+
+
+    <string name="Account">Tài khoản</string>
+    <string name="UserName">Trần Đăng Hiếu</string>
+    <string name="bookSavedOffline">Sách đã lưu offline</string>
+    <string name="donate">Ủng hộ chúng tôi</string>
+    <string name="info">Thông tin về chúng tôi</string>
+    <string name="ask"> Phản hồi ý kiến</string>
+    <string name="homepage">Trang chủ</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
