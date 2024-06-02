@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerlayout"
+    style="@style/SCREEN"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:layout_gravity="start"
+    tools:openDrawer="end"
+    tools:context=".MainActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/frame1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/TOOLBAR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+<!--                app:popupTheme="@style/Theme.AppDocSach.PopupOverlay" -->
+
+
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/frame2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/frame1">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabMode="scrollable"
+                app:tabMinWidth="0dp"
+                app:tabMaxWidth="170dp">
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/itemall"
+                    style="@style/TEXT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tất cả" />
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/item0"
+                    style="@style/TEXT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Văn hóa" />
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/item1"
+                    style="@style/TEXT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lịch sử" />
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/item2"
+                    style="@style/TEXT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tâm lý" />
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/item3"
+                    style="@style/TEXT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tiểu thuyết" />
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/item4"
+                    style="@style/TEXT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Khoa học" />
+            </com.google.android.material.tabs.TabLayout>
+
+        </LinearLayout>
+        <FrameLayout
+            android:id="@+id/frame_layout_new"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/frame2">
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:id="@+id/progress_bar"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cons1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="70dp">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycleview_items"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
+    </RelativeLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/navigation_view"
+        android:layout_gravity="start">
+    </com.google.android.material.navigation.NavigationView>
+
+</androidx.drawerlayout.widget.DrawerLayout>
