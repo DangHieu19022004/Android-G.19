@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="AccountSize">30dp</dimen>
+    <dimen name="settingicon">45dp</dimen>
+    <dimen name="pdtop">20dp</dimen>
+    <dimen name="mgborder">15dp</dimen>
+    <dimen name="contentSize">28dp</dimen>
+    <dimen name="nameSize">25dp</dimen>
+    <dimen  name="contentpd">15dp</dimen>
+</resources>
