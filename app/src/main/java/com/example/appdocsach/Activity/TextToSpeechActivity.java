@@ -1,6 +1,7 @@
 package com.example.appdocsach.Activity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -41,6 +42,14 @@ public class TextToSpeechActivity extends AppCompatActivity {
         // Set đường dẫn cho VideoView
         videoView.setVideoURI(Uri.parse(videoPath));
         videoView.start();
+        // Thiết lập lắng nghe sự kiện khi video hoàn thành
+        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                // Khi video hoàn thành, chơi lại từ đầu
+                videoView.start();
+            }
+        });
 
         // Khởi tạo TextToSpeech để đọc văn bản từ Firebase
         textToSpeech = new TextToSpeech(this, new OnInitListener() {
