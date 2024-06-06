@@ -6,20 +6,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.options.HomeFragment">
+
     <LinearLayout
         android:id="@+id/header"
-        android:gravity="center_vertical"
-        android:layout_width="0dp"
-        android:layout_height="65dp"
+        android:layout_width="410dp"
+        android:layout_height="73dp"
         android:background="@drawable/navbackground"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:src="@drawable/bookhead"
+            android:id="@+id/bookhead_image"
             style="@style/IconStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:src="@drawable/bookhead"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,21 +33,26 @@
             android:textColor="@color/white"
             android:textSize="@dimen/AccountSize" />
 
-        <View
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/search_input"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:background="@drawable/search_background"
+            android:inputType="text"
+            android:padding="8dp"
+            android:textColor="@color/black"
+            android:visibility="gone"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <ImageView
+            android:id="@+id/search_icon"
             style="@style/IconStyle"
-            android:layout_width="43dp"
-            android:layout_height="41dp"
+            android:layout_width="150dp"
+            android:layout_height="45dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/searchicon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            android:src="@drawable/searchicon" />
     </LinearLayout>
 
     <com.google.android.material.tabs.TabLayout
@@ -66,6 +76,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+

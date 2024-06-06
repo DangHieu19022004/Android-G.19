@@ -1,0 +1,276 @@
+{
+  "books": {
+    "-hs7dy6sn2d8f9a1": {
+      "author": "Alice",
+      "categoryId": 1,
+      "content": "Một cuốn sách khoa học về nguyên lý vật lý cơ bản và các ứng dụng trong đời sống hàng ngày.",
+      "id": "-hs7dy6sn2d8f9a1",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Những Nguyên Lý Cơ Bản của Vật Lý",
+      "view": 32
+    },
+    "-ui2dn3z9d8fh5g4": {
+      "author": "Bob",
+      "categoryId": 2,
+      "content": "Cuốn sách này nói về tâm lý học cơ bản và cách áp dụng để hiểu biết và tương tác với người khác.",
+      "id": "-ui2dn3z9d8fh5g4",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Tâm Lý Học Cơ Bản",
+      "view": 47
+    },
+    "-za8dn3s7db2q1pl": {
+      "author": "Carol",
+      "categoryId": 3,
+      "content": "Một tập sách nấu ăn chứa các công thức ngon và dễ làm từ khắp nơi trên thế giới.",
+      "id": "-za8dn3s7db2q1pl",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Đặc Sản Món Ăn Thế Giới",
+      "view": 53
+    },
+    "-op9ak4p3lmd8ks2": {
+      "author": "David",
+      "categoryId": 4,
+      "content": "Cuốn sách này là một hướng dẫn chi tiết về cách học ngoại ngữ hiệu quả và các kỹ thuật nhớ từ vựng.",
+      "id": "-op9ak4p3lmd8ks2",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Học Ngoại Ngữ Như Một Người Bản Xứ",
+      "view": 21
+    },
+    "-km3wq7z9k5m2p1d": {
+      "author": "Emily",
+      "categoryId": 5,
+      "content": "Một câu chuyện tiểu thuyết kịch tính xoay quanh cuộc sống của một gia đình giàu có trong xã hội Mỹ.",
+      "id": "-km3wq7z9k5m2p1d",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Cuộc Sống của Gia Đình Buchanan",
+      "view": 15
+    },
+    "-fq8sm2l9sa7d6kf": {
+      "author": "Fiona",
+      "categoryId": 1,
+      "content": "Sách này giải thích các khái niệm cơ bản về hóa học và các ứng dụng thực tiễn của chúng.",
+      "id": "-fq8sm2l9sa7d6kf",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Hóa Học và Cuộc Sống",
+      "view": 68
+    },
+    "-zw9ks3p5ld8mx1fb": {
+      "author": "George",
+      "categoryId": 2,
+      "content": "Cuốn sách này tìm hiểu sâu về tâm lý học của con người, từ những cảm xúc đến hành vi và tư duy.",
+      "id": "-zw9ks3p5ld8mx1fb",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Con Người và Tâm Lý",
+      "view": 39
+    },
+    "-lp9ks2ld3xg7a6fn": {
+      "author": "Hannah",
+      "categoryId": 3,
+      "content": "Một tập sách nấu ăn chứa các công thức truyền thống từ nhiều quốc gia trên thế giới.",
+      "id": "-lp9ks2ld3xg7a6fn",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Các Món Ăn Truyền Thống",
+      "view": 54
+    },
+    "-oe8al1d7ms4np6kf": {
+      "author": "Ian",
+      "categoryId": 4,
+      "content": "Cuốn sách này cung cấp các phương pháp học ngoại ngữ mới nhất dựa trên nghiên cứu khoa học.",
+      "id": "-oe8al1d7ms4np6kf",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Ngoại Ngữ và Sự Hiểu Biết",
+      "view": 26
+    },
+    "-mw3ld7pa6sn8k9js": {
+      "author": "Jack",
+      "categoryId": 5,
+      "content": "Một câu chuyện tiểu thuyết gây cấn về cuộc đấu tranh cho quyền tự do và lòng dũng cảm của một người phụ nữ.",
+      "id": "-mw3ld7pa6sn8k9js",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Người Phụ Nữ Mạnh Mẽ",
+      "view": 10
+    },
+    "-pq9ak4s2ld3fn8js": {
+      "author": "Karen",
+      "categoryId": 1,
+      "content": "Cuốn sách này khám phá về lịch sử và phát triển của khoa học từ thời kỳ cổ đại đến hiện đại, với sự tiến bộ trong các lĩnh vực như y học, công nghệ và khoa học tự nhiên.",
+      "id": "-pq9ak4s2ld3fn8js",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Lịch Sử Khoa Học",
+      "view": 33
+    },
+    "-mq8sk2lp3fn7gs9j": {
+      "author": "Lucas",
+      "categoryId": 2,
+      "content": "Cuốn sách này khám phá về những bí ẩn của tâm trí con người và cách tác động của nó đến hành vi và quyết định.",
+      "id": "-mq8sk2lp3fn7gs9j",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Bí Mật của Tâm Trí",
+      "view": 58
+    },
+    "-zp7ld4kn2sj6gp9ma": {
+      "author": "Mia",
+      "categoryId": 3,
+      "content": "Cuốn sách này chứa các công thức nấu ăn đơn giản và ngon miệng từ các nguyên liệu dễ tìm.",
+      "id": "-zp7ld4kn2sj6gp9ma",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Nấu Ăn Dễ Dàng",
+      "view": 43
+    },
+    "-ko3pl8sd6fn2aq7jm": {
+      "author": "Nathan",
+      "categoryId": 4,
+      "content": "Cuốn sách này cung cấp những kỹ thuật hiệu quả nhất để học ngoại ngữ và giao tiếp thành thạo trong thời gian ngắn.",
+      "id": "-ko3pl8sd6fn2aq7jm",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Ngôn Ngữ và Giao Tiếp",
+      "view": 62
+    },
+    "-lm9sk8an3px7zq5df": {
+      "author": "Olivia",
+      "categoryId": 5,
+      "content": "Một câu chuyện tiểu thuyết lãng mạn về tình yêu và sự hy sinh trong thời kỳ chiến tranh.",
+      "id": "-lm9sk8an3px7zq5df",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Tình Yêu Trong Thời Chiến",
+      "view": 17
+    },
+    "-am4ps7ld8fn9jq6zo": {
+      "author": "Peter",
+      "categoryId": 1,
+      "content": "Cuốn sách này là một hành trình khám phá về các nguyên tố hóa học và vai trò của chúng trong cuộc sống hàng ngày.",
+      "id": "-am4ps7ld8fn9jq6zo",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Khám Phá Thế Giới Của Hóa Học",
+      "view": 29
+    },
+    "-wm5js8al2dn3pq4fk": {
+      "author": "Rachel",
+      "categoryId": 2,
+      "content": "Cuốn sách này phân tích về tâm lý học cá nhân và sự phát triển của cá nhân qua các giai đoạn khác nhau của cuộc đời.",
+      "id": "-wm5js8al2dn3pq4fk",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Tâm Lý Học Cá Nhân",
+      "view": 38
+    },
+    "-an3pm8ls7dn2fq9jw": {
+      "author": "Sam",
+      "categoryId": 3,
+      "content": "Cuốn sách này mang đến những công thức nấu ăn độc đáo từ các nền văn hóa trên thế giới, từ châu Á đến châu Âu.",
+      "id": "-an3pm8ls7dn2fq9jw",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Đặc Sản Ẩm Thực Thế Giới",
+      "view": 48
+    },
+    "-no2ls7mq3dp8fj9wk": {
+      "author": "Sophia",
+      "categoryId": 4,
+      "content": "Cuốn sách này tập trung vào việc học ngoại ngữ từ cơ bản đến nâng cao, với các phương pháp hiệu quả nhất.",
+      "id": "-no2ls7mq3dp8fj9wk",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Học Ngoại Ngữ Từ Cơ Bản đến Nâng Cao",
+      "view": 59
+    },
+    "-dp4lm9jk7fz2q8na": {
+      "author": "Thomas",
+      "categoryId": 5,
+      "content": "Một cuốn tiểu thuyết ly kỳ về cuộc sống và mạo hiểm trên biển khơi, đầy những bí mật và tình tiết gây cấn.",
+      "id": "-dp4lm9jk7fz2q8na",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Bí Mật Trên Biển",
+      "view": 24
+    },
+    "-sn9jf8q4al2dp6mx": {
+      "author": "Victoria",
+      "categoryId": 1,
+      "content": "Cuốn sách này giới thiệu về lịch sử và phát triển của khoa học từ thời kỳ cổ đại đến hiện đại, với những phát minh và khám phá quan trọng.",
+      "id": "-sn9jf8q4al2dp6mx",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Lịch Sử và Phát Triển Khoa Học",
+      "view": 36
+    },
+    "-fn2jp6dm8kl9zq7sx": {
+      "author": "William",
+      "categoryId": 2,
+      "content": "Cuốn sách này khám phá về tâm lý học phát triển và sự thay đổi của tâm trí từ trẻ sơ sinh đến người trưởng thành.",
+      "id": "-fn2jp6dm8kl9zq7sx",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Sự Phát Triển của Tâm Lý Học",
+      "view": 42
+    },
+    "-jk7zl8mx4al9pd2fq": {
+      "author": "Xavier",
+      "categoryId": 3,
+      "content": "Cuốn sách này chứa các công thức nấu ăn độc đáo từ nhiều quốc gia trên thế giới, từ món ăn truyền thống đến món ăn hiện đại.",
+      "id": "-jk7zl8mx4al9pd2fq",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Nấu Ăn Truyền Thống và Hiện Đại",
+      "view": 51
+    },
+    "-mx4ap9o8l2ds6fj5w": {
+      "author": "Yvonne",
+      "categoryId": 4,
+      "content": "Cuốn sách này là hướng dẫn toàn diện từ cơ bản đến nâng cao để học ngoại ngữ một cách hiệu quả và linh hoạt.",
+      "id": "-mx4ap9o8l2ds6fj5w",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Học Ngoại Ngữ Theo Cách Thông Minh",
+      "view": 28
+    },
+    "-lp3sk7dj9an4p8fq": {
+      "author": "Zara",
+      "categoryId": 5,
+      "content": "Một cuốn tiểu thuyết ly kỳ về cuộc phiêu lưu và tình bạn giữa một chàng trai và một con sói hoang dã.",
+      "id": "-lp3sk7dj9an4p8fq",
+      "img": "",
+      "timestamp": 1647577200000,
+      "title": "Cuộc Phiêu Lưu của Jack và Sói",
+      "view": 34
+    }
+  },
+  "category": [
+    {
+      "id": 1,
+      "name": "Khoa học"
+    },
+    {
+      "id": 2,
+      "name": "Tâm lý"
+    },
+    {
+      "id": 3,
+      "name": "Nấu ăn"
+    },
+    {
+      "id": 4,
+      "name": "Ngoại ngữ"
+    },
+    {
+      "id": 5,
+      "name": "Tiểu thuyết"
+    }
+  ]
+}
