@@ -20,7 +20,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.appdocsach.Fragment.NewsFragment;
 import com.example.appdocsach.R;
 
 

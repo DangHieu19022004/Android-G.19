@@ -94,7 +94,7 @@
                             style="@style/TEXT"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Email:"
+                            android:text="Email: "
                             android:textStyle="bold" />
 
                         <TextView
