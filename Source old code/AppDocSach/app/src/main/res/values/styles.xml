@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="IconStyle">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="BottomNavigationIconStyle" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemIconTint">@color/color_selected_nav</item>
+        <item name="itemTextColor">@color/color_selected_nav</item>
+        <item name="itemIconSize">40dp</item>
+    </style>
+
+</resources>
