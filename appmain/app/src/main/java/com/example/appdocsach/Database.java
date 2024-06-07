@@ -48,6 +48,17 @@ public class Database {
         return filteredList;
     }
 
+    // Hàm tìm kiếm sách dựa trên thể loại
+    public List<Book> getBooksByCategory(int categoryId) {
+        List<Book> filteredList = new ArrayList<>();
+        for (Book book : bookList) {
+            if (book.getCategoryId() == categoryId) {
+                filteredList.add(book);
+            }
+        }
+        return filteredList;
+    }
+
     // Getters và setters cho danh sách sách và danh sách thể loại
     public List<Book> getBookList() {
         return bookList;

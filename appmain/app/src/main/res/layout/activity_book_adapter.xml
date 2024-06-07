@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    tools:ignore="ExtraText">
+
+
+    <ImageView
+        android:id="@+id/bookImageView"
+        android:layout_width="395dp"
+        android:layout_height="262dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/alchemy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="235dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="16dp"
+        android:text="Tên sách"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bookImageView" />
+
+    <TextView
+        android:id="@+id/authorTextView"
+        android:layout_width="235dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="20dp"
+        android:text="Tác giả"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+
+    <TextView
+        android:id="@+id/contentTextView"
+        android:layout_width="235dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="20dp"
+        android:text="Chú thích"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/authorTextView" />
+
+    <TextView
+        android:id="@+id/categoryTextView"
+        android:layout_width="235dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="20dp"
+        android:text="Thể loại"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contentTextView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

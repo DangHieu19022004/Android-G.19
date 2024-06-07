@@ -16,34 +16,34 @@ import com.example.appdocsach.R;
 
 import java.util.List;
 
-public class MentalTypeFragment extends Fragment {
+public class ForeignLanguageTypeFragment extends Fragment {
     private RecyclerView recyclerView;
     private BookAdapter adapter;
-    private List<Book> mentalBookList;
+    private List<Book> languageBookList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_mental_type, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_culture_type, container, false);
         recyclerView = rootView.findViewById(R.id.recyclerView);
 
-        initMentalBookList();
+        initCultureBookList();
 
-        adapter = new BookAdapter(getContext(), mentalBookList);
+        adapter = new BookAdapter(getContext(), languageBookList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
         return rootView;
     }
-    private void initMentalBookList() {
+    private void initCultureBookList() {
         Database database = new Database();
         database.loadBooksFromJson(getResources().openRawResource(R.raw.database));
-
-        mentalBookList = database.getBooksByCategory(2); // ID của thể loại "Tâm lý" là 2
+        // Lọc ra các cuốn sách thuộc thể loại "Văn hóa"
+        languageBookList = database.getBooksByCategory(4);
         List<Book> allBooks = database.getBookList();
         for (Book book : allBooks) {
-            if (book.getCategoryId() == 2) {
-                mentalBookList.add(book);
+            if (book.getCategoryId() == 4) {
+                languageBookList.add(book);
             }
         }
     }

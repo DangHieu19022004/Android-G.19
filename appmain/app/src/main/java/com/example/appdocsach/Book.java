@@ -21,7 +21,28 @@ public class Book {
         this.view = view;
     }
 
+    public String getAuthor() {return author;}
+    public void setAuthor(String author) {this.author = author;}
+
+    public int getCategoryId() {return categoryId;}
+    public void setCategoryId(int categoryId) {this.categoryId = categoryId;}
+
+    public String getContent() {return content;}
+    public void setContent(String content) {this.content = content;}
+
+    public String getId() {return id;}
+    public void setId(String id) {this.id = id;}
+
+    public String getImg() {return img;}
+    public void setImg(String img) {this.img = img;}
+
+    public long getTimestamp() {return timestamp;}
+    public void setTimestamp(long timestamp) {this.timestamp = timestamp;}
     public String getTitle() {
         return title;
     }
+    public void setTitle(String title) {this.title = title;}
+
+    public int getView() {return view;}
+    public void setView(int view) {this.view = view;}
 }

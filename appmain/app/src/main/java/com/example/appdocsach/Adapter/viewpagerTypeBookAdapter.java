@@ -7,8 +7,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.appdocsach.Fragment.typebook.AllTypeFragment;
-import com.example.appdocsach.Fragment.typebook.CultureTypeFragment;
-import com.example.appdocsach.Fragment.typebook.HistoryTypeFragment;
+import com.example.appdocsach.Fragment.typebook.ForeignLanguageTypeFragment;
+import com.example.appdocsach.Fragment.typebook.CookTypeFragment;
 import com.example.appdocsach.Fragment.typebook.MentalTypeFragment;
 import com.example.appdocsach.Fragment.typebook.NovelTypeFragment;
 import com.example.appdocsach.Fragment.typebook.ScienceTypeFragment;
@@ -34,9 +34,9 @@ public class viewpagerTypeBookAdapter extends FragmentStatePagerAdapter {
             case 3:
                 return new NovelTypeFragment();
             case 4:
-                return new CultureTypeFragment();
+                return new ForeignLanguageTypeFragment();
             case 5:
-                return new HistoryTypeFragment();
+                return new CookTypeFragment();
             default:
                 return new AllTypeFragment();
         }
@@ -66,10 +66,10 @@ public class viewpagerTypeBookAdapter extends FragmentStatePagerAdapter {
                 title = "Tiểu thuyết";
                 break;
             case 4:
-                title = "Văn hóa";
+                title = "Ngoại ngữ";
                 break;
             case 5:
-                title = "Lịch sử";
+                title = "Nấu ăn";
                 break;
         }
         return title;
