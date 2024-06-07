@@ -14,11 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.AppDocSach"
         tools:targetApi="31">
-
-<!--        <activity-->
-<!--            android:name=".Fragment.options.UserFragment"-->
-<!--            android:exported="false" />-->
-
+        <activity
+            android:name=".Activity.ReadBookActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.BookDetailActivity"
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".Fragment.options.UserFragment" -->
+        <!-- android:exported="false" /> -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -35,11 +38,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" />
-
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
@@ -52,7 +53,6 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:exported="false" />

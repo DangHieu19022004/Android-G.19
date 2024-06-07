@@ -7,6 +7,18 @@
         <item name="android:padding">8dp</item>
     </style>
 
+    <style name="IconDetailLike">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
+
+    <style name="imgDetailBook">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">220dp</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
+
     <style name="BottomNavigationIconStyle" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="itemIconTint">@color/color_selected_nav</item>
         <item name="itemTextColor">@color/color_selected_nav</item>

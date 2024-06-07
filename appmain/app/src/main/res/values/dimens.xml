@@ -7,4 +7,7 @@
     <dimen name="contentSize">28dp</dimen>
     <dimen name="nameSize">25dp</dimen>
     <dimen  name="contentpd">15dp</dimen>
+    <dimen name="pdfiximg">20dp</dimen>
+    <dimen name="sizecontenttext">20sp</dimen>
+    <dimen name="sizeSCRV">160dp</dimen>
 </resources>
