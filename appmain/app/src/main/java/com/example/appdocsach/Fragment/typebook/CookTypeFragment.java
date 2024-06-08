@@ -24,7 +24,7 @@ public class CookTypeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_culture_type, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_cook_type, container, false);
         recyclerView = rootView.findViewById(R.id.recyclerView);
 
         initHistoryBookList();
