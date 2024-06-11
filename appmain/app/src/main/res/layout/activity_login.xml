@@ -29,15 +29,29 @@
             android:layout_width="340dp"
             android:layout_height="50dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="100dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/custom_input"
             android:ems="10"
-            android:hint="Username"
+            android:hint="Enter your name"
             android:inputType="text"
             android:paddingStart="16dp"
             android:textSize="18sp" />
 
+
+        <EditText
+            android:id="@+id/EmailAddress"
+            android:layout_width="340dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/custom_input"
+            android:ems="10"
+            android:hint="Enter your email"
+            android:inputType="textEmailAddress"
+            android:paddingStart="16dp"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/password"
@@ -58,7 +72,7 @@
             android:id="@+id/forget"
             android:layout_width="wrap_content"
             android:layout_height="50sp"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="30dp"
             android:layout_marginBottom="64dp"
             android:background="@drawable/background_forget_pass"
             android:paddingStart="20dp"

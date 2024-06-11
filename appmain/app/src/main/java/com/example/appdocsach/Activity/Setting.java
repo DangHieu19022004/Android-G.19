@@ -9,13 +9,16 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.appdocsach.MainActivity;
 import com.example.appdocsach.R;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Setting extends AppCompatActivity {
+    FirebaseAuth auth;
     GoogleSignInClient gsc;
     GoogleSignInOptions gso;
 
@@ -24,6 +27,8 @@ public class Setting extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_setting);
+
+        auth = FirebaseAuth.getInstance();
 
         ImageView logout = findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +53,8 @@ public class Setting extends AppCompatActivity {
         gsc.signOut()
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
+                        // Log out from Firebase
+                        auth.signOut();
                         // Sign out successful, navigate back to MainActivity
                         Intent intent = new Intent(Setting.this, LoginActivity.class);
                         startActivity(intent);
