@@ -11,6 +11,7 @@
         android:id="@+id/viewpageOption"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:contentDescription="@string/viewpager_content_description"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintStart_toStartOf="parent"
