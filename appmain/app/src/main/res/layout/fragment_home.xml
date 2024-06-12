@@ -56,6 +56,7 @@
     </LinearLayout>
 
     <com.google.android.material.tabs.TabLayout
+        android:contentDescription="@string/viewpager_content_description"
         android:id="@+id/tablayoutMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,6 +69,7 @@
         app:tabPaddingStart="20dp" />
 
     <com.example.appdocsach.widget.CustomViewPager
+        android:contentDescription="@string/viewpager_content_description"
         android:id="@+id/viewpageType"
         android:layout_width="0dp"
         android:layout_height="0dp"
