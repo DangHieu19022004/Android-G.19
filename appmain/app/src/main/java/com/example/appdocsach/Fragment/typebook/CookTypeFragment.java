@@ -5,21 +5,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appdocsach.Adapter.BookAdapter;
-import com.example.appdocsach.Book;
-import com.example.appdocsach.Database;
+import com.example.appdocsach.Adapter.BooksAdapter;
+import com.example.appdocsach.model.BooksModel;
+import com.example.appdocsach.model.Database;
 import com.example.appdocsach.R;
 
 import java.util.List;
 
 public class CookTypeFragment extends Fragment {
     private RecyclerView recyclerView;
-    private BookAdapter adapter;
-    private List<Book> cookBookList;
+    private BooksAdapter adapter;
+    private List<BooksModel> cookBookList;
+    private Database database; // Database instance to load books
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Initialize Database instance
+        database = new Database();
+        database.loadBooksFromJson(getResources().openRawResource(R.raw.database));
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -27,24 +39,23 @@ public class CookTypeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_cook_type, container, false);
         recyclerView = rootView.findViewById(R.id.recyclerView);
 
-        initHistoryBookList();
+        // Initialize and populate cookBookList
+        initCookBookList();
 
-        adapter = new BookAdapter(getContext(), cookBookList);
+        // Initialize and set adapter for RecyclerView
+        adapter = new BooksAdapter(getContext(), cookBookList, new BooksAdapter.IClickListener() {
+            @Override
+            public void onClickReadItemBook(BooksModel books) {
+                // Handle click event
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
         return rootView;
     }
-    private void initHistoryBookList(){
-        Database database = new Database();
-        database.loadBooksFromJson(getResources().openRawResource(R.raw.database));
 
-        cookBookList = database.getBooksByCategory(3);
-        List<Book> allBooks = database.getBookList();
-        for (Book book : allBooks) {
-            if (book.getCategoryId() == 3) {
-                cookBookList.add(book);
-            }
-        }
+    private void initCookBookList() {
+        cookBookList = database.getBooksByCategory(3); // ID của thể loại "Nấu ăn" là 3
     }
 }

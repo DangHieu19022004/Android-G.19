@@ -1,21 +1,25 @@
 package com.example.appdocsach.model;
 
+import java.util.List;
+
 public class BooksModel {
 
     private String author;
     private int categoryId;
     private String content;
     private String id;
+    private List<String> imageUrls;
     private String img;
     private String subtitle;
     private String title;
     private int view;
 
-    public BooksModel(String author, int categoryId, String content, String id, String img, String subtitle, String title, int view) {
+    public BooksModel(String author, int categoryId, String content, String id, List<String> imageUrls, String img, String subtitle, String title, int view) {
         this.author = author;
         this.categoryId = categoryId;
         this.content = content;
         this.id = id;
+        this.imageUrls = imageUrls;
         this.img = img;
         this.subtitle = subtitle;
         this.title = title;
@@ -55,6 +59,12 @@ public class BooksModel {
 
     public void setId(String id) {
         this.id = id;
+    }
+    public List<String> getImageUrls() {
+        return imageUrls;
+    }
+    public void setImageUrls(List<String> imageUrls) {
+        this.imageUrls = imageUrls;
     }
 
     public String getImg() {

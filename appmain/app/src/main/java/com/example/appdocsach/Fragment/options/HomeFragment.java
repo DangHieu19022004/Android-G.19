@@ -14,8 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.appdocsach.Adapter.viewpagerTypeBookAdapter;
-import com.example.appdocsach.Book;
-import com.example.appdocsach.Database;
+import com.example.appdocsach.model.BooksModel;
+import com.example.appdocsach.model.Database;
 import com.example.appdocsach.MainActivity;
 import com.example.appdocsach.R;
 import com.example.appdocsach.widget.CustomViewPager;
@@ -24,8 +24,10 @@ import com.google.gson.Gson;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class HomeFragment extends Fragment {
     private TabLayout tabLayout;
@@ -39,7 +41,7 @@ public class HomeFragment extends Fragment {
     private Database database;
 
     // Danh sách sách từ file database.json
-    private List<Book> bookList;
+    private List<BooksModel> bookList;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -89,6 +91,7 @@ public class HomeFragment extends Fragment {
                 searchInput.setVisibility(View.VISIBLE);
             } else {
                 searchInput.setVisibility(View.GONE);
+                searchInput.setText("");
             }
         });
 
@@ -102,7 +105,12 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                if (s.length() > 0) {
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    if (mainActivity != null) {
+                        mainActivity.hideBottomNavigationView();
+                    }
+                }
             }
 
             @Override
@@ -114,12 +122,13 @@ public class HomeFragment extends Fragment {
                         mainActivity.showBottomNavigationView();
                     }
                 }
-                List<Book> filteredList = database.searchBooksByTitle(s.toString());
+                //Tìm kiếm theo tiêu đề
+                List<BooksModel> filteredList = searchBooks(s.toString());
                 if (filteredList.isEmpty()) {
                     Toast.makeText(getContext(), "No data found", Toast.LENGTH_SHORT).show();
                 } else {
                     // Hiển thị danh sách kết quả
-                    for (Book book : filteredList){
+                    for (BooksModel book : filteredList){
                         Toast.makeText(getContext(), book.getTitle(), Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -128,8 +137,26 @@ public class HomeFragment extends Fragment {
         return mview;
     }
 
+    // Hàm tìm kiếm sách dựa trên tiêu đề
+    private List<BooksModel> searchBooks(String searchText) {
+        String normalizedSearchText = normalizeText(searchText.trim().toLowerCase());
+
+        List<BooksModel> filteredList = new ArrayList<>();
+        for (BooksModel book : database.getBookList()) {
+            String normalizedTitle = normalizeText(book.getTitle().toLowerCase());
+            if (normalizedTitle.contains(normalizedSearchText)) {
+                filteredList.add(book);
+            }
+        }
+        return filteredList;
+    }
+    private String normalizeText(String text) {
+        return Normalizer.normalize(text, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+    }
+
+
     private void loadBooksFromJson() {
-        //Cannot resolve symbol 'Database'
+
         InputStream inputStream = getResources().openRawResource(R.raw.database);
         Gson gson = new Gson();
         InputStreamReader reader = new InputStreamReader(inputStream);

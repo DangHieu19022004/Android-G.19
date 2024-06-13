@@ -4,21 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.bumptech.glide.Glide;
 import com.example.appdocsach.Adapter.BooksAdapter;
 import com.example.appdocsach.Adapter.viewpagerSlide;
 import com.example.appdocsach.R;
@@ -66,12 +60,13 @@ public class AllTypeFragment extends Fragment {
         //
 
         //show to screen
-        booksAdapter = new BooksAdapter(mListBooks, new BooksAdapter.IClickListener() {
+        booksAdapter = new BooksAdapter(getContext(), mListBooks, new BooksAdapter.IClickListener() {
             @Override
             public void onClickReadItemBook(BooksModel books) {
                 Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
             }
         });
+
         recyclerViewBooktrending.setAdapter(booksAdapter);
 
         //show horizontal recycleview
