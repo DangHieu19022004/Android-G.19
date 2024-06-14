@@ -11,20 +11,30 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appdocsach.R;
+import com.example.appdocsach.model.BooksModel;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class BookDetailActivity extends AppCompatActivity {
 
     ImageView threeDotsButton;
     Button btnstartreadDetail;
     LinearLayout likeDetail, dislikeDetail;
+    private FirebaseDatabase database;
+    private BooksModel currentBook;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_book_detail);
+
+        database = FirebaseDatabase.getInstance();
 
         mapping();
 
@@ -53,6 +63,10 @@ public class BookDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(BookDetailActivity.this, "Liked!", Toast.LENGTH_SHORT).show();
                 changeButtonColor(likeDetail);
+                int currentLikes = currentBook.getLike();
+                currentBook.setLike(currentLikes + 1);
+                // Update Firebase with the new likeCount
+                updateLikeCountInFirebase(currentBook.getId(), currentBook.getLike());
             }
         });
 
@@ -61,15 +75,36 @@ public class BookDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(BookDetailActivity.this, "Disliked!", Toast.LENGTH_SHORT).show();
                 changeButtonColor(dislikeDetail);
+                int currentLikes = currentBook.getLike();
+                currentBook.setLike(Math.max(currentLikes - 1, 0)); // Ensure likes don't go negative
+                // Update Firebase with the new likeCount
+                updateLikeCountInFirebase(currentBook.getId(), currentBook.getLike());
             }
         });
     }
 
+    private void updateLikeCountInFirebase(String bookId, int likeCount) {
+        DatabaseReference booksRef = database.getReference("books").child(bookId).child("likeCount");
+        booksRef.setValue(likeCount)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Handle successful update (if needed)
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Handle failed update
+                        Toast.makeText(BookDetailActivity.this, "Failed to update like count: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+
     //Đổi màu khi nhấn nút
     private void changeButtonColor(LinearLayout buttonLayout) {
-        // Khai báo phần image
         ImageView imageView = (ImageView) buttonLayout.getChildAt(0);
-
         // Đổi màu
         imageView.setColorFilter(getResources().getColor(R.color.colorGreen));
     }
@@ -84,5 +119,8 @@ public class BookDetailActivity extends AppCompatActivity {
         btnstartreadDetail = findViewById(R.id.btnstartreadDetail);
         likeDetail = findViewById(R.id.likeDetail);
         dislikeDetail = findViewById(R.id.dislikeDetail);
+
+        currentBook = new BooksModel();
+        currentBook.setLike(0);
     }
 }

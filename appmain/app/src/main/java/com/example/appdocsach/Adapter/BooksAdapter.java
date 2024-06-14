@@ -19,9 +19,7 @@ import java.util.List;
 
 public class BooksAdapter extends  RecyclerView.Adapter<BooksAdapter.BookViewHolder>{
     private Context context;
-
     private List<BooksModel> mlistBooks;
-
     private IClickListener mInterfaceClickListener;
 
     public interface IClickListener{
@@ -45,9 +43,6 @@ public class BooksAdapter extends  RecyclerView.Adapter<BooksAdapter.BookViewHol
         BooksModel booksModel = mlistBooks.get(position);
         if(booksModel == null){return;}
 
-
-
-
             Glide.with(holder.imageViewItem.getContext())
                     .load(booksModel.getImg())
                     .load("https://firebasestorage.googleapis.com/v0/b/appdocsach-18d2f.appspot.com/o/Image%2FScreenshot%202024-06-11%20001954.png?alt=media&token=a3dd5fc6-1ea2-45a6-b8b0-5a85e9d453aa")
@@ -70,11 +65,6 @@ public class BooksAdapter extends  RecyclerView.Adapter<BooksAdapter.BookViewHol
             return mlistBooks.size();
         }
         return 0;
-    }
-
-    public void updateData(List<BooksModel> newList) {
-        mlistBooks = newList;
-        notifyDataSetChanged();
     }
 
 

@@ -13,8 +13,9 @@ public class BooksModel {
     private String subtitle;
     private String title;
     private int view;
+    private int likeCount;
 
-    public BooksModel(String author, int categoryId, String content, String id, List<String> imageUrls, String img, String subtitle, String title, int view) {
+    public BooksModel(String author, int categoryId, String content, String id, List<String> imageUrls, String img, String subtitle, String title, int view, int likeCount) {
         this.author = author;
         this.categoryId = categoryId;
         this.content = content;
@@ -24,6 +25,7 @@ public class BooksModel {
         this.subtitle = subtitle;
         this.title = title;
         this.view = view;
+        this.likeCount = likeCount;
     }
 
     public BooksModel() {
@@ -98,4 +100,6 @@ public class BooksModel {
     public void setView(int view) {
         this.view = view;
     }
+    public int getLike(){ return likeCount; }
+    public void setLike(int likeCount) {this.likeCount = likeCount; }
 }
