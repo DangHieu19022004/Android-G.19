@@ -46,8 +46,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/trentext" />
 
+        <TextView
+            android:id="@+id/newtext"
+            android:text="@string/new_test"
+            android:textSize="@dimen/contentSize"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/recyclerViewTrending"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-        <!-- Add more views here -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewNew"
+            android:layout_marginTop="5dp"
+            app:layout_constraintTop_toBottomOf="@id/newtext"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginTop="@dimen/contentSize"
+            android:id="@+id/lastesttextcontent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/no_content"
+            android:textColor="@color/backgroundSlide"
+            app:layout_constraintTop_toBottomOf="@id/recyclerViewNew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.core.widget.NestedScrollView>

@@ -3,10 +3,8 @@ package com.example.appdocsach.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
-import com.google.firebase.firestore.auth.User;
 
 import java.util.List;
 
@@ -31,11 +28,14 @@ public class BooksAdapter extends  RecyclerView.Adapter<BooksAdapter.BookViewHol
         this.mlistBooks = mlistBooks;
         this.mInterfaceClickListener = mInterfaceClickListener;
     }
-
+    public void setBooksList(List<BooksModel> booksList) {
+        this.mlistBooks = booksList;
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public BookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.books_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.books_item_horizontal, parent, false);
         return new BookViewHolder(view);
     }
 
