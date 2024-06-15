@@ -12,7 +12,7 @@ public class BooksModel {
     private int view;
     private int likeCount;
 
-    public BooksModel(String author, int categoryId, String content, String id, String img, String subtitle, String title, int view,int likeCount) {
+    public BooksModel(String author, int categoryId, String content, String id, String img, String subtitle, String title, int view, int likeCount) {
         this.author = author;
         this.categoryId = categoryId;
         this.content = content;

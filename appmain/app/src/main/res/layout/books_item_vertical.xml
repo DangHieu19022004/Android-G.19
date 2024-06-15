@@ -10,7 +10,7 @@
 
 
     <LinearLayout
-        android:id="@+id/gravItemBook"
+        android:id="@+id/gravItemBook_vertical"
         android:layout_width="145dp"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
@@ -19,14 +19,14 @@
 
         <ImageView
             style="@style/ImageBookVertical"
-            android:id="@+id/book_image"
+            android:id="@+id/book_image_vertical"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:contentDescription="demo title"
             tools:src="@drawable/babylon" />
 
         <TextView
-            android:id="@+id/book_title"
+            android:id="@+id/book_title_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -46,7 +46,7 @@
                 android:src="@drawable/viewicon" />
 
             <TextView
-                android:id="@+id/book_views"
+                android:id="@+id/book_views_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
