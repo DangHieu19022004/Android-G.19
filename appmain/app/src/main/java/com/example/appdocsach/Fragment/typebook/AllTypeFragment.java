@@ -29,16 +29,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import me.relex.circleindicator.CircleIndicator;
 
@@ -47,9 +40,9 @@ public class AllTypeFragment extends Fragment {
     private ViewPager viewPagerSlide;
     private CircleIndicator circleIndicatorSlide;
     private viewpagerSlide viewpagerSlideAdapter;
-    private BooksAdapter booksAdapterTrending, booksAdapterNew;
-    private RecyclerView recyclerViewBooktrending, recyclerViewNew;
-    List<BooksModel> mListBooksTrend, mListBooksNew;
+    private BooksAdapter booksAdapter;
+    private RecyclerView recyclerViewBooktrending;
+    List<BooksModel> mListBooks;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
@@ -66,40 +59,25 @@ public class AllTypeFragment extends Fragment {
         viewPagerSlide = view.findViewById(R.id.viewpagerSlide);
         circleIndicatorSlide = view.findViewById(R.id.circleindicatorSlide);
         recyclerViewBooktrending = view.findViewById(R.id.recyclerViewTrending);
-        recyclerViewNew = view.findViewById(R.id.recyclerViewNew);
         //
 
         //declare list book
-        mListBooksTrend = new ArrayList<>();
-        mListBooksNew = new ArrayList<>();
+        mListBooks = new ArrayList<>();
         //
 
         //show to screen
-        booksAdapterTrending = new BooksAdapter(mListBooksTrend, new BooksAdapter.IClickListener() {
+        booksAdapter = new BooksAdapter(mListBooks, new BooksAdapter.IClickListener() {
             @Override
             public void onClickReadItemBook(BooksModel books) {
                 Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
             }
         });
-        recyclerViewBooktrending.setAdapter(booksAdapterTrending);
-
-        booksAdapterNew = new BooksAdapter(mListBooksNew, new BooksAdapter.IClickListener() {
-            @Override
-            public void onClickReadItemBook(BooksModel books) {
-                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
-            }
-        });
-        recyclerViewNew.setAdapter(booksAdapterNew);
-        //
+        recyclerViewBooktrending.setAdapter(booksAdapter);
 
         //show horizontal recycleview
-        LinearLayoutManager horizontalLayoutManagerTrend
+        LinearLayoutManager horizontalLayoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewBooktrending.setLayoutManager(horizontalLayoutManagerTrend);
-
-        LinearLayoutManager horizontalLayoutManagerNew
-                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewNew.setLayoutManager(horizontalLayoutManagerNew);
+        recyclerViewBooktrending.setLayoutManager(horizontalLayoutManager);
         //
         //
 
@@ -120,12 +98,10 @@ public class AllTypeFragment extends Fragment {
         //
 
         // call method get dtb
-        getListRealtimeDTB();
-
+        getListUserRealtimeDTB();
     }
 
-
-    private void getListRealtimeDTB() {
+    private void getListUserRealtimeDTB() {
         DatabaseReference myRef = database.getReference("books");
 
         Query query = myRef.orderByChild("view");
@@ -134,59 +110,36 @@ public class AllTypeFragment extends Fragment {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
                 if(booksModel != null){
-                    mListBooksTrend.add(0, booksModel); // sort large to small
+                    mListBooks.add(0, booksModel); // sort large to small
 
-                    // sort by date
-                      mListBooksNew.add(booksModel);
-                    Collections.sort(mListBooksNew, new Comparator<BooksModel>() {
-                        SimpleDateFormat originalFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                        SimpleDateFormat targetFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
-
-                        @Override
-                        public int compare(BooksModel book1, BooksModel book2) {
-                            try {
-                                Date date1 = originalFormat.parse(book1.getDay());
-                                Date date2 = originalFormat.parse(book2.getDay());
-                                String formattedDate1 = targetFormat.format(date1);
-                                String formattedDate2 = targetFormat.format(date2);
-                                return formattedDate2.compareTo(formattedDate1); // Sort new to old
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            return 0;
-                        }
-                    });
-                    //
-
-                    booksAdapterTrending.setBooksList(mListBooksTrend); //reset adapter
-                    booksAdapterNew.setBooksList(mListBooksNew); // resetadapter
-
+                    booksAdapter.notifyDataSetChanged(); //reset adapter
                 }
             }
+
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
-                if(booksModel == null || mListBooksTrend == null || mListBooksTrend.isEmpty()){return;}
-                for(int i =0; i<mListBooksTrend.size(); i++){
-                    if(booksModel.getId() == mListBooksTrend.get(i).getId()){
-                        mListBooksTrend.set(i, booksModel);
+                if(booksModel == null || mListBooks == null || mListBooks.isEmpty()){return;}
+                for(int i =0; i<mListBooks.size(); i++){
+                    if(booksModel.getId() == mListBooks.get(i).getId()){
+                        mListBooks.set(i, booksModel);
                         break;
                     }
                 }
-                booksAdapterTrending.notifyDataSetChanged();
+                booksAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
-                if(booksModel == null || mListBooksTrend == null || mListBooksTrend.isEmpty()){return;}
-                for(int i =0; i<mListBooksTrend.size(); i++){
-                    if(booksModel.getId() == mListBooksTrend.get(i).getId()){
-                        mListBooksTrend.remove(mListBooksTrend.get(i));
+                if(booksModel == null || mListBooks == null || mListBooks.isEmpty()){return;}
+                for(int i =0; i<mListBooks.size(); i++){
+                    if(booksModel.getId() == mListBooks.get(i).getId()){
+                        mListBooks.remove(mListBooks.get(i));
                         break;
                     }
                 }
-                booksAdapterTrending.notifyDataSetChanged();
+                booksAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -200,4 +153,6 @@ public class AllTypeFragment extends Fragment {
             }
         });
     }
+
+
 }
