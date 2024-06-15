@@ -12,7 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appdocsach.Adapter.BooksAdapter;
+import com.example.appdocsach.Adapter.BooksAdapterHorizontal;
+import com.example.appdocsach.Adapter.BooksAdapterVertical;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
 import com.google.firebase.database.ChildEventListener;
@@ -22,18 +23,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class ScienceTypeFragment extends Fragment {
     private RecyclerView recyclerViewScience;
-    private BooksAdapter booksAdapterScience;
+    private BooksAdapterVertical booksAdapterVerticalScience;
     List<BooksModel>  mListBookScience;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -56,13 +51,13 @@ public class ScienceTypeFragment extends Fragment {
         //
 
         //show to screen
-        booksAdapterScience = new BooksAdapter(mListBookScience, new BooksAdapter.IClickListener() {
+        booksAdapterVerticalScience = new BooksAdapterVertical(mListBookScience, new BooksAdapterVertical.IClickListener() {
             @Override
             public void onClickReadItemBook(BooksModel books) {
                 Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
             }
         });
-        recyclerViewScience.setAdapter(booksAdapterScience);
+        recyclerViewScience.setAdapter(booksAdapterVerticalScience);
         //
 
         //show to screen
@@ -84,7 +79,7 @@ public class ScienceTypeFragment extends Fragment {
                 if(booksModel != null){
                     mListBookScience.add(booksModel);
 
-                    booksAdapterScience.setBooksList(mListBookScience); //reset adapter
+                    booksAdapterVerticalScience.setBooksList(mListBookScience); //reset adapter
 
                 }
             }
@@ -98,7 +93,7 @@ public class ScienceTypeFragment extends Fragment {
                         break;
                     }
                 }
-                booksAdapterScience.notifyDataSetChanged();
+                booksAdapterVerticalScience.notifyDataSetChanged();
             }
 
             @Override
@@ -111,7 +106,7 @@ public class ScienceTypeFragment extends Fragment {
                         break;
                     }
                 }
-                booksAdapterScience.notifyDataSetChanged();
+                booksAdapterVerticalScience.notifyDataSetChanged();
             }
 
             @Override

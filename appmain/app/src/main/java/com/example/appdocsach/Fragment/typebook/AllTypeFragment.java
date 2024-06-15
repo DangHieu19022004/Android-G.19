@@ -4,22 +4,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.bumptech.glide.Glide;
-import com.example.appdocsach.Adapter.BooksAdapter;
+import com.example.appdocsach.Adapter.BooksAdapterHorizontal;
 import com.example.appdocsach.Adapter.viewpagerSlide;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
@@ -29,7 +23,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,7 +40,7 @@ public class AllTypeFragment extends Fragment {
     private ViewPager viewPagerSlide;
     private CircleIndicator circleIndicatorSlide;
     private viewpagerSlide viewpagerSlideAdapter;
-    private BooksAdapter booksAdapterTrending, booksAdapterNew;
+    private BooksAdapterHorizontal booksAdapterHorizontalTrending, booksAdapterHorizontalNew;
     private RecyclerView recyclerViewBooktrending, recyclerViewNew;
     List<BooksModel> mListBooksTrend, mListBooksNew;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -75,21 +68,21 @@ public class AllTypeFragment extends Fragment {
         //
 
         //show to screen
-        booksAdapterTrending = new BooksAdapter(mListBooksTrend, new BooksAdapter.IClickListener() {
+        booksAdapterHorizontalTrending = new BooksAdapterHorizontal(mListBooksTrend, new BooksAdapterHorizontal.IClickListener() {
             @Override
             public void onClickReadItemBook(BooksModel books) {
                 Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
             }
         });
-        recyclerViewBooktrending.setAdapter(booksAdapterTrending);
+        recyclerViewBooktrending.setAdapter(booksAdapterHorizontalTrending);
 
-        booksAdapterNew = new BooksAdapter(mListBooksNew, new BooksAdapter.IClickListener() {
+        booksAdapterHorizontalNew = new BooksAdapterHorizontal(mListBooksNew, new BooksAdapterHorizontal.IClickListener() {
             @Override
             public void onClickReadItemBook(BooksModel books) {
                 Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
             }
         });
-        recyclerViewNew.setAdapter(booksAdapterNew);
+        recyclerViewNew.setAdapter(booksAdapterHorizontalNew);
         //
 
         //show horizontal recycleview
@@ -158,8 +151,8 @@ public class AllTypeFragment extends Fragment {
                     });
                     //
 
-                    booksAdapterTrending.setBooksList(mListBooksTrend); //reset adapter
-                    booksAdapterNew.setBooksList(mListBooksNew); // resetadapter
+                    booksAdapterHorizontalTrending.setBooksList(mListBooksTrend); //reset adapter
+                    booksAdapterHorizontalNew.setBooksList(mListBooksNew); // resetadapter
 
                 }
             }
@@ -173,7 +166,7 @@ public class AllTypeFragment extends Fragment {
                         break;
                     }
                 }
-                booksAdapterTrending.notifyDataSetChanged();
+                booksAdapterHorizontalTrending.notifyDataSetChanged();
             }
 
             @Override
@@ -186,7 +179,7 @@ public class AllTypeFragment extends Fragment {
                         break;
                     }
                 }
-                booksAdapterTrending.notifyDataSetChanged();
+                booksAdapterHorizontalTrending.notifyDataSetChanged();
             }
 
             @Override
