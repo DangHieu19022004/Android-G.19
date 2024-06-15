@@ -34,6 +34,11 @@ public class BooksAdapter extends  RecyclerView.Adapter<BooksAdapter.BookViewHol
         this.mInterfaceClickListener = mInterfaceClickListener;
     }
 
+    public void setBooksList(List<BooksModel> booksList) {
+        this.mlistBooks = booksList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public BookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

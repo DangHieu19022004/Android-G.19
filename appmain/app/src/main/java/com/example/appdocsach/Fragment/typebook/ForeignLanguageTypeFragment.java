@@ -54,6 +54,6 @@ public class ForeignLanguageTypeFragment extends Fragment {
     }
 
     private void initLanguageBookList() {
-        languageBookList = database.getBooksByCategory(4); // ID của thể loại "Ngôn ngữ" là 4
+        languageBookList = database.getBooksByCategory(4);
     }
 }

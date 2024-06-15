@@ -54,6 +54,6 @@ public class MentalTypeFragment extends Fragment {
     }
 
     private void initMentalBookList() {
-        mentalBookList = database.getBooksByCategory(2); // ID của thể loại "Tâm lý" là 2
+        mentalBookList = database.getBooksByCategory(2);
     }
 }

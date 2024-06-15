@@ -56,6 +56,6 @@ public class CookTypeFragment extends Fragment {
     }
 
     private void initCookBookList() {
-        cookBookList = database.getBooksByCategory(3); // ID của thể loại "Nấu ăn" là 3
+        cookBookList = database.getBooksByCategory(3);
     }
 }

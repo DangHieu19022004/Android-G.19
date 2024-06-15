@@ -54,6 +54,6 @@ public class NovelTypeFragment extends Fragment {
     }
 
     private void initNovelBookList() {
-        novelBookList = database.getBooksByCategory(5); // ID của thể loại "Tiểu thuyết" là 5
+        novelBookList = database.getBooksByCategory(5);
     }
 }

@@ -4,21 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.bumptech.glide.Glide;
 import com.example.appdocsach.Adapter.BooksAdapter;
 import com.example.appdocsach.Adapter.viewpagerSlide;
 import com.example.appdocsach.R;
@@ -28,7 +22,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +38,7 @@ public class AllTypeFragment extends Fragment {
     List<BooksModel> mListBooks;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,6 +53,7 @@ public class AllTypeFragment extends Fragment {
         viewPagerSlide = view.findViewById(R.id.viewpagerSlide);
         circleIndicatorSlide = view.findViewById(R.id.circleindicatorSlide);
         recyclerViewBooktrending = view.findViewById(R.id.recyclerViewTrending);
+
         //
 
         //declare list book
@@ -66,20 +61,19 @@ public class AllTypeFragment extends Fragment {
         //
 
         //show to screen
-        booksAdapter = new BooksAdapter(mListBooks, new BooksAdapter.IClickListener() {
+        booksAdapter = new BooksAdapter(getContext(), mListBooks, new BooksAdapter.IClickListener() {
             @Override
             public void onClickReadItemBook(BooksModel books) {
                 Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
             }
         });
+
         recyclerViewBooktrending.setAdapter(booksAdapter);
 
         //show horizontal recycleview
-        LinearLayoutManager horizontalLayoutManager
-                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewBooktrending.setLayoutManager(horizontalLayoutManager);
-        //
-        //
+
 
         //create list advance
         List<String> mangquangcao = new ArrayList<>();
@@ -95,64 +89,119 @@ public class AllTypeFragment extends Fragment {
         circleIndicatorSlide.setViewPager(viewPagerSlide);
 
         viewpagerSlideAdapter.registerDataSetObserver(circleIndicatorSlide.getDataSetObserver());
-        //
 
-        // call method get dtb
-        getListUserRealtimeDTB();
+        // Call method to get top viewed books
+        getTopViewedBooks();
+
+        //Call method to get top liked books
+        getTopLikedBooks();
     }
 
-    private void getListUserRealtimeDTB() {
-        DatabaseReference myRef = database.getReference("books");
-
-        Query query = myRef.orderByChild("view");
-        query.addChildEventListener(new ChildEventListener() {
+    private void getTopLikedBooks() {
+        DatabaseReference booksRef = database.getReference("books").orderByChild("like").limitToLast(10).getRef(); // Giới hạn số lượng sách lấy về
+        booksRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
-                if(booksModel != null){
-                    mListBooks.add(0, booksModel); // sort large to small
-
-                    booksAdapter.notifyDataSetChanged(); //reset adapter
+                if (booksModel != null) {
+                    mListBooks.add(0, booksModel);
+                    booksAdapter.notifyItemInserted(mListBooks.size() - 1);
+                    recyclerViewBooktrending.scrollToPosition(mListBooks.size() - 1);
                 }
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
-                if(booksModel == null || mListBooks == null || mListBooks.isEmpty()){return;}
-                for(int i =0; i<mListBooks.size(); i++){
-                    if(booksModel.getId() == mListBooks.get(i).getId()){
-                        mListBooks.set(i, booksModel);
-                        break;
+                if (booksModel != null) {
+                    for (int i = 0; i < mListBooks.size(); i++) {
+                        if (booksModel.getId() == mListBooks.get(i).getId()) {
+                            mListBooks.set(i, booksModel);
+                            booksAdapter.notifyItemChanged(i);
+                            break;
+                        }
                     }
                 }
-                booksAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
-                if(booksModel == null || mListBooks == null || mListBooks.isEmpty()){return;}
-                for(int i =0; i<mListBooks.size(); i++){
-                    if(booksModel.getId() == mListBooks.get(i).getId()){
-                        mListBooks.remove(mListBooks.get(i));
-                        break;
+                if (booksModel != null) {
+                    for (int i = 0; i < mListBooks.size(); i++) {
+                        if (booksModel.getId() == mListBooks.get(i).getId()) {
+                            mListBooks.remove(i);
+                            booksAdapter.notifyItemRemoved(i);
+                            break;
+                        }
                     }
                 }
-                booksAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                // Xử lý khi có sự di chuyển dữ liệu (nếu cần thiết)
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(getContext(), "Failed to load top liked books: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    private void getTopViewedBooks() {
+        DatabaseReference myRef = database.getReference("books").orderByChild("view").getRef();
+        myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                BooksModel booksModel = snapshot.getValue(BooksModel.class);
+                if (booksModel != null) {
+                    mListBooks.add(0, booksModel); // Thêm vào đầu danh sách để sắp xếp theo thứ tự lớn đến nhỏ
 
+                    // Cập nhật RecyclerView
+                    booksAdapter.notifyItemInserted(0); // Thông báo là có item được chèn vào vị trí đầu tiên
+                    recyclerViewBooktrending.scrollToPosition(0); // Di chuyển đến vị trí đầu tiên
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                BooksModel booksModel = snapshot.getValue(BooksModel.class);
+                if (booksModel != null) {
+                    for (int i = 0; i < mListBooks.size(); i++) {
+                        if (booksModel.getId() == mListBooks.get(i).getId()) {
+                            mListBooks.set(i, booksModel);
+                            booksAdapter.notifyItemChanged(i); // Cập nhật item thay đổi
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                BooksModel booksModel = snapshot.getValue(BooksModel.class);
+                if (booksModel != null) {
+                    for (int i = 0; i < mListBooks.size(); i++) {
+                        if (booksModel.getId() == mListBooks.get(i).getId()) {
+                            mListBooks.remove(i);
+                            booksAdapter.notifyItemRemoved(i); // Xóa item khỏi danh sách
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                // Xử lý khi có sự di chuyển dữ liệu
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Xử lý khi có lỗi xảy ra trong quá trình truy vấn dữ liệu
+            }
+        });
+    }
 }
