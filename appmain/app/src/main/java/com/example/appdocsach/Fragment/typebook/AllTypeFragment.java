@@ -4,15 +4,21 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
 import com.example.appdocsach.Adapter.BooksAdapter;
 import com.example.appdocsach.Adapter.viewpagerSlide;
 import com.example.appdocsach.R;
@@ -22,9 +28,17 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import me.relex.circleindicator.CircleIndicator;
 
@@ -33,11 +47,10 @@ public class AllTypeFragment extends Fragment {
     private ViewPager viewPagerSlide;
     private CircleIndicator circleIndicatorSlide;
     private viewpagerSlide viewpagerSlideAdapter;
-    private BooksAdapter booksAdapter;
-    private RecyclerView recyclerViewBooktrending;
-    List<BooksModel> mListBooks;
+    private BooksAdapter booksAdapterTrending, booksAdapterNew;
+    private RecyclerView recyclerViewBooktrending, recyclerViewNew;
+    List<BooksModel> mListBooksTrend, mListBooksNew;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,27 +66,42 @@ public class AllTypeFragment extends Fragment {
         viewPagerSlide = view.findViewById(R.id.viewpagerSlide);
         circleIndicatorSlide = view.findViewById(R.id.circleindicatorSlide);
         recyclerViewBooktrending = view.findViewById(R.id.recyclerViewTrending);
-
+        recyclerViewNew = view.findViewById(R.id.recyclerViewNew);
         //
 
         //declare list book
-        mListBooks = new ArrayList<>();
+        mListBooksTrend = new ArrayList<>();
+        mListBooksNew = new ArrayList<>();
         //
 
         //show to screen
-        booksAdapter = new BooksAdapter(getContext(), mListBooks, new BooksAdapter.IClickListener() {
+        booksAdapterTrending = new BooksAdapter(mListBooksTrend, new BooksAdapter.IClickListener() {
             @Override
             public void onClickReadItemBook(BooksModel books) {
                 Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
             }
         });
+        recyclerViewBooktrending.setAdapter(booksAdapterTrending);
 
-        recyclerViewBooktrending.setAdapter(booksAdapter);
+        booksAdapterNew = new BooksAdapter(mListBooksNew, new BooksAdapter.IClickListener() {
+            @Override
+            public void onClickReadItemBook(BooksModel books) {
+                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
+            }
+        });
+        recyclerViewNew.setAdapter(booksAdapterNew);
+        //
 
         //show horizontal recycleview
-        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewBooktrending.setLayoutManager(horizontalLayoutManager);
+        LinearLayoutManager horizontalLayoutManagerTrend
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewBooktrending.setLayoutManager(horizontalLayoutManagerTrend);
 
+        LinearLayoutManager horizontalLayoutManagerNew
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewNew.setLayoutManager(horizontalLayoutManagerNew);
+        //
+        //
 
         //create list advance
         List<String> mangquangcao = new ArrayList<>();
@@ -89,118 +117,86 @@ public class AllTypeFragment extends Fragment {
         circleIndicatorSlide.setViewPager(viewPagerSlide);
 
         viewpagerSlideAdapter.registerDataSetObserver(circleIndicatorSlide.getDataSetObserver());
+        //
 
-        // Call method to get top viewed books
-        getTopViewedBooks();
+        // call method get dtb
+        getListRealtimeDTB();
 
-        //Call method to get top liked books
-        getTopLikedBooks();
     }
 
-    private void getTopLikedBooks() {
-        DatabaseReference booksRef = database.getReference("books").orderByChild("like").limitToLast(10).getRef(); // Giới hạn số lượng sách lấy về
-        booksRef.addChildEventListener(new ChildEventListener() {
+
+    private void getListRealtimeDTB() {
+        DatabaseReference myRef = database.getReference("books");
+
+        Query query = myRef.orderByChild("view");
+        query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
-                if (booksModel != null) {
-                    mListBooks.add(0, booksModel);
-                    booksAdapter.notifyItemInserted(mListBooks.size() - 1);
-                    recyclerViewBooktrending.scrollToPosition(mListBooks.size() - 1);
+                if(booksModel != null){
+                    mListBooksTrend.add(0, booksModel); // sort large to small
+
+                    // sort by date
+                      mListBooksNew.add(booksModel);
+                    Collections.sort(mListBooksNew, new Comparator<BooksModel>() {
+                        SimpleDateFormat originalFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                        SimpleDateFormat targetFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+
+                        @Override
+                        public int compare(BooksModel book1, BooksModel book2) {
+                            try {
+                                Date date1 = originalFormat.parse(book1.getDay());
+                                Date date2 = originalFormat.parse(book2.getDay());
+                                String formattedDate1 = targetFormat.format(date1);
+                                String formattedDate2 = targetFormat.format(date2);
+                                return formattedDate2.compareTo(formattedDate1); // Sort new to old
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            return 0;
+                        }
+                    });
+                    //
+
+                    booksAdapterTrending.setBooksList(mListBooksTrend); //reset adapter
+                    booksAdapterNew.setBooksList(mListBooksNew); // resetadapter
+
                 }
             }
-
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
-                if (booksModel != null) {
-                    for (int i = 0; i < mListBooks.size(); i++) {
-                        if (booksModel.getId() == mListBooks.get(i).getId()) {
-                            mListBooks.set(i, booksModel);
-                            booksAdapter.notifyItemChanged(i);
-                            break;
-                        }
+                if(booksModel == null || mListBooksTrend == null || mListBooksTrend.isEmpty()){return;}
+                for(int i =0; i<mListBooksTrend.size(); i++){
+                    if(booksModel.getId() == mListBooksTrend.get(i).getId()){
+                        mListBooksTrend.set(i, booksModel);
+                        break;
                     }
                 }
+                booksAdapterTrending.notifyDataSetChanged();
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
-                if (booksModel != null) {
-                    for (int i = 0; i < mListBooks.size(); i++) {
-                        if (booksModel.getId() == mListBooks.get(i).getId()) {
-                            mListBooks.remove(i);
-                            booksAdapter.notifyItemRemoved(i);
-                            break;
-                        }
+                if(booksModel == null || mListBooksTrend == null || mListBooksTrend.isEmpty()){return;}
+                for(int i =0; i<mListBooksTrend.size(); i++){
+                    if(booksModel.getId() == mListBooksTrend.get(i).getId()){
+                        mListBooksTrend.remove(mListBooksTrend.get(i));
+                        break;
                     }
                 }
+                booksAdapterTrending.notifyDataSetChanged();
             }
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                // Xử lý khi có sự di chuyển dữ liệu (nếu cần thiết)
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), "Failed to load top liked books: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
-    private void getTopViewedBooks() {
-        DatabaseReference myRef = database.getReference("books").orderByChild("view").getRef();
-        myRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                BooksModel booksModel = snapshot.getValue(BooksModel.class);
-                if (booksModel != null) {
-                    mListBooks.add(0, booksModel); // Thêm vào đầu danh sách để sắp xếp theo thứ tự lớn đến nhỏ
-
-                    // Cập nhật RecyclerView
-                    booksAdapter.notifyItemInserted(0); // Thông báo là có item được chèn vào vị trí đầu tiên
-                    recyclerViewBooktrending.scrollToPosition(0); // Di chuyển đến vị trí đầu tiên
-                }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                BooksModel booksModel = snapshot.getValue(BooksModel.class);
-                if (booksModel != null) {
-                    for (int i = 0; i < mListBooks.size(); i++) {
-                        if (booksModel.getId() == mListBooks.get(i).getId()) {
-                            mListBooks.set(i, booksModel);
-                            booksAdapter.notifyItemChanged(i); // Cập nhật item thay đổi
-                            break;
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                BooksModel booksModel = snapshot.getValue(BooksModel.class);
-                if (booksModel != null) {
-                    for (int i = 0; i < mListBooks.size(); i++) {
-                        if (booksModel.getId() == mListBooks.get(i).getId()) {
-                            mListBooks.remove(i);
-                            booksAdapter.notifyItemRemoved(i); // Xóa item khỏi danh sách
-                            break;
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                // Xử lý khi có sự di chuyển dữ liệu
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Xử lý khi có lỗi xảy ra trong quá trình truy vấn dữ liệu
             }
         });
     }

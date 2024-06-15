@@ -30,11 +30,14 @@ public class BooksAdapter extends  RecyclerView.Adapter<BooksAdapter.BookViewHol
         this.mlistBooks = mlistBooks;
         this.mInterfaceClickListener = mInterfaceClickListener;
     }
-
+    public void setBooksList(List<BooksModel> booksList) {
+        this.mlistBooks = booksList;
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public BookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.books_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.books_item_horizontal, parent, false);
         return new BookViewHolder(view);
     }
 
