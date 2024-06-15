@@ -48,14 +48,18 @@ public class ScienceTypeFragment extends Fragment {
         );
 
         recyclerViewScience.setAdapter(booksAdapterScience);
-        recyclerViewScience.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        //Chia cột
+        recyclerViewScience.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
+        // Call method to get data from Firebase Realtime Database
         getListRealtimeDTB();
     }
 
     private void getListRealtimeDTB() {
         DatabaseReference myRef = database.getReference("books");
-        Query query = myRef.orderByChild("categoryId").equalTo(2);
+
+        // Update the query condition to fetch books of category "Khoa học"
+        Query query = myRef.orderByChild("type").equalTo("Khoa học");
 
         query.addChildEventListener(new ChildEventListener() {
             @Override
