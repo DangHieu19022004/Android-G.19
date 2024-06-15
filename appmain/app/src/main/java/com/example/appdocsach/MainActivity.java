@@ -1,6 +1,7 @@
 package com.example.appdocsach;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -84,6 +85,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+    }
+    //Ẩn khi tìm kiếm
+    public void hideBottomNavigationView() {
+        bottomNavigationView.setVisibility(View.GONE);
+    }
+    //Hiện khi không tìm kiếm được
+    public void showBottomNavigationView() {
+        bottomNavigationView.setVisibility(View.VISIBLE);
     }
 }

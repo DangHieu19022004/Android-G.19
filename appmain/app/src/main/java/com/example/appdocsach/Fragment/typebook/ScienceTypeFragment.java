@@ -27,29 +27,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScienceTypeFragment extends Fragment {
+
     private RecyclerView recyclerViewScience;
+<<<<<<< HEAD
     private BooksAdapterVertical booksAdapterVerticalScience;
     List<BooksModel>  mListBookScience;
+=======
+    private BooksAdapter booksAdapterScience;
+    private List<BooksModel> mListBookScience;
+>>>>>>> origin/Trung_2251061905
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_science_type, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // Mapping view
         recyclerViewScience = view.findViewById(R.id.recyclerViewScience);
-        //
 
-        //declare list book
         mListBookScience = new ArrayList<>();
-        //
+        booksAdapterScience = new BooksAdapter(getContext(), mListBookScience, books ->
+                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show()
+        );
 
+<<<<<<< HEAD
         //show to screen
         booksAdapterVerticalScience = new BooksAdapterVertical(mListBookScience, new BooksAdapterVertical.IClickListener() {
             @Override
@@ -59,36 +63,45 @@ public class ScienceTypeFragment extends Fragment {
         });
         recyclerViewScience.setAdapter(booksAdapterVerticalScience);
         //
+=======
+        recyclerViewScience.setAdapter(booksAdapterScience);
+        //Chia cột
+        recyclerViewScience.setLayoutManager(new GridLayoutManager(getContext(), 3));
+>>>>>>> origin/Trung_2251061905
 
-        //show to screen
-        recyclerViewScience.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        //
-
-        // call method get dtb
+        // Call method to get data from Firebase Realtime Database
         getListRealtimeDTB();
     }
 
     private void getListRealtimeDTB() {
         DatabaseReference myRef = database.getReference("books");
 
+        // Update the query condition to fetch books of category "Khoa học"
         Query query = myRef.orderByChild("type").equalTo("Khoa học");
+
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
-                if(booksModel != null){
+                if (booksModel != null) {
                     mListBookScience.add(booksModel);
+<<<<<<< HEAD
 
                     booksAdapterVerticalScience.setBooksList(mListBookScience); //reset adapter
 
+=======
+                    booksAdapterScience.notifyDataSetChanged();
+>>>>>>> origin/Trung_2251061905
                 }
             }
+
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
-                if(booksModel == null || mListBookScience == null || mListBookScience.isEmpty()){return;}
-                for(int i =0; i<mListBookScience.size(); i++){
-                    if(booksModel.getId() == mListBookScience.get(i).getId()){
+                if (booksModel == null) return;
+
+                for (int i = 0; i < mListBookScience.size(); i++) {
+                    if (booksModel.getId().equals(mListBookScience.get(i).getId())) {
                         mListBookScience.set(i, booksModel);
                         break;
                     }
@@ -99,6 +112,7 @@ public class ScienceTypeFragment extends Fragment {
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
+<<<<<<< HEAD
                 if(booksModel == null || mListBookScience == null || mListBookScience.isEmpty()){return;}
                 for(int i =0; i<mListBookScience.size(); i++){
                     if(booksModel.getId() == mListBookScience.get(i).getId()){
@@ -107,17 +121,25 @@ public class ScienceTypeFragment extends Fragment {
                     }
                 }
                 booksAdapterVerticalScience.notifyDataSetChanged();
+=======
+                if (booksModel == null) return;
+
+                mListBookScience.removeIf(book -> book.getId().equals(booksModel.getId()));
+                booksAdapterScience.notifyDataSetChanged();
+>>>>>>> origin/Trung_2251061905
             }
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                // Not needed for this implementation
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                // Handle error
             }
         });
     }
 }
+
+

@@ -5,30 +5,36 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.appdocsach.R;
+import com.example.appdocsach.model.BooksModel;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class BookDetailActivity extends AppCompatActivity {
 
     ImageView threeDotsButton;
     Button btnstartreadDetail;
+    LinearLayout likeDetail, dislikeDetail;
+    private FirebaseDatabase database;
+    private BooksModel currentBook;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_book_detail);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        database = FirebaseDatabase.getInstance();
 
         mapping();
 
@@ -50,6 +56,57 @@ public class BookDetailActivity extends AppCompatActivity {
                 startActivity(it);
             }
         });
+
+        // Xử lý sự kiện khi nhấn nút like và dislike
+        likeDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(BookDetailActivity.this, "Liked!", Toast.LENGTH_SHORT).show();
+                changeButtonColor(likeDetail);
+                int currentLikes = currentBook.getLike();
+                currentBook.setLike(currentLikes + 1);
+                // Update Firebase with the new likeCount
+                updateLikeCountInFirebase(currentBook.getId(), currentBook.getLike());
+            }
+        });
+
+        dislikeDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(BookDetailActivity.this, "Disliked!", Toast.LENGTH_SHORT).show();
+                changeButtonColor(dislikeDetail);
+                int currentLikes = currentBook.getLike();
+                currentBook.setLike(Math.max(currentLikes - 1, 0)); // Ensure likes don't go negative
+                // Update Firebase with the new likeCount
+                updateLikeCountInFirebase(currentBook.getId(), currentBook.getLike());
+            }
+        });
+    }
+
+    private void updateLikeCountInFirebase(String bookId, int likeCount) {
+        DatabaseReference booksRef = database.getReference("books").child(bookId).child("likeCount");
+        booksRef.setValue(likeCount)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Handle successful update (if needed)
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Handle failed update
+                        Toast.makeText(BookDetailActivity.this, "Failed to update like count: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+
+    //Đổi màu khi nhấn nút
+    private void changeButtonColor(LinearLayout buttonLayout) {
+        ImageView imageView = (ImageView) buttonLayout.getChildAt(0);
+        // Đổi màu
+        imageView.setColorFilter(getResources().getColor(R.color.colorGreen));
     }
 
     private void showPopupmenu() {
@@ -60,5 +117,10 @@ public class BookDetailActivity extends AppCompatActivity {
     private void mapping(){
         threeDotsButton = findViewById(R.id.threeDotsButton);
         btnstartreadDetail = findViewById(R.id.btnstartreadDetail);
+        likeDetail = findViewById(R.id.likeDetail);
+        dislikeDetail = findViewById(R.id.dislikeDetail);
+
+        currentBook = new BooksModel();
+        currentBook.setLike(0);
     }
 }

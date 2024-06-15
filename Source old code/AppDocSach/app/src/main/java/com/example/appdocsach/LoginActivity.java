@@ -2,6 +2,7 @@ package com.example.appdocsach;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -11,9 +12,6 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -41,14 +39,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
-        Button loginButton = findViewById(R.id.button);
-        EditText editText = findViewById(R.id.editTextText3);
+        Button loginButton = findViewById(R.id.Login);
+        EditText editText = findViewById(R.id.username);
 
         loginButton.setOnClickListener(v -> {
             String username = editText.getText().toString();
@@ -58,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         });
 
-        TextView text = findViewById(R.id.textView4);
+        TextView text = findViewById(R.id.SignUp);
         text.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, SignUpActivity.class)));
 
         //Facebook
@@ -85,18 +78,16 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
 
-        fbBtn = findViewById(R.id.imageView20);
+        fbBtn = findViewById(R.id.facebook);
         fbBtn.setOnClickListener(v -> {
             //login by facebook
             signInWithFacebook();
         });
 
         //Google
-        googleBtn = findViewById(R.id.imageView22);
-        googleBtn.setOnClickListener(v -> {
-            //login by google
-            signInWithGoogle();
-        });
+        googleBtn = findViewById(R.id.google);
+        googleBtn.setOnClickListener(v -> signInWithGoogle());
+
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, gso);
     }
@@ -120,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         //Login google
-        if(requestCode == 1000){
+        if (requestCode == 1000) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
@@ -129,9 +120,11 @@ public class LoginActivity extends AppCompatActivity {
                     intent.putExtra("USERNAME", account.getDisplayName());
                     intent.putExtra("EMAIL", account.getEmail());
                     startActivity(intent);
+                    finish();
                 }
             } catch (ApiException e) {
-                Toast.makeText(getApplication(),  "Something went wrong", Toast.LENGTH_SHORT).show();
+                Log.w("SignIn", "signInResult:failed code=" + e.getStatusCode());
+                Toast.makeText(getApplication(), "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         }
     }

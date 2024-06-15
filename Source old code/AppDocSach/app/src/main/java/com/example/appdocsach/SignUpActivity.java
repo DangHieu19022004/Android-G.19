@@ -12,7 +12,7 @@ public class SignUpActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        Button signUpButton = findViewById(R.id.button8);
+        Button signUpButton = findViewById(R.id.SignUp);
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

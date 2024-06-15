@@ -22,25 +22,25 @@
 
         <EditText
             android:id="@+id/edName"
-            android:layout_width="340dp"
+            android:layout_width="331dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="50dp"
             android:background="@drawable/custom_input"
             android:ems="10"
-            android:hint="Name"
+            android:hint="UserName"
             android:inputType="text"
             android:padding="10dp" />
 
         <EditText
-            android:id="@+id/edUsername"
+            android:id="@+id/edUseremail"
             android:layout_width="340dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="120dp"
             android:background="@drawable/custom_input"
             android:ems="10"
-            android:hint="Username"
+            android:hint="Email"
             android:inputType="text"
             android:padding="10dp" />
 

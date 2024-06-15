@@ -1,0 +1,58 @@
+[
+    {
+        "merged": "com.example.appdocsach.app-mergeDebugResources-45:/layout/activity_user.xml",
+        "source": "com.example.appdocsach.app-main-48:/layout/activity_user.xml"
+    },
+    {
+        "merged": "com.example.appdocsach.app-mergeDebugResources-45:/layout/fragment_all_type.xml",
+        "source": "com.example.appdocsach.app-main-48:/layout/fragment_all_type.xml"
+    },
+    {
+        "merged": "com.example.appdocsach.app-mergeDebugResources-45:/layout/fragment_contact.xml",
+        "source": "com.example.appdocsach.app-main-48:/layout/fragment_contact.xml"
+    },
+    {
+        "merged": "com.example.appdocsach.app-mergeDebugResources-45:/layout/fragment_novel_type.xml",
+        "source": "com.example.appdocsach.app-main-48:/layout/fragment_novel_type.xml"
+    },
+    {
+        "merged": "com.example.appdocsach.app-mergeDebugResources-45:/layout/activity_setting.xml",
+        "source": "com.example.appdocsach.app-main-48:/layout/activity_setting.xml"
+    },
+    {
+        "merged": "com.example.appdocsach.app-mergeDebugResources-45:/layout/fragment_history_type.xml",
+        "source": "com.example.appdocsach.app-main-48:/layout/fragment_history_type.xml"
+    },
+    {
+        "merged": "com.example.appdocsach.app-mergeDebugResources-45:/layout/fragment_news.xml",
+        "source": "com.example.appdocsach.app-main-48:/layout/fragment_news.xml"
+    },
+    {
+        "merged": "com.example.appdocsach.app-mergeDebugResources-45:/layout/activity_start.xml",
+        "source": "com.example.appdocsach.app-main-48:/layout/activity_start.xml"
+    },
+    {
+        "merged": "com.example.appdocsach.app-mergeDebugResources-45:/layout/activity_homepage.xml",
+        "source": "com.example.appdocsach.app-main-48:/layout/activity_homepage.xml"
+    },
+    {
+        "merged": "com.example.appdocsach.app-mergeDebugResources-45:/layout/fragment_mental_type.xml",
+        "source": "com.example.appdocsach.app-main-48:/layout/fragment_mental_type.xml"
+    },
+    {
+        "merged": "com.example.appdocsach.app-mergeDebugResources-45:/layout/fragment_culture_type.xml",
+        "source": "com.example.appdocsach.app-main-48:/layout/fragment_culture_type.xml"
+    },
+    {
+        "merged": "com.example.appdocsach.app-mergeDebugResources-45:/layout/activity_sign_up.xml",
+        "source": "com.example.appdocsach.app-main-48:/layout/activity_sign_up.xml"
+    },
+    {
+        "merged": "com.example.appdocsach.app-mergeDebugResources-45:/layout/fragment_science_type.xml",
+        "source": "com.example.appdocsach.app-main-48:/layout/fragment_science_type.xml"
+    },
+    {
+        "merged": "com.example.appdocsach.app-mergeDebugResources-45:/layout/activity_login.xml",
+        "source": "com.example.appdocsach.app-main-48:/layout/activity_login.xml"
+    }
+]

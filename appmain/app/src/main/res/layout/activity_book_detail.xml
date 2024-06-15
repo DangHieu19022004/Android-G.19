@@ -79,13 +79,14 @@
                 android:src="@drawable/likeicon" />
 
             <TextView
-                android:textSize="@dimen/nameSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/like" />
+                android:text="@string/like"
+                android:textSize="@dimen/nameSize" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/dislikeDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -94,8 +95,9 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:padding="@dimen/pdfiximg"
                 style="@style/IconDetailLike"
+                android:layout_height="73dp"
+                android:padding="@dimen/pdfiximg"
                 android:src="@drawable/dislikeicon" />
 
             <TextView

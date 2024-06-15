@@ -1,22 +1,35 @@
 package com.example.appdocsach.Fragment.options;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.appdocsach.Adapter.viewpagerTypeBookAdapter;
+import com.example.appdocsach.model.BooksModel;
+import com.example.appdocsach.model.Database;
+import com.example.appdocsach.MainActivity;
 import com.example.appdocsach.R;
 import com.example.appdocsach.widget.CustomViewPager;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.text.Normalizer;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class HomeFragment extends Fragment {
-
     private TabLayout tabLayout;
     private CustomViewPager viewPager;
     private View mview;
@@ -25,6 +38,10 @@ public class HomeFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+    private Database database;
+
+    // Danh sách sách từ file database.json
+    private List<BooksModel> bookList;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -56,6 +73,11 @@ public class HomeFragment extends Fragment {
 
         tabLayout = mview.findViewById(R.id.tablayoutMain);
         viewPager = mview.findViewById(R.id.viewpageType);
+        EditText searchInput = mview.findViewById(R.id.search_input);
+        ImageView searchIcon = mview.findViewById(R.id.search_icon);
+
+        database = new Database();
+        loadBooksFromJson();
 
         viewpagerTypeBookAdapter optionadapter = new viewpagerTypeBookAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(optionadapter);
@@ -63,6 +85,83 @@ public class HomeFragment extends Fragment {
 
         tabLayout.setupWithViewPager(viewPager);
 
+        //Hiện edittext khi nhấn vào icon
+        searchIcon.setOnClickListener(v -> {
+            if (searchInput.getVisibility() == View.GONE) {
+                searchInput.setVisibility(View.VISIBLE);
+            } else {
+                searchInput.setVisibility(View.GONE);
+                searchInput.setText("");
+            }
+        });
+
+        //Xử lý tìm kiếm
+        searchInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                MainActivity mainActivity = (MainActivity) getActivity();
+                mainActivity.hideBottomNavigationView();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    if (mainActivity != null) {
+                        mainActivity.hideBottomNavigationView();
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Nếu không có văn bản nào, hiển thị lại BottomNavigationView
+                if (s.length() == 0) {
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    if (mainActivity != null) {
+                        mainActivity.showBottomNavigationView();
+                    }
+                }
+                //Tìm kiếm theo tiêu đề
+                List<BooksModel> filteredList = searchBooks(s.toString());
+                if (filteredList.isEmpty()) {
+                    Toast.makeText(getContext(), "No data found", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Hiển thị danh sách kết quả
+                    for (BooksModel book : filteredList){
+                        Toast.makeText(getContext(), book.getTitle(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
         return mview;
+    }
+
+    // Hàm tìm kiếm sách dựa trên tiêu đề
+    private List<BooksModel> searchBooks(String searchText) {
+        String normalizedSearchText = normalizeText(searchText.trim().toLowerCase());
+
+        List<BooksModel> filteredList = new ArrayList<>();
+        for (BooksModel book : database.getBookList()) {
+            String normalizedTitle = normalizeText(book.getTitle().toLowerCase());
+            if (normalizedTitle.contains(normalizedSearchText)) {
+                filteredList.add(book);
+            }
+        }
+        return filteredList;
+    }
+    private String normalizeText(String text) {
+        return Normalizer.normalize(text, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+    }
+
+
+    private void loadBooksFromJson() {
+
+        InputStream inputStream = getResources().openRawResource(R.raw.database);
+        Gson gson = new Gson();
+        InputStreamReader reader = new InputStreamReader(inputStream);
+
+        // Đọc dữ liệu từ JSON vào đối tượng Database
+        database = gson.fromJson(reader, Database.class);
     }
 }

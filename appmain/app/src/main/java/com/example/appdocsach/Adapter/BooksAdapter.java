@@ -1,10 +1,13 @@
 package com.example.appdocsach.Adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,29 +16,33 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.List;
 
 public class BooksAdapter extends  RecyclerView.Adapter<BooksAdapter.BookViewHolder>{
-
+    private Context context;
     private List<BooksModel> mlistBooks;
     private IClickListener mInterfaceClickListener;
 
     public interface IClickListener{
         void onClickReadItemBook(BooksModel books);
     }
-    public BooksAdapter(List<BooksModel> mlistBooks, IClickListener mInterfaceClickListener) {
+    public BooksAdapter(Context context, List<BooksModel> mlistBooks, IClickListener mInterfaceClickListener) {
+        this.context = context;
         this.mlistBooks = mlistBooks;
         this.mInterfaceClickListener = mInterfaceClickListener;
     }
+
     public void setBooksList(List<BooksModel> booksList) {
         this.mlistBooks = booksList;
         notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public BookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.books_item_horizontal, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.books_item, parent, false);
         return new BookViewHolder(view);
     }
 
@@ -44,9 +51,11 @@ public class BooksAdapter extends  RecyclerView.Adapter<BooksAdapter.BookViewHol
         BooksModel booksModel = mlistBooks.get(position);
         if(booksModel == null){return;}
 
-        Glide.with(holder.imageViewItem.getContext())
-                .load(booksModel.getImg())
-                .into(holder.imageViewItem);
+            Glide.with(holder.imageViewItem.getContext())
+                    .load(booksModel.getImg())
+                    .load("https://firebasestorage.googleapis.com/v0/b/appdocsach-18d2f.appspot.com/o/Image%2FScreenshot%202024-06-11%20001954.png?alt=media&token=a3dd5fc6-1ea2-45a6-b8b0-5a85e9d453aa")
+                    .into(holder.imageViewItem);
+
         holder.title.setText(booksModel.getTitle());
         holder.view.setText(String.valueOf(booksModel.getView()));
         holder.gravlv.setOnClickListener(new View.OnClickListener() {
@@ -70,13 +79,14 @@ public class BooksAdapter extends  RecyclerView.Adapter<BooksAdapter.BookViewHol
     class BookViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView imageViewItem;
-        private TextView title, view;
+        private TextView title, category, view;
         private LinearLayout gravlv;
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imageViewItem = itemView.findViewById(R.id.book_image);
             title = itemView.findViewById(R.id.book_title);
+            category = itemView.findViewById(R.id.book_category);
             view = itemView.findViewById(R.id.book_views);
             gravlv = itemView.findViewById(R.id.gravItemBook);
 

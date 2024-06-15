@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Login"
         tools:targetApi="31">
         <activity
+            android:name=".Setting"
+            android:exported="false" />
+        <activity
             android:name=".UserActivity"
             android:exported="false" />
 
