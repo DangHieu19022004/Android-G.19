@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.appdocsach.Adapter.BooksAdapter;
+import com.example.appdocsach.Adapter.BooksAdapterHorizontal;
 import com.example.appdocsach.Adapter.viewpagerSlide;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
@@ -33,7 +33,7 @@ public class AllTypeFragment extends Fragment {
     private ViewPager viewPagerSlide;
     private CircleIndicator circleIndicatorSlide;
     private viewpagerSlide viewpagerSlideAdapter;
-    private BooksAdapter booksAdapter;
+    private BooksAdapterHorizontal booksAdapter;
     private RecyclerView recyclerViewBooktrending, recyclerViewFavorite;
     List<BooksModel> mListBooks;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -60,14 +60,14 @@ public class AllTypeFragment extends Fragment {
         List<BooksModel> mListFavoriteBooks = new ArrayList<>();
 
         //show to screen
-        booksAdapter = new BooksAdapter(getContext(), mListBooks, new BooksAdapter.IClickListener() {
+        booksAdapter = new BooksAdapterHorizontal(getContext(), mListBooks, new BooksAdapterHorizontal.IClickListener() {
             @Override
             public void onClickReadItemBook(BooksModel books) {
                 Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
             }
         });
 
-        BooksAdapter favoriteBooksAdapter = new BooksAdapter(getContext(), mListFavoriteBooks, new BooksAdapter.IClickListener() { // New
+        BooksAdapterHorizontal favoriteBooksAdapter = new BooksAdapterHorizontal(getContext(), mListFavoriteBooks, new BooksAdapterHorizontal.IClickListener() { // New
             @Override
             public void onClickReadItemBook(BooksModel books) {
                 Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
@@ -107,7 +107,7 @@ public class AllTypeFragment extends Fragment {
         getTopLikedBooks(mListFavoriteBooks, favoriteBooksAdapter);
     }
 
-    private void getTopLikedBooks(List<BooksModel> listFavoriteBooks, BooksAdapter favoriteBooksAdapter) {
+    private void getTopLikedBooks(List<BooksModel> listFavoriteBooks, BooksAdapterHorizontal favoriteBooksAdapter) {
         DatabaseReference booksRef = database.getReference("books").orderByChild("like").limitToLast(10).getRef(); // Giới hạn số lượng sách lấy về
         booksRef.addChildEventListener(new ChildEventListener() {
             @Override

@@ -37,6 +37,16 @@
             android:textAlignment="center"
             tools:text="Book Title with long text that may exceed the width of the TextView" />
 
+        <TextView
+            android:id="@+id/book_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            android:textAlignment="center"
+            tools:text="Category Name" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">

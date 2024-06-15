@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appdocsach.Adapter.BooksAdapter;
+import com.example.appdocsach.Adapter.BooksAdapterVertical;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
 import com.google.firebase.database.ChildEventListener;
@@ -28,7 +28,7 @@ import java.util.List;
 public class ForeignLanguageTypeFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private BooksAdapter booksAdapter;
+    private BooksAdapterVertical booksAdapter;
     private List<BooksModel> mListBook;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -44,7 +44,7 @@ public class ForeignLanguageTypeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
 
         mListBook = new ArrayList<>();
-        booksAdapter = new BooksAdapter(getContext(), mListBook, books ->
+        booksAdapter = new BooksAdapterVertical(getContext(), mListBook, books ->
                 Toast.makeText(getContext(), "Click on: " + books.getTitle(), Toast.LENGTH_SHORT).show()
         );
 

@@ -26,4 +26,17 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5"
         tools:layout_editor_absoluteX="16dp" />
 
+    <TextView
+        android:layout_marginTop="@dimen/contentSize"
+        android:id="@+id/lastesttextcontent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/no_content"
+        android:textColor="@color/backgroundSlide"
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewCook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="DuplicateIds" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

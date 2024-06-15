@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appdocsach.Adapter.BooksAdapter;
+import com.example.appdocsach.Adapter.BooksAdapterVertical;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
 import com.google.firebase.database.ChildEventListener;
@@ -28,7 +28,7 @@ import java.util.List;
 public class NovelTypeFragment extends Fragment {
 
     private RecyclerView recyclerViewNovel;
-    private BooksAdapter booksAdapterNovel;
+    private BooksAdapterVertical booksAdapterNovel;
     private List<BooksModel> mListBookNovel;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -43,7 +43,7 @@ public class NovelTypeFragment extends Fragment {
         recyclerViewNovel = view.findViewById(R.id.recyclerViewNovel);
 
         mListBookNovel = new ArrayList<>();
-        booksAdapterNovel = new BooksAdapter(getContext(), mListBookNovel, books ->
+        booksAdapterNovel = new BooksAdapterVertical(getContext(), mListBookNovel, books ->
                 Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show()
         );
 

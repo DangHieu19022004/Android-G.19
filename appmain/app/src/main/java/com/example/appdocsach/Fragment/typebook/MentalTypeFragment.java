@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appdocsach.Adapter.BooksAdapter;
+import com.example.appdocsach.Adapter.BooksAdapterVertical;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
 import com.google.firebase.database.ChildEventListener;
@@ -23,19 +23,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class MentalTypeFragment extends Fragment {
 
     private RecyclerView recyclerViewMental;
-    private BooksAdapter booksAdapterMental;
+    private BooksAdapterVertical booksAdapterMental;
     private List<BooksModel> mListBookMental;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_mental_type, container, false);
     }
 
@@ -45,12 +43,12 @@ public class MentalTypeFragment extends Fragment {
         recyclerViewMental = view.findViewById(R.id.recyclerViewMental);
 
         mListBookMental = new ArrayList<>();
-        booksAdapterMental = new BooksAdapter(getContext(), mListBookMental, books ->
-                Toast.makeText(getContext(), "Click on: " + books.getTitle(), Toast.LENGTH_SHORT).show()
+        booksAdapterMental = new BooksAdapterVertical(getContext(), mListBookMental, books ->
+                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show()
         );
 
-        recyclerViewMental.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerViewMental.setAdapter(booksAdapterMental);
+        recyclerViewMental.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
         // Call method to get data from Firebase Realtime Database
         getListRealtimeMental();
@@ -91,14 +89,7 @@ public class MentalTypeFragment extends Fragment {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
                 if (booksModel == null) return;
 
-                Iterator<BooksModel> iterator = mListBookMental.iterator();
-                while (iterator.hasNext()) {
-                    BooksModel book = iterator.next();
-                    if (book.getId().equals(booksModel.getId())) {
-                        iterator.remove();
-                        break;
-                    }
-                }
+                mListBookMental.removeIf(book -> book.getId().equals(booksModel.getId()));
                 booksAdapterMental.notifyDataSetChanged();
             }
 
