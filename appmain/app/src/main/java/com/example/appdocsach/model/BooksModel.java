@@ -12,7 +12,34 @@ public class BooksModel {
     private int view;
     private int likeCount;
 
-    public BooksModel(String author, int categoryId, String content, String id, String img, String subtitle, String title, int view, int likeCount) {
+    public int getDislikeCount() {
+        return dislikeCount;
+    }
+
+    public void setDislikeCount(int dislikeCount) {
+        this.dislikeCount = dislikeCount;
+    }
+
+    private int dislikeCount;
+    private String day;
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public BooksModel(String author, int categoryId, String content, String id, String img, String subtitle, String title, int view, int likeCount, int dislikeCount, String day) {
         this.author = author;
         this.categoryId = categoryId;
         this.content = content;
@@ -22,6 +49,8 @@ public class BooksModel {
         this.title = title;
         this.view = view;
         this.likeCount = likeCount;
+        this.dislikeCount = dislikeCount;
+        this.day = day;
     }
 
     public BooksModel() {

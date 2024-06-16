@@ -96,7 +96,7 @@
 
             <ImageView
                 style="@style/IconDetailLike"
-                android:layout_height="73dp"
+                android:layout_height="80dp"
                 android:padding="@dimen/pdfiximg"
                 android:src="@drawable/dislikeicon" />
 
