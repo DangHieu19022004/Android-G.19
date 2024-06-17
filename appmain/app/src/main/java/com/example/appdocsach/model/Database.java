@@ -1,78 +1,63 @@
 package com.example.appdocsach.model;
 
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Database {
-    private List<BooksModel> bookList;
-    private List<category> categoryList;
+    private FirebaseFirestore db;
+    private CollectionReference booksRef;
 
     public Database() {
-        this.bookList = new ArrayList<>();
-        this.categoryList = new ArrayList<>();
+        db = FirebaseFirestore.getInstance();
+        booksRef = db.collection("books");
     }
 
-    // Hàm đọc dữ liệu từ tệp JSON
-    public void loadBooksFromJson(InputStream inputStream) {
-        try {
-            Gson gson = new Gson();
-            JsonReader reader = new JsonReader(new InputStreamReader(inputStream));
-
-            // Đọc dữ liệu vào đối tượng Database
-            Database database = gson.fromJson(reader, Database.class);
-
-            // Sao chép danh sách sách từ đối tượng Database vào danh sách của lớp hiện tại
-            this.bookList = database.bookList;
-            this.categoryList = database.categoryList;
-
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Hàm tìm kiếm sách dựa trên tiêu đề
-    public List<BooksModel> searchBooksByTitle(String searchText) {
+    // Function to search books by title
+    public void searchBooksByTitle(String searchText, final OnSearchCompleteListener listener) {
         List<BooksModel> filteredList = new ArrayList<>();
-        for (BooksModel book : bookList) {
-            if (book.getTitle().toLowerCase().contains(searchText.toLowerCase())) {
-                filteredList.add(book);
+        String searchTextLower = searchText.toLowerCase();
+        Query query = booksRef.orderBy("title");
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot document : task.getResult()) {
+                        BooksModel book = document.toObject(BooksModel.class);
+                        // Check if the title contains any part of searchText (case-insensitive)
+                        if (normalizeString(book.getTitle()).contains(normalizeString(searchTextLower))) {
+                            filteredList.add(book);
+                        }
+                    }
+                    listener.onSearchComplete(filteredList);
+                } else {
+                    listener.onSearchError(task.getException().getMessage());
+                }
             }
-        }
-        return filteredList;
+        });
     }
 
-    // Hàm tìm kiếm sách dựa trên thể loại
-    public List<BooksModel> getBooksByCategory(int categoryId) {
-        List<BooksModel> filteredList = new ArrayList<>();
-        for (BooksModel book : bookList) {
-            if (book.getCategoryId() == categoryId) {
-                filteredList.add(book);
-            }
-        }
-        return filteredList;
+
+    private String normalizeString(String s) {
+        return Normalizer.normalize(s, Normalizer.Form.NFD)
+                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
+                .toLowerCase();
     }
 
-    // Getters và setters cho danh sách sách và danh sách thể loại
-    public List<BooksModel> getBookList() {
-        return bookList;
-    }
-
-    public void setBookList(List<BooksModel> bookList) {
-        this.bookList = bookList;
-    }
-
-    public List<category> getCategoryList() {
-        return categoryList;
-    }
-
-    public void setCategoryList(List<category> categoryList) {
-        this.categoryList = categoryList;
+    // Interface for search completion listener
+    public interface OnSearchCompleteListener {
+        void onSearchComplete(List<BooksModel> books);
+        void onSearchError(String error);
     }
 }
+
+
