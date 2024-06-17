@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.appdocsach.Adapter.BooksAdapterHorizontal;
+
+import com.example.appdocsach.Adapter.BooksAdapter;
+
 import com.example.appdocsach.Adapter.viewpagerSlide;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
@@ -33,8 +35,8 @@ public class AllTypeFragment extends Fragment {
     private ViewPager viewPagerSlide;
     private CircleIndicator circleIndicatorSlide;
     private viewpagerSlide viewpagerSlideAdapter;
-    private BooksAdapterHorizontal booksAdapter;
-    private RecyclerView recyclerViewBooktrending, recyclerViewFavorite;
+    private BooksAdapter booksAdapter;
+    private RecyclerView recyclerViewBooktrending;
     List<BooksModel> mListBooks;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -53,37 +55,27 @@ public class AllTypeFragment extends Fragment {
         viewPagerSlide = view.findViewById(R.id.viewpagerSlide);
         circleIndicatorSlide = view.findViewById(R.id.circleindicatorSlide);
         recyclerViewBooktrending = view.findViewById(R.id.recyclerViewTrending);
-        recyclerViewFavorite = view.findViewById(R.id.recyclerViewFavorite);
+
+        //
 
         //declare list book
         mListBooks = new ArrayList<>();
-        List<BooksModel> mListFavoriteBooks = new ArrayList<>();
+        //
 
         //show to screen
-        booksAdapter = new BooksAdapterHorizontal(getContext(), mListBooks, new BooksAdapterHorizontal.IClickListener() {
+        booksAdapter = new BooksAdapter(getContext(), mListBooks, new BooksAdapter.IClickListener() {
             @Override
             public void onClickReadItemBook(BooksModel books) {
                 Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
             }
         });
-
-        BooksAdapterHorizontal favoriteBooksAdapter = new BooksAdapterHorizontal(getContext(), mListFavoriteBooks, new BooksAdapterHorizontal.IClickListener() { // New
-            @Override
-            public void onClickReadItemBook(BooksModel books) {
-                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
-            }
-        });
-
 
         recyclerViewBooktrending.setAdapter(booksAdapter);
-        recyclerViewFavorite.setAdapter(favoriteBooksAdapter);
 
         //show horizontal recycleview
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewBooktrending.setLayoutManager(horizontalLayoutManager);
 
-        LinearLayoutManager favoriteLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false); // New
-        recyclerViewFavorite.setLayoutManager(favoriteLayoutManager);
 
         //create list advance
         List<String> mangquangcao = new ArrayList<>();
@@ -104,19 +96,20 @@ public class AllTypeFragment extends Fragment {
         getTopViewedBooks();
 
         //Call method to get top liked books
-        getTopLikedBooks(mListFavoriteBooks, favoriteBooksAdapter);
+        getTopLikedBooks();
     }
 
-    private void getTopLikedBooks(List<BooksModel> listFavoriteBooks, BooksAdapterHorizontal favoriteBooksAdapter) {
+    private void getTopLikedBooks() {
         DatabaseReference booksRef = database.getReference("books").orderByChild("like").limitToLast(10).getRef(); // Giới hạn số lượng sách lấy về
         booksRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
+
                 if (booksModel != null) {
-                    listFavoriteBooks.add(0, booksModel);
-                    favoriteBooksAdapter.notifyItemInserted(listFavoriteBooks.size() - 1);
-                    recyclerViewFavorite.scrollToPosition(listFavoriteBooks.size() - 1);
+                    mListBooks.add(0, booksModel);
+                    booksAdapter.notifyItemInserted(mListBooks.size() - 1);
+                    recyclerViewBooktrending.scrollToPosition(mListBooks.size() - 1);
                 }
             }
 
@@ -124,24 +117,25 @@ public class AllTypeFragment extends Fragment {
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
                 if (booksModel != null) {
-                    for (int i = 0; i < listFavoriteBooks.size(); i++) {
-                        if (booksModel.getId().equals(listFavoriteBooks.get(i).getId())) {
-                            listFavoriteBooks.set(i, booksModel);
-                            favoriteBooksAdapter.notifyItemChanged(i);
+                    for (int i = 0; i < mListBooks.size(); i++) {
+                        if (booksModel.getId() == mListBooks.get(i).getId()) {
+                            mListBooks.set(i, booksModel);
+                            booksAdapter.notifyItemChanged(i);
                             break;
                         }
                     }
                 }
+
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
                 if (booksModel != null) {
-                    for (int i = 0; i < listFavoriteBooks.size(); i++) {
-                        if (booksModel.getId().equals(listFavoriteBooks.get(i).getId())) {
-                            listFavoriteBooks.remove(i);
-                            favoriteBooksAdapter.notifyItemRemoved(i);
+                    for (int i = 0; i < mListBooks.size(); i++) {
+                        if (booksModel.getId() == mListBooks.get(i).getId()) {
+                            mListBooks.remove(i);
+                            booksAdapter.notifyItemRemoved(i);
                             break;
                         }
                     }
@@ -159,7 +153,6 @@ public class AllTypeFragment extends Fragment {
             }
         });
     }
-
 
     private void getTopViewedBooks() {
         DatabaseReference myRef = database.getReference("books").orderByChild("view").getRef();

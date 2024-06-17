@@ -23,11 +23,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
+<<<<<<< HEAD
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewScience"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/lastesttextcontent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/texttest"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:layout_marginTop="@dimen/settingicon"
+            android:id="@+id/lastesttextcontent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/no_content"
+            android:textColor="@color/backgroundSlide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+=======
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/texttest"
         app:layout_constraintVertical_bias="0.0" />
+>>>>>>> origin/Trung_2251061905
 
     <TextView
         android:layout_marginTop="@dimen/contentSize"

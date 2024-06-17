@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appdocsach.Adapter.BooksAdapterHorizontal;
 import com.example.appdocsach.Adapter.BooksAdapterVertical;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
@@ -28,8 +29,13 @@ import java.util.List;
 public class ScienceTypeFragment extends Fragment {
 
     private RecyclerView recyclerViewScience;
-    private BooksAdapterVertical booksAdapterScience;
+<<<<<<< HEAD
+    private BooksAdapterVertical booksAdapterVerticalScience;
+    List<BooksModel>  mListBookScience;
+=======
+    private BooksAdapter booksAdapterScience;
     private List<BooksModel> mListBookScience;
+>>>>>>> origin/Trung_2251061905
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
@@ -43,13 +49,25 @@ public class ScienceTypeFragment extends Fragment {
         recyclerViewScience = view.findViewById(R.id.recyclerViewScience);
 
         mListBookScience = new ArrayList<>();
-        booksAdapterScience = new BooksAdapterVertical(getContext(), mListBookScience, books ->
+        booksAdapterScience = new BooksAdapter(getContext(), mListBookScience, books ->
                 Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show()
         );
 
+<<<<<<< HEAD
+        //show to screen
+        booksAdapterVerticalScience = new BooksAdapterVertical(mListBookScience, new BooksAdapterVertical.IClickListener() {
+            @Override
+            public void onClickReadItemBook(BooksModel books) {
+                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
+            }
+        });
+        recyclerViewScience.setAdapter(booksAdapterVerticalScience);
+        //
+=======
         recyclerViewScience.setAdapter(booksAdapterScience);
         //Chia cột
         recyclerViewScience.setLayoutManager(new GridLayoutManager(getContext(), 3));
+>>>>>>> origin/Trung_2251061905
 
         // Call method to get data from Firebase Realtime Database
         getListRealtimeDTB();
@@ -67,7 +85,13 @@ public class ScienceTypeFragment extends Fragment {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
                 if (booksModel != null) {
                     mListBookScience.add(booksModel);
+<<<<<<< HEAD
+
+                    booksAdapterVerticalScience.setBooksList(mListBookScience); //reset adapter
+
+=======
                     booksAdapterScience.notifyDataSetChanged();
+>>>>>>> origin/Trung_2251061905
                 }
             }
 
@@ -82,16 +106,27 @@ public class ScienceTypeFragment extends Fragment {
                         break;
                     }
                 }
-                booksAdapterScience.notifyDataSetChanged();
+                booksAdapterVerticalScience.notifyDataSetChanged();
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
+<<<<<<< HEAD
+                if(booksModel == null || mListBookScience == null || mListBookScience.isEmpty()){return;}
+                for(int i =0; i<mListBookScience.size(); i++){
+                    if(booksModel.getId() == mListBookScience.get(i).getId()){
+                        mListBookScience.remove(mListBookScience.get(i));
+                        break;
+                    }
+                }
+                booksAdapterVerticalScience.notifyDataSetChanged();
+=======
                 if (booksModel == null) return;
 
                 mListBookScience.removeIf(book -> book.getId().equals(booksModel.getId()));
                 booksAdapterScience.notifyDataSetChanged();
+>>>>>>> origin/Trung_2251061905
             }
 
             @Override

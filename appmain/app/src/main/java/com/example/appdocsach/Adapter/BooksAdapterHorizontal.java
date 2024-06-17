@@ -1,6 +1,5 @@
 package com.example.appdocsach.Adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,24 +17,21 @@ import com.example.appdocsach.model.BooksModel;
 import java.util.List;
 
 public class BooksAdapterHorizontal extends  RecyclerView.Adapter<BooksAdapterHorizontal.BookViewHolder>{
-    private Context context;
+
     private List<BooksModel> mlistBooks;
     private IClickListener mInterfaceClickListener;
 
     public interface IClickListener{
         void onClickReadItemBook(BooksModel books);
     }
-    public BooksAdapterHorizontal(Context context, List<BooksModel> mlistBooks, IClickListener mInterfaceClickListener) {
-        this.context = context;
+    public BooksAdapterHorizontal(List<BooksModel> mlistBooks, IClickListener mInterfaceClickListener) {
         this.mlistBooks = mlistBooks;
         this.mInterfaceClickListener = mInterfaceClickListener;
     }
-
     public void setBooksList(List<BooksModel> booksList) {
         this.mlistBooks = booksList;
         notifyDataSetChanged();
     }
-
     @NonNull
     @Override
     public BookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -74,14 +70,13 @@ public class BooksAdapterHorizontal extends  RecyclerView.Adapter<BooksAdapterHo
     class BookViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView imageViewItem;
-        private TextView title, category, view;
+        private TextView title, view;
         private LinearLayout gravlv;
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imageViewItem = itemView.findViewById(R.id.book_image);
             title = itemView.findViewById(R.id.book_title);
-            category = itemView.findViewById(R.id.book_category);
             view = itemView.findViewById(R.id.book_views);
             gravlv = itemView.findViewById(R.id.gravItemBook);
 
