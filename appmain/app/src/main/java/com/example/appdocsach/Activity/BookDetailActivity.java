@@ -27,7 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class BookDetailActivity extends AppCompatActivity {
 
     ImageView threeDotsButton, imgDetailBook, backButton;
-    TextView likeDetailCount, dislikeDetailCount, subtitleDetailBook;
+    TextView likeDetailCount, dislikeDetailCount, subtitleDetailBook, headTextDetailBook, ViewCount, authorDetail;
     Button btnstartreadDetail;
     LinearLayout likeDetail, dislikeDetail;
     private FirebaseDatabase database;
@@ -49,7 +49,6 @@ public class BookDetailActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent it = new Intent(BookDetailActivity.this, MainActivity.class);
                 startActivity(it);
             }
@@ -70,6 +69,7 @@ public class BookDetailActivity extends AppCompatActivity {
 
                 // this is demo. need title to show book!!!
                 Intent it = new Intent(BookDetailActivity.this, ReadBookActivity.class);
+                it.putExtra("book_content", currentBook);
                 startActivity(it);
             }
         });
@@ -108,7 +108,10 @@ public class BookDetailActivity extends AppCompatActivity {
                     .into(this.imgDetailBook);
             likeDetailCount.setText(String.valueOf(book.getLike()));
             dislikeDetailCount.setText(String.valueOf(book.getDislikeCount()));
-            subtitleDetailBook.setText(book.getSubtitle());
+            headTextDetailBook.setText(String.valueOf(book.getTitle()));
+            ViewCount.setText(String.valueOf(book.getView()));
+            authorDetail.setText(String.valueOf(book.getAuthor()));
+            subtitleDetailBook.setText(String.valueOf(book.getSubtitle()));
 
             // Lưu sách hiện tại
             currentBook = book;
@@ -156,6 +159,9 @@ public class BookDetailActivity extends AppCompatActivity {
         likeDetailCount = findViewById(R.id.likeDetailCount);
         dislikeDetailCount = findViewById(R.id.dislikeDetailCount);
         subtitleDetailBook = findViewById(R.id.subtitleDetailBook);
+        headTextDetailBook = findViewById(R.id.headTextDetailBook);
+        ViewCount = findViewById(R.id.ViewCount);
+        authorDetail = findViewById(R.id.authorDetail);
         backButton = findViewById(R.id.backButton);
 
         currentBook = new BooksModel();

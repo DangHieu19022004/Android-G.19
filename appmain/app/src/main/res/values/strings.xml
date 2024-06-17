@@ -20,4 +20,6 @@
     <string name="trending_text">Xu hướng</string>
     <string name="new_test">Mới nhất</string>
     <string name="no_content"> Không còn nội dung</string>
+    <string name="view_count">Lượt xem:</string>
+    <string name="author_name">Tác giả: </string>
 </resources>
