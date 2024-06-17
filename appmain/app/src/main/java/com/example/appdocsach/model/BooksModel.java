@@ -1,6 +1,6 @@
 package com.example.appdocsach.model;
-
-public class BooksModel {
+import java.io.Serializable;
+public class BooksModel implements Serializable{
 
     private String author;
     private int categoryId;
@@ -11,7 +11,8 @@ public class BooksModel {
     private String title;
     private int view;
     private int likeCount;
-
+    private int dislikeCount;
+    private String day;
     public int getDislikeCount() {
         return dislikeCount;
     }
@@ -19,10 +20,6 @@ public class BooksModel {
     public void setDislikeCount(int dislikeCount) {
         this.dislikeCount = dislikeCount;
     }
-
-    private int dislikeCount;
-    private String day;
-
     public int getLikeCount() {
         return likeCount;
     }

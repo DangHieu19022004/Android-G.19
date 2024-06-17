@@ -14,6 +14,9 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.example.appdocsach.Fragment.options.HomeFragment;
+import com.example.appdocsach.MainActivity;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -23,7 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class BookDetailActivity extends AppCompatActivity {
 
-    ImageView threeDotsButton;
+    ImageView threeDotsButton, imgDetailBook, backButton;
+    TextView likeDetailCount, dislikeDetailCount, subtitleDetailBook;
     Button btnstartreadDetail;
     LinearLayout likeDetail, dislikeDetail;
     private FirebaseDatabase database;
@@ -37,6 +41,19 @@ public class BookDetailActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
 
         mapping();
+
+        // show book clicked
+        getInfoBookclick();
+
+        // back homepage
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent it = new Intent(BookDetailActivity.this, MainActivity.class);
+                startActivity(it);
+            }
+        });
 
         // click 3 dots to show up menu options
         threeDotsButton.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +100,21 @@ public class BookDetailActivity extends AppCompatActivity {
         });
     }
 
+    private void getInfoBookclick() {
+        BooksModel book = (BooksModel) getIntent().getSerializableExtra("book_data");
+        if (book != null) {
+            Glide.with(this.imgDetailBook.getContext())
+                    .load(book.getImg())
+                    .into(this.imgDetailBook);
+            likeDetailCount.setText(String.valueOf(book.getLike()));
+            dislikeDetailCount.setText(String.valueOf(book.getDislikeCount()));
+            subtitleDetailBook.setText(book.getSubtitle());
+
+            // Lưu sách hiện tại
+            currentBook = book;
+        }
+    }
+
     private void updateLikeCountInFirebase(String bookId, int likeCount) {
         DatabaseReference booksRef = database.getReference("books").child(bookId).child("likeCount");
         booksRef.setValue(likeCount)
@@ -119,6 +151,12 @@ public class BookDetailActivity extends AppCompatActivity {
         btnstartreadDetail = findViewById(R.id.btnstartreadDetail);
         likeDetail = findViewById(R.id.likeDetail);
         dislikeDetail = findViewById(R.id.dislikeDetail);
+        //Hieu - mapping click book
+        imgDetailBook = findViewById(R.id.imgDetailBook);
+        likeDetailCount = findViewById(R.id.likeDetailCount);
+        dislikeDetailCount = findViewById(R.id.dislikeDetailCount);
+        subtitleDetailBook = findViewById(R.id.subtitleDetailBook);
+        backButton = findViewById(R.id.backButton);
 
         currentBook = new BooksModel();
         currentBook.setLike(0);

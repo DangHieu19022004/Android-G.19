@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,11 +97,10 @@ public class AllTypeFragment extends Fragment {
         mangquangcao.add("https://firebasestorage.googleapis.com/v0/b/appdocsach-18d2f.appspot.com/o/slide%2FScreenshot%202024-06-16%20220359.png?alt=media&token=c74186c8-9761-42df-97ad-f6524bd2a26d");
 //        mangquangcao.add("https://firebasestorage.googleapis.com/v0/b/appdocsach-18d2f.appspot.com/o/Image%2FScreenshot%202024-06-11%20000640.png?alt=media&token=3a540cc7-e93e-4895-9973-d47b7ca75be5");
 
+        //show to slide + create circleindicator
         viewpagerSlideAdapter = new viewpagerSlide(getContext(), mangquangcao);
         viewPagerSlide.setAdapter(viewpagerSlideAdapter);
-
         circleIndicatorSlide.setViewPager(viewPagerSlide);
-
         viewpagerSlideAdapter.registerDataSetObserver(circleIndicatorSlide.getDataSetObserver());
 
         // Call method to get top viewed books
@@ -111,17 +111,18 @@ public class AllTypeFragment extends Fragment {
     }
 
     private void showDetailBook(BooksModel books) {
-        Intent it = new Intent(getContext(), BookDetailActivity.class);
-        it.putExtra("author", books.getAuthor());
-        it.putExtra("content", books.getContent());
-        it.putExtra("day", books.getDay());
-        it.putExtra("dislike", books.getDislikeCount());
-        it.putExtra("id", books.getId());
-        it.putExtra("img", books.getImg());
-        it.putExtra("like", books.getLike());
-        it.putExtra("subtitle", books.getSubtitle());
-        it.putExtra("title", books.getTitle());
-        it.putExtra("view", books.getView());
+        Intent it = new Intent(getActivity(), BookDetailActivity.class);
+        it.putExtra("book_data", (Serializable) books); ///make serialize
+//        it.putExtra("author", books.getAuthor());
+//        it.putExtra("content", books.getContent());
+//        it.putExtra("day", books.getDay());
+//        it.putExtra("dislike", books.getDislikeCount());
+//        it.putExtra("id", books.getId());
+//        it.putExtra("img", books.getImg());
+//        it.putExtra("like", books.getLike());
+//        it.putExtra("subtitle", books.getSubtitle());
+//        it.putExtra("title", books.getTitle());
+//        it.putExtra("view", books.getView());
         startActivity(it);
     }
 
