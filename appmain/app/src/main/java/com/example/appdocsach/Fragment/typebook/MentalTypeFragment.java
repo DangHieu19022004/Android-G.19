@@ -43,9 +43,12 @@ public class MentalTypeFragment extends Fragment {
         recyclerViewMental = view.findViewById(R.id.recyclerViewMental);
 
         mListBookMental = new ArrayList<>();
-        booksAdapterMental = new BooksAdapterVertical(getContext(), mListBookMental, books ->
-                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show()
-        );
+        booksAdapterMental = new BooksAdapterVertical( mListBookMental, new BooksAdapterVertical.IClickListener() {
+            @Override
+            public void onClickReadItemBook(BooksModel books) {
+                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         recyclerViewMental.setAdapter(booksAdapterMental);
         recyclerViewMental.setLayoutManager(new GridLayoutManager(getContext(), 3));

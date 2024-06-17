@@ -43,10 +43,12 @@ public class NovelTypeFragment extends Fragment {
         recyclerViewNovel = view.findViewById(R.id.recyclerViewNovel);
 
         mListBookNovel = new ArrayList<>();
-        booksAdapterNovel = new BooksAdapterVertical(getContext(), mListBookNovel, books ->
-                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show()
-        );
-
+        booksAdapterNovel = new BooksAdapterVertical( mListBookNovel, new BooksAdapterVertical.IClickListener() {
+            @Override
+            public void onClickReadItemBook(BooksModel books) {
+                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
+            }
+        });
         recyclerViewNovel.setAdapter(booksAdapterNovel);
         recyclerViewNovel.setLayoutManager(new GridLayoutManager(getContext(), 3));
 

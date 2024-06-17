@@ -44,9 +44,12 @@ public class ForeignLanguageTypeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
 
         mListBook = new ArrayList<>();
-        booksAdapter = new BooksAdapterVertical(getContext(), mListBook, books ->
-                Toast.makeText(getContext(), "Click on: " + books.getTitle(), Toast.LENGTH_SHORT).show()
-        );
+        booksAdapter = new BooksAdapterVertical( mListBook, new BooksAdapterVertical.IClickListener() {
+            @Override
+            public void onClickReadItemBook(BooksModel books) {
+                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         recyclerView.setAdapter(booksAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));

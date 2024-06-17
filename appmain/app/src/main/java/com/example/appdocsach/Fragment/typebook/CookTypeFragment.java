@@ -43,9 +43,12 @@ public class CookTypeFragment extends Fragment {
         recyclerViewCook = view.findViewById(R.id.recyclerViewCook);
 
         mListBookCook = new ArrayList<>();
-        booksAdapterCook = new BooksAdapterVertical(getContext(), mListBookCook, books ->
-                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show()
-        );
+        booksAdapterCook = new BooksAdapterVertical( mListBookCook, new BooksAdapterVertical.IClickListener() {
+            @Override
+            public void onClickReadItemBook(BooksModel books) {
+                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         recyclerViewCook.setAdapter(booksAdapterCook);
         recyclerViewCook.setLayoutManager(new GridLayoutManager(getContext(), 3));
