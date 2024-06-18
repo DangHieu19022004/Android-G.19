@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.appdocsach.MainActivity;
 import com.example.appdocsach.R;
 import com.example.appdocsach.Activity.SignUpActivity;
+import com.example.appdocsach.model.User;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -32,6 +33,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Collections;
 
@@ -43,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
     ImageView googleBtn;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onStart() {
@@ -63,6 +67,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
+        //new code firebase
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
         edName = findViewById(R.id.username);
         edUseremail = findViewById(R.id.EmailAddress);
@@ -73,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(v -> {
             String user = edUseremail.getText().toString();
             String pwd = edPassword.getText().toString();
-            String email = edUseremail.getText().toString();
+            String name = edName.getText().toString();
 
             if (user.isEmpty() || pwd.isEmpty()) {
                 Toast.makeText(LoginActivity.this, "Please enter all required fields", Toast.LENGTH_LONG).show();
@@ -84,11 +90,29 @@ public class LoginActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    intent.putExtra("USERNAME", user);
-                                    intent.putExtra("EMAIL", email);
-                                    startActivity(intent);
-                                    finish();
+                                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                                    //new code
+                                    if (firebaseUser != null) {
+                                        String userId = firebaseUser.getUid();
+                                        User loginUser = new User(name, user, "");
+                                        databaseReference.child(userId).setValue(loginUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    //old code
+                                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                    intent.putExtra("USERNAME", user);
+                                                    intent.putExtra("EMAIL", user);
+                                                    startActivity(intent);
+                                                    finish();
+                                                    //
+                                                } else {
+                                                    Toast.makeText(LoginActivity.this, "Failed to save user data: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                                    }
+                                    //
                                 } else {
                                     Toast.makeText(LoginActivity.this, "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }

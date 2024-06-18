@@ -17,11 +17,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appdocsach.MainActivity;
 import com.example.appdocsach.R;
+import com.example.appdocsach.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
@@ -32,9 +35,11 @@ public class SignUpActivity extends AppCompatActivity {
     Button btnRegister, btnGoLogin;
     DatePickerDialog.OnDateSetListener mDateSetListener;
 
+    //new code
+    DatabaseReference databaseReference;
+
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -49,6 +54,10 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         mAuth = FirebaseAuth.getInstance();
+        //new code
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        //
+
         edUseremail = findViewById(R.id.edUseremail);
         edPassword = findViewById(R.id.edPassword);
         edDate = findViewById(R.id.edDate);
@@ -100,7 +109,25 @@ public class SignUpActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(SignUpActivity.this, "Account created successfully.", Toast.LENGTH_SHORT).show();
-                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        FirebaseUser currentUser = mAuth.getCurrentUser();
+                                        //new code
+                                        if (currentUser != null) {
+                                            String userId = currentUser.getUid();
+                                            User newUser = new User(name, user, created_date);
+                                            databaseReference.child(userId).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    } else {
+                                                        Toast.makeText(SignUpActivity.this, "Failed to save user data: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                        }
+                                        //
                                     } else {
                                         Toast.makeText(SignUpActivity.this, "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
@@ -119,3 +146,4 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 }
+

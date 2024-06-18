@@ -57,7 +57,16 @@
             android:src="@drawable/searchicon" />
     </LinearLayout>
 
-        <com.google.android.material.tabs.TabLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_results_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header" />
+
+    <com.google.android.material.tabs.TabLayout
         android:contentDescription="@string/viewpager_content_description"
         android:id="@+id/tablayoutMain"
         android:layout_width="match_parent"
@@ -69,6 +78,7 @@
         app:tabMode="scrollable"
         app:tabPaddingEnd="20dp"
         app:tabPaddingStart="20dp" />
+
 
     <com.example.appdocsach.widget.CustomViewPager
         android:contentDescription="@string/viewpager_content_description"

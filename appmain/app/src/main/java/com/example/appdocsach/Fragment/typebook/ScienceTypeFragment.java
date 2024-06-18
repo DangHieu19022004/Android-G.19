@@ -43,12 +43,14 @@ public class ScienceTypeFragment extends Fragment {
         recyclerViewScience = view.findViewById(R.id.recyclerViewScience);
 
         mListBookScience = new ArrayList<>();
-        booksAdapterScience = new BooksAdapterVertical(getContext(), mListBookScience, books ->
-                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show()
-        );
+        booksAdapterScience = new BooksAdapterVertical( mListBookScience, new BooksAdapterVertical.IClickListener() {
+            @Override
+            public void onClickReadItemBook(BooksModel books) {
+                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         recyclerViewScience.setAdapter(booksAdapterScience);
-        //Chia cột
         recyclerViewScience.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
         // Call method to get data from Firebase Realtime Database

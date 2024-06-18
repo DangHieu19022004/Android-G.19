@@ -4,6 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primary">#365D70</color>
     <color name="checkedcolor">#FFF385</color>
-    <color name="colorGreen">#008000</color>
+    <color name="colorBule">#0000FF</color>
     <color name="backgroundSlide">#C8C7C7</color>
 </resources>

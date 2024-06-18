@@ -82,7 +82,7 @@
                 android:src="@drawable/likeicon" />
 
             <TextView
-                android:id="@+id/likeDetailCount"
+                android:id="@+id/txtLikeCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/like"
@@ -101,12 +101,14 @@
             <ImageView
                 style="@style/IconDetailLike"
                 android:layout_height="80dp"
+
                 android:padding="@dimen/pdfiximg"
                 android:src="@drawable/dislikeicon" />
 
             <TextView
-                android:id="@+id/dislikeDetailCount"
                 android:textSize="@dimen/sizecontenttext"
+                android:id="@+id/txtDislikeCount"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/like" />

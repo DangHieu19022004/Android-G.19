@@ -13,28 +13,7 @@ public class BooksModel implements Serializable{
     private int likeCount;
     private int dislikeCount;
     private String day;
-    public int getDislikeCount() {
-        return dislikeCount;
-    }
 
-    public void setDislikeCount(int dislikeCount) {
-        this.dislikeCount = dislikeCount;
-    }
-    public int getLikeCount() {
-        return likeCount;
-    }
-
-    public void setLikeCount(int likeCount) {
-        this.likeCount = likeCount;
-    }
-
-    public String getDay() {
-        return day;
-    }
-
-    public void setDay(String day) {
-        this.day = day;
-    }
 
     public BooksModel(String author, int categoryId, String content, String id, String img, String subtitle, String title, int view, int likeCount, int dislikeCount, String day) {
         this.author = author;
@@ -117,11 +96,29 @@ public class BooksModel implements Serializable{
         this.view = view;
     }
 
-    public int getLike() {
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public int getDislikeCount() {
+        return dislikeCount;
+    }
+
+    public void setDislikeCount(int dislikeCount) {
+        this.dislikeCount = dislikeCount;
+    }
+
+
+
+    public int getLikeCount() {
         return likeCount;
     }
 
-    public void setLike(int likeCount) {
+    public void setLikeCount(int likeCount) {
         this.likeCount = likeCount;
     }
 

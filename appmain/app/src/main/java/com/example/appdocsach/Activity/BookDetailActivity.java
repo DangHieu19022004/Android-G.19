@@ -21,17 +21,22 @@ import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class BookDetailActivity extends AppCompatActivity {
 
     ImageView threeDotsButton, imgDetailBook, backButton;
-    TextView likeDetailCount, dislikeDetailCount, subtitleDetailBook, headTextDetailBook, ViewCount, authorDetail;
+    TextView subtitleDetailBook, headTextDetailBook, ViewCount, authorDetail;
     Button btnstartreadDetail;
     LinearLayout likeDetail, dislikeDetail;
+    TextView txtLikeCount, txtDislikeCount;
     private FirebaseDatabase database;
     private BooksModel currentBook;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +59,8 @@ public class BookDetailActivity extends AppCompatActivity {
             }
         });
 
-        // click 3 dots to show up menu options
+        // Click 3 dots to show up menu options
+
         threeDotsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,11 +68,10 @@ public class BookDetailActivity extends AppCompatActivity {
             }
         });
 
-        //click to read book, intent to send info book to next activity
+        // Click to read book, intent to send info book to next activity
         btnstartreadDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 // this is demo. need title to show book!!!
                 Intent it = new Intent(BookDetailActivity.this, ReadBookActivity.class);
                 it.putExtra("book_content", currentBook);
@@ -78,26 +83,58 @@ public class BookDetailActivity extends AppCompatActivity {
         likeDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(BookDetailActivity.this, "Liked!", Toast.LENGTH_SHORT).show();
-                changeButtonColor(likeDetail);
-                int currentLikes = currentBook.getLike();
-                currentBook.setLike(currentLikes + 1);
-                // Update Firebase with the new likeCount
-                updateLikeCountInFirebase(currentBook.getId(), currentBook.getLike());
+                handleLikeButton();
             }
         });
 
         dislikeDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(BookDetailActivity.this, "Disliked!", Toast.LENGTH_SHORT).show();
-                changeButtonColor(dislikeDetail);
-                int currentLikes = currentBook.getLike();
-                currentBook.setLike(Math.max(currentLikes - 1, 0)); // Ensure likes don't go negative
-                // Update Firebase with the new likeCount
-                updateLikeCountInFirebase(currentBook.getId(), currentBook.getLike());
+                handleDislikeButton();
             }
         });
+
+        // Load initial like and dislike counts from Firebase
+        loadLikeAndDislikeCounts();
+    }
+
+    private void loadLikeAndDislikeCounts() {
+        DatabaseReference bookRef = database.getReference("books").child(currentBook.getId());
+        bookRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    currentBook = snapshot.getValue(BooksModel.class);
+                    updateLikeDislikeCounts();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(BookDetailActivity.this, "Failed to load book details: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateLikeDislikeCounts() {
+        txtLikeCount.setText(String.valueOf(currentBook.getLikeCount()));
+        txtDislikeCount.setText(String.valueOf(currentBook.getDislikeCount()));
+    }
+
+    private void handleLikeButton() {
+        Toast.makeText(BookDetailActivity.this, "Liked!", Toast.LENGTH_SHORT).show();
+        changeButtonColor(likeDetail);
+        int currentLikes = currentBook.getLikeCount();
+        currentBook.setLikeCount(currentLikes + 1);
+        updateLikeCountInFirebase(currentBook.getId(), currentBook.getLikeCount());
+    }
+
+    private void handleDislikeButton() {
+        Toast.makeText(BookDetailActivity.this, "Disliked!", Toast.LENGTH_SHORT).show();
+        changeButtonColor(dislikeDetail);
+        int currentDislikes = currentBook.getDislikeCount();
+        currentBook.setDislikeCount(Math.max(currentDislikes + 1, 0)); // Ensure dislikes don't go negative
+        updateDislikeCountInFirebase(currentBook.getId(), currentBook.getDislikeCount());
     }
 
     private void getInfoBookclick() {
@@ -106,8 +143,8 @@ public class BookDetailActivity extends AppCompatActivity {
             Glide.with(this.imgDetailBook.getContext())
                     .load(book.getImg())
                     .into(this.imgDetailBook);
-            likeDetailCount.setText(String.valueOf(book.getLike()));
-            dislikeDetailCount.setText(String.valueOf(book.getDislikeCount()));
+            txtLikeCount.setText(String.valueOf(book.getLikeCount()));
+            txtDislikeCount.setText(String.valueOf(book.getDislikeCount()));
             headTextDetailBook.setText(String.valueOf(book.getTitle()));
             ViewCount.setText(String.valueOf(book.getView()));
             authorDetail.setText(String.valueOf(book.getAuthor()));
@@ -124,24 +161,38 @@ public class BookDetailActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        // Handle successful update (if needed)
+                        updateLikeDislikeCounts(); // Update counts after successful update
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        // Handle failed update
                         Toast.makeText(BookDetailActivity.this, "Failed to update like count: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
+    private void updateDislikeCountInFirebase(String bookId, int dislikeCount) {
+        DatabaseReference booksRef = database.getReference("books").child(bookId).child("dislikeCount");
+        booksRef.setValue(dislikeCount)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        updateLikeDislikeCounts(); // Update counts after successful update
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(BookDetailActivity.this, "Failed to update dislike count: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
-    //Đổi màu khi nhấn nút
+    // Đổi màu khi nhấn nút
     private void changeButtonColor(LinearLayout buttonLayout) {
         ImageView imageView = (ImageView) buttonLayout.getChildAt(0);
-        // Đổi màu
-        imageView.setColorFilter(getResources().getColor(R.color.colorGreen));
+        imageView.setColorFilter(getResources().getColor(R.color.colorBule));
     }
 
     private void showPopupmenu() {
@@ -149,22 +200,29 @@ public class BookDetailActivity extends AppCompatActivity {
         popupMenu.getMenuInflater().inflate(R.menu.menu_three_detailbook, popupMenu.getMenu());
         popupMenu.show();
     }
-    private void mapping(){
+
+    private void mapping() {
         threeDotsButton = findViewById(R.id.threeDotsButton);
         btnstartreadDetail = findViewById(R.id.btnstartreadDetail);
         likeDetail = findViewById(R.id.likeDetail);
         dislikeDetail = findViewById(R.id.dislikeDetail);
+
         //Hieu - mapping click book
         imgDetailBook = findViewById(R.id.imgDetailBook);
-        likeDetailCount = findViewById(R.id.likeDetailCount);
-        dislikeDetailCount = findViewById(R.id.dislikeDetailCount);
+
         subtitleDetailBook = findViewById(R.id.subtitleDetailBook);
         headTextDetailBook = findViewById(R.id.headTextDetailBook);
         ViewCount = findViewById(R.id.ViewCount);
         authorDetail = findViewById(R.id.authorDetail);
         backButton = findViewById(R.id.backButton);
 
+        txtLikeCount = findViewById(R.id.txtLikeCount);
+        txtDislikeCount = findViewById(R.id.txtDislikeCount);
+
+
+        // Initialize current book object
         currentBook = new BooksModel();
-        currentBook.setLike(0);
+        currentBook.setLikeCount(0);
+        currentBook.setDislikeCount(0);
     }
 }
