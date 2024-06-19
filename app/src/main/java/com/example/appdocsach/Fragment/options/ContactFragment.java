@@ -1,5 +1,4 @@
-package com.example.appdocsach.Fragment.Contact;
-
+package com.example.appdocsach.Fragment.options;
 
 import android.Manifest;
 import android.content.Intent;
@@ -22,11 +21,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.appdocsach.R;
 
-
 public class ContactFragment extends Fragment {
-    AppCompatButton btn1,btn2,btn3;
+    AppCompatButton btn1, btn2, btn3;
     ImageView backarrow;
     private static final int CALL_PHONE_PERMISSION_REQUEST_CODE = 1;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,14 +39,15 @@ public class ContactFragment extends Fragment {
         backarrow = view.findViewById(R.id.backarrow);
         btn1 = view.findViewById(R.id.btn1);
         btn3 = view.findViewById(R.id.btn3);
-//        backarrow.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                NewsFragment newsFragment = new NewsFragment();
-//                getActivity().getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.frame_layout,newsFragment).commit();
-//            }
-//        });
+
+        // Set click listener for backarrow to handle navigation back
+        backarrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed(); // Quay lại fragment trước đó (UserFragment)
+            }
+        });
+
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,32 +57,12 @@ public class ContactFragment extends Fragment {
                             != PackageManager.PERMISSION_GRANTED) {
                         // Yêu cầu quyền gọi điện thoại
                         ActivityCompat.requestPermissions(getActivity(),
-                                new String[]{android.Manifest.permission.CALL_PHONE},
+                                new String[]{Manifest.permission.CALL_PHONE},
                                 CALL_PHONE_PERMISSION_REQUEST_CODE);
                     } else {    // Quyền gọi điện thoại đã được cấp
                         // Tiến hành thực hiện cuộc gọi điện thoại
                         Toast.makeText(requireContext(), btn1.getText().toString(), Toast.LENGTH_SHORT).show();
                         makePhoneCall(btn1.getText().toString());
-                    }
-                }
-            }
-        });
-
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    // Quyền gọi điện thoại chưa được cấp
-                    if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CALL_PHONE)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        // Yêu cầu quyền gọi điện thoại
-                        ActivityCompat.requestPermissions(getActivity(),
-                                new String[]{android.Manifest.permission.CALL_PHONE},
-                                CALL_PHONE_PERMISSION_REQUEST_CODE);
-                    } else {    // Quyền gọi điện thoại đã được cấp
-                        // Tiến hành thực hiện cuộc gọi điện thoại
-                        Toast.makeText(requireContext(), btn2.getText().toString(), Toast.LENGTH_SHORT).show();
-                        makePhoneCall(btn2.getText().toString());
                     }
                 }
             }
@@ -97,7 +77,7 @@ public class ContactFragment extends Fragment {
                         // Quyền gọi điện thoại chưa được cấp
                         // Yêu cầu quyền gọi điện thoại
                         ActivityCompat.requestPermissions(getActivity(),
-                                new String[]{android.Manifest.permission.CALL_PHONE},
+                                new String[]{Manifest.permission.CALL_PHONE},
                                 CALL_PHONE_PERMISSION_REQUEST_CODE);
                     } else {
                         // Quyền gọi điện thoại đã được cấp
@@ -108,6 +88,7 @@ public class ContactFragment extends Fragment {
                 }
             }
         });
+
     }
 
     private void makePhoneCall(String phone) {
@@ -121,6 +102,4 @@ public class ContactFragment extends Fragment {
             }
         }
     }
-
-
 }
