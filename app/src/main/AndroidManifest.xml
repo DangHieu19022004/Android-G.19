@@ -15,9 +15,16 @@
         android:theme="@style/Base.Theme.AppDocSach"
         tools:targetApi="31">
         <activity
-            android:name=".UserActivity"
+            android:name=".Adapter.BookAdapter"
             android:exported="false" />
-
+        <activity
+            android:name=".Activity.ReadBookActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.BookDetailActivity"
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".Fragment.options.UserFragment" -->
+        <!-- android:exported="false" /> -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -50,7 +57,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.HomePageActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.LoginActivity"

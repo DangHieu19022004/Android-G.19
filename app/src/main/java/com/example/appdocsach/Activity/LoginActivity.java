@@ -14,6 +14,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.appdocsach.MainActivity;
 import com.example.appdocsach.R;
 import com.example.appdocsach.Activity.SignUpActivity;
 import com.facebook.CallbackManager;
@@ -26,11 +27,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Collections;
 
 public class LoginActivity extends AppCompatActivity {
+    FirebaseAuth mAuth;
+    EditText edUseremail, edPassword, edName;
     ImageView fbBtn;
     CallbackManager callbackManager;
     GoogleSignInOptions gso;
@@ -38,20 +45,56 @@ public class LoginActivity extends AppCompatActivity {
     ImageView googleBtn;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
-        Button loginButton = findViewById(R.id.Login);
-        EditText editText = findViewById(R.id.username);
+        mAuth = FirebaseAuth.getInstance();
 
+        edName = findViewById(R.id.username);
+        edUseremail = findViewById(R.id.EmailAddress);
+        edPassword = findViewById(R.id.password);
+
+
+        Button loginButton = findViewById(R.id.Login);
         loginButton.setOnClickListener(v -> {
-            String username = editText.getText().toString();
-            Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
-            intent.putExtra("USERNAME", username);
-            startActivity(intent);
-            finish();
+            String user = edUseremail.getText().toString();
+            String pwd = edPassword.getText().toString();
+            String email = edUseremail.getText().toString();
+
+            if (user.isEmpty() || pwd.isEmpty()) {
+                Toast.makeText(LoginActivity.this, "Please enter all required fields", Toast.LENGTH_LONG).show();
+            } else {
+                mAuth.signInWithEmailAndPassword(user, pwd)
+                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    intent.putExtra("USERNAME", user);
+                                    intent.putExtra("EMAIL", email);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            }
         });
 
         TextView text = findViewById(R.id.SignUp);
@@ -64,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         // App code
-                        startActivity(new Intent(LoginActivity.this, HomePageActivity.class));
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
                     }
 
@@ -120,7 +163,7 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 if (account != null) {
-                    Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.putExtra("USERNAME", account.getDisplayName());
                     intent.putExtra("EMAIL", account.getEmail());
                     startActivity(intent);

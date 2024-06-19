@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="150dp"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@drawable/shape_img"
+    android:layout_margin="12dp"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/gravItemBook"
+        android:layout_width="145dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            style="@style/ImageBookVertical"
+            android:id="@+id/book_image"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:contentDescription="demo title"
+            tools:src="@drawable/babylon" />
+
+        <TextView
+            android:id="@+id/book_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:minLines="2"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            tools:text="Book Title with long text that may exceed the width of the TextView" />
+
+        <TextView
+            android:id="@+id/book_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            android:textAlignment="center"
+            tools:text="Category Name" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                style="@style/IconStyleView"
+                android:src="@drawable/viewicon" />
+
+            <TextView
+                android:id="@+id/book_views"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                tools:text="1234 views" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
