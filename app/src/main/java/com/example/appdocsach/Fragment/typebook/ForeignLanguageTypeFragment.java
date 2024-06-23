@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appdocsach.Adapter.BooksAdapterVertical;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -48,6 +49,7 @@ public class ForeignLanguageTypeFragment extends Fragment {
             @Override
             public void onClickReadItemBook(BooksModel books) {
                 Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
+                logSelectContentEvent(books);
             }
         });
 
@@ -108,4 +110,11 @@ public class ForeignLanguageTypeFragment extends Fragment {
             }
         });
     }
+    private void logSelectContentEvent(BooksModel books) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, String.valueOf(books.getId()));
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, books.getTitle());
+        FirebaseAnalytics.getInstance(requireContext()).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+    }
+
 }

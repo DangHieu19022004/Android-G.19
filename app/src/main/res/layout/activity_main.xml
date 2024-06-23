@@ -7,16 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!-- ViewPager for main content -->
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpageOption"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:contentDescription="@string/viewpager_content_description"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <!-- FrameLayout for dynamic fragments -->
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="0dp"
@@ -26,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-
+    <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         style="@style/BottomNavigationIconStyle"
@@ -38,5 +39,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
+
+    <!-- Chat icon ImageView -->
+    <ImageView
+        android:id="@+id/imageViewChatIcon"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:contentDescription="Chat bot icon"
+        android:src="@drawable/chatbot"
+        android:onClick="showChatDialog"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Chat FrameLayout (optional if you prefer to use FragmentContainer) -->
+    <FrameLayout
+        android:id="@+id/chatContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,11 +50,10 @@
         <ImageView
             android:id="@+id/search_icon"
             style="@style/IconStyle"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="4dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/searchicon" />
+            android:src="@drawable/search" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

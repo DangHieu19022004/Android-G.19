@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="AccountSize">30dp</dimen>
+    <dimen name="AccountSize">25dp</dimen>
     <dimen name="settingicon">45dp</dimen>
     <dimen name="pdtop">20dp</dimen>
     <dimen name="mgborder">15dp</dimen>
@@ -11,4 +11,6 @@
     <dimen name="pdfiximg">20dp</dimen>
     <dimen name="sizecontenttext">20sp</dimen>
     <dimen name="sizeSCRV">80dp</dimen>
+    <dimen name="chat_fragment_margin_end">5dp</dimen>
+    <dimen name="chat_fragment_margin_bottom">110dp</dimen>
 </resources>

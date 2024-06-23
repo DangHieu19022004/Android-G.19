@@ -22,4 +22,5 @@
     <string name="no_content"> Không còn nội dung</string>
     <string name="view_count">Lượt xem:</string>
     <string name="author_name">Tác giả: </string>
+    <string name="google_translate_api_key">AIzaSyD08BNFPgoObwGSHmalUhkAuagg9afUVgY</string>
 </resources>

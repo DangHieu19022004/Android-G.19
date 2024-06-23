@@ -6,12 +6,15 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.appdocsach.Activity.ReadBookActivity;
+import com.example.appdocsach.MainActivity;
 import com.example.appdocsach.R;
 
 import java.util.Locale;
@@ -21,15 +24,29 @@ public class TextToSpeechService extends AppCompatActivity {
     private static final int CODE = 100;
 
     private TextToSpeech textToSpeech;
-    private TextView textContent;
+    private String textToSpeak; // Lưu trữ nội dung sách để đọc
+    private TextView textContent; // TextView để hiển thị nội dung sách
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_book);
 
-        // Ánh xạ TextView để hiển thị nội dung từ Firebase
+        // Lấy dữ liệu sách từ intent
+        Intent intent = getIntent();
+        if (intent != null) {
+            textToSpeak = intent.getStringExtra("textToSpeak");
+        }
+
+        // Ánh xạ TextView để hiển thị nội dung sách
         textContent = findViewById(R.id.text_content);
+
+        // Hiển thị nội dung sách
+        if (textToSpeak != null && !textToSpeak.isEmpty()) {
+            textContent.setText(textToSpeak);
+        } else {
+            textContent.setText("Không có nội dung sách để hiển thị");
+        }
 
         // Kiểm tra và cài đặt dữ liệu TTS nếu chưa có
         Intent checkIntent = new Intent();
@@ -55,6 +72,9 @@ public class TextToSpeechService extends AppCompatActivity {
                                 // Thiết lập các thuộc tính khác của TextToSpeech
                                 textToSpeech.setPitch(0.8f);
                                 textToSpeech.setSpeechRate(1.0f);
+
+                                // Bắt đầu đọc nội dung sách
+                                startTextToSpeech();
                             }
                         } else {
                             Toast.makeText(TextToSpeechService.this, "Khởi tạo TextToSpeech thất bại", Toast.LENGTH_SHORT).show();
@@ -66,20 +86,18 @@ public class TextToSpeechService extends AppCompatActivity {
                 Intent installIntent = new Intent();
                 installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
                 startActivity(installIntent);
+                finish();
             }
         }
     }
 
-    // Phương thức để bắt đầu Text-to-Speech khi người dùng nhấn vào nút discIconReadBook
-    public void startTextToSpeech(View view) {
-        if (textToSpeech != null) {
-            // Lấy nội dung của TextView để đọc
-            String content = textContent.getText().toString();
-
-            // Bắt đầu đọc nội dung
-            textToSpeech.speak(content, TextToSpeech.QUEUE_FLUSH, null, null);
+    // Phương thức để bắt đầu Text-to-Speech
+    private void startTextToSpeech() {
+        if (textToSpeech != null && textToSpeak != null && !textToSpeak.isEmpty()) {
+            // Bắt đầu đọc nội dung sách
+            textToSpeech.speak(textToSpeak, TextToSpeech.QUEUE_FLUSH, null, null);
         } else {
-            Toast.makeText(this, "Text-to-Speech chưa được khởi tạo", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Không có nội dung sách để đọc", Toast.LENGTH_SHORT).show();
         }
     }
 
