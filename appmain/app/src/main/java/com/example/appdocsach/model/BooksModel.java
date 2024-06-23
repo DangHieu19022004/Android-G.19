@@ -11,9 +11,10 @@ public class BooksModel {
     private String title;
     private int view;
     private int likeCount;
+    private long timestamp;
 
 
-    public BooksModel(String author, int categoryId, String content, String id, String img, String subtitle, String title, int view, int likeCount, int dislikeCount, String day) {
+    public BooksModel(String author, int categoryId, String content, String id, String img, String subtitle, String title, int view, int likeCount, int dislikeCount, String day, long timestamp) {
         this.author = author;
         this.categoryId = categoryId;
         this.content = content;
@@ -25,6 +26,7 @@ public class BooksModel {
         this.likeCount = likeCount;
         this.dislikeCount = dislikeCount;
         this.day = day;
+        this.timestamp = timestamp;
     }
 
     public BooksModel() {
@@ -116,9 +118,10 @@ public class BooksModel {
     public int getLikeCount() {
         return likeCount;
     }
-
     public void setLikeCount(int likeCount) {
         this.likeCount = likeCount;
     }
 
+    public long getTimestamp() {return timestamp;}
+    public void setTimestamp(long timestamp) {this.timestamp = timestamp;}
 }
