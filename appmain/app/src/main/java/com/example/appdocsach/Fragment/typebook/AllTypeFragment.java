@@ -26,6 +26,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import me.relex.circleindicator.CircleIndicator;
@@ -56,8 +58,6 @@ public class AllTypeFragment extends Fragment {
         circleIndicatorSlide = view.findViewById(R.id.circleindicatorSlide);
         recyclerViewBooktrending = view.findViewById(R.id.recyclerViewTrending);
         recyclerViewFavorite = view.findViewById(R.id.recyclerViewFavorite);
-
-        //
 
         //declare list book
         mListBooks = new ArrayList<>();
@@ -112,7 +112,7 @@ public class AllTypeFragment extends Fragment {
     }
 
     private void getTopLikedBooks(List<BooksModel> listFavoriteBooks, BooksAdapterHorizontal favoriteBooksAdapter) {
-        DatabaseReference booksRef = database.getReference("books").orderByChild("likeCount").limitToLast(10).getRef(); // Giới hạn số lượng sách lấy về
+        DatabaseReference booksRef = database.getReference("books").orderByChild("likeCount").getRef();
         booksRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -120,8 +120,9 @@ public class AllTypeFragment extends Fragment {
 
                 if (booksModel != null) {
                     listFavoriteBooks.add(0, booksModel);
-                    favoriteBooksAdapter.notifyItemInserted(listFavoriteBooks.size() - 1);
-                    recyclerViewFavorite.scrollToPosition(listFavoriteBooks.size() - 1);
+                    sortBooksByLikeCount(listFavoriteBooks);
+                    favoriteBooksAdapter.notifyDataSetChanged();
+                    recyclerViewFavorite.scrollToPosition(0);
                 }
             }
 
@@ -130,8 +131,9 @@ public class AllTypeFragment extends Fragment {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
                 if (booksModel != null) {
                     for (int i = 0; i < listFavoriteBooks.size(); i++) {
-                        if (booksModel.getId() == listFavoriteBooks.get(i).getId()) {
+                        if (booksModel.getId().equals(listFavoriteBooks.get(i).getId())) {
                             listFavoriteBooks.set(i, booksModel);
+                            sortBooksByLikeCount(listFavoriteBooks);
                             favoriteBooksAdapter.notifyItemChanged(i);
                             break;
                         }
@@ -145,7 +147,7 @@ public class AllTypeFragment extends Fragment {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
                 if (booksModel != null) {
                     for (int i = 0; i < listFavoriteBooks.size(); i++) {
-                        if (booksModel.getId() == listFavoriteBooks.get(i).getId()) {
+                        if (booksModel.getId().equals(listFavoriteBooks.get(i).getId())) {
                             listFavoriteBooks.remove(i);
                             favoriteBooksAdapter.notifyItemRemoved(i);
                             break;
@@ -173,11 +175,9 @@ public class AllTypeFragment extends Fragment {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
                 if (booksModel != null) {
-                    mListBooks.add(0, booksModel); // Thêm vào đầu danh sách để sắp xếp theo thứ tự lớn đến nhỏ
-
-                    // Cập nhật RecyclerView
-                    booksAdapter.notifyItemInserted(0); // Thông báo là có item được chèn vào vị trí đầu tiên
-                    recyclerViewBooktrending.scrollToPosition(0); // Di chuyển đến vị trí đầu tiên
+                    mListBooks.add(booksModel);
+                    sortBooksByViewCount();
+                    booksAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -186,12 +186,13 @@ public class AllTypeFragment extends Fragment {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
                 if (booksModel != null) {
                     for (int i = 0; i < mListBooks.size(); i++) {
-                        if (booksModel.getId() == mListBooks.get(i).getId()) {
+                        if (booksModel.getId().equals(mListBooks.get(i).getId())) {
                             mListBooks.set(i, booksModel);
-                            booksAdapter.notifyItemChanged(i); // Cập nhật item thay đổi
                             break;
                         }
                     }
+                    sortBooksByViewCount();
+                    booksAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -200,12 +201,13 @@ public class AllTypeFragment extends Fragment {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
                 if (booksModel != null) {
                     for (int i = 0; i < mListBooks.size(); i++) {
-                        if (booksModel.getId() == mListBooks.get(i).getId()) {
+                        if (booksModel.getId().equals(mListBooks.get(i).getId())) {
                             mListBooks.remove(i);
-                            booksAdapter.notifyItemRemoved(i); // Xóa item khỏi danh sách
                             break;
                         }
                     }
+                    sortBooksByViewCount();
+                    booksAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -217,6 +219,23 @@ public class AllTypeFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 // Xử lý khi có lỗi xảy ra trong quá trình truy vấn dữ liệu
+            }
+        });
+    }
+    private void sortBooksByViewCount() {
+        mListBooks.sort(new Comparator<BooksModel>() {
+            @Override
+            public int compare(BooksModel o1, BooksModel o2) {
+                return Integer.compare(o2.getView(), o1.getView()); // Sort in descending order
+            }
+        });
+    }
+
+    private void sortBooksByLikeCount(List<BooksModel> list) {
+        list.sort(new Comparator<BooksModel>() {
+            @Override
+            public int compare(BooksModel o1, BooksModel o2) {
+                return Integer.compare(o2.getLikeCount(), o1.getLikeCount());
             }
         });
     }

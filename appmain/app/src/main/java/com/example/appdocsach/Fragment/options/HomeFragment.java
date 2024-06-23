@@ -159,7 +159,7 @@ public class HomeFragment extends Fragment {
     // Hiển thị kết quả
     private void displaySearchResults(List<BooksModel> books) {
         booksList.clear();
-        if (books == null) {
+        if (books != null) {
             booksList.addAll(books);
         }
         booksAdapter.notifyDataSetChanged();
