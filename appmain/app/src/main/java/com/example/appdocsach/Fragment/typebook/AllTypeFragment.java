@@ -115,7 +115,7 @@ public class AllTypeFragment extends Fragment {
 
     private void showDetailBook(BooksModel books) {
         Intent it = new Intent(getActivity(), BookDetailActivity.class);
-        it.putExtra("book_data", (Serializable) books); ///make serialize
+        it.putExtra("book_data", books); ///make serialize
 //        it.putExtra("author", books.getAuthor());
 //        it.putExtra("content", books.getContent());
 //        it.putExtra("day", books.getDay());

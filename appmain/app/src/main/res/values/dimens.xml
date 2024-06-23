@@ -11,4 +11,6 @@
     <dimen name="pdfiximg">20dp</dimen>
     <dimen name="sizecontenttext">20sp</dimen>
     <dimen name="sizeSCRV">80dp</dimen>
+    <dimen name="sizebook_manage">180dp</dimen>
+    <dimen name="ts_book_saved">35sp</dimen>
 </resources>
