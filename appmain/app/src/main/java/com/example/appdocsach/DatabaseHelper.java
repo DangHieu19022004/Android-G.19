@@ -151,9 +151,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Delete a book
-    public void deleteBook(String id) {
+    public int deleteBook(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_BOOKS, COLUMN_ID + " = ?", new String[]{id});
+        int result = db.delete(TABLE_BOOKS, COLUMN_ID + " = ?", new String[]{id});
         db.close();
+        return result;
     }
 }

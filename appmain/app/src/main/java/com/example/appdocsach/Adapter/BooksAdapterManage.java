@@ -24,7 +24,7 @@ public class BooksAdapterManage extends  RecyclerView.Adapter<BooksAdapterManage
 
     public interface IClickListener{
         void onClickReadItemBook(BooksModel books);
-        void onClickDeleteItemBook(BooksModel books);
+        void onClickDeleteItemBook(BooksModel books, int position);
     }
     public BooksAdapterManage(List<BooksModel> mlistBooks, BooksAdapterManage.IClickListener mInterfaceClickListener) {
         this.mlistBooks = mlistBooks;
@@ -64,7 +64,10 @@ public class BooksAdapterManage extends  RecyclerView.Adapter<BooksAdapterManage
         holder.trashBook_manage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mInterfaceClickListener.onClickDeleteItemBook(booksModel);
+                int position = holder.getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    mInterfaceClickListener.onClickDeleteItemBook(booksModel, position);
+                }
             }
         });
 
