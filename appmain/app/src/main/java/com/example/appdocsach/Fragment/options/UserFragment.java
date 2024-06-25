@@ -141,33 +141,50 @@ public class UserFragment extends Fragment {
         if (user != null) {
             String userId = user.getUid();
             DatabaseReference userBooksRef = FirebaseDatabase.getInstance().getReference("users/" + userId + "/readBooks");
-            userBooksRef.addValueEventListener(new ValueEventListener() {
+            userBooksRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    booksModelList.clear();
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        BooksModel book = dataSnapshot.getValue(BooksModel.class);
-                        if (book != null) {
-                            booksModelList.add(book);
-                        }
+                    if (!snapshot.exists()) {
+                        // Create the path if it doesn't exist
+                        userBooksRef.setValue("");
                     }
 
-                    // Sắp xếp danh sách sách theo timestamp giảm dần
-                    Collections.sort(booksModelList, new Comparator<BooksModel>() {
+                    // Now load the recently read books data
+                    userBooksRef.addValueEventListener(new ValueEventListener() {
                         @Override
-                        public int compare(BooksModel o1, BooksModel o2) {
-                            return Long.compare(o2.getTimestamp(), o1.getTimestamp());
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            booksModelList.clear();
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                BooksModel book = dataSnapshot.getValue(BooksModel.class);
+                                if (book != null) {
+                                    booksModelList.add(book);
+                                }
+                            }
+
+                            // Sắp xếp danh sách sách theo timestamp giảm dần
+                            Collections.sort(booksModelList, new Comparator<BooksModel>() {
+                                @Override
+                                public int compare(BooksModel o1, BooksModel o2) {
+                                    return Long.compare(o2.getTimestamp(), o1.getTimestamp());
+                                }
+                            });
+
+                            booksAdapter.setData(new ArrayList<>(booksModelList));
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(getActivity(), "Failed to load books", Toast.LENGTH_SHORT).show();
                         }
                     });
-
-                    booksAdapter.setData(new ArrayList<>(booksModelList));
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(getActivity(), "Failed to load books", Toast.LENGTH_SHORT).show();
+                    // Handle possible errors.
                 }
             });
         }
+
     }
 }
