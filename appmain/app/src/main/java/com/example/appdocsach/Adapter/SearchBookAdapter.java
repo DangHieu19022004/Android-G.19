@@ -1,7 +1,6 @@
 package com.example.appdocsach.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,42 +8,44 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.appdocsach.Activity.BookDetailActivity;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
+import java.util.List;
 
-public class RecentlyReadAdapter extends RecyclerView.Adapter<RecentlyReadAdapter.RecentlyReadViewHolder> {
+public class SearchBookAdapter extends RecyclerView.Adapter<SearchBookAdapter.SearchBookViewHolder> {
     private Context mContext;
-    private ArrayList<BooksModel> mListBooks;
+    private List<BooksModel> mListBooks;
+    private IClickListener mInterfaceClickListener;
 
-    public RecentlyReadAdapter(Context mContext, ArrayList<BooksModel> mListBooks) {
-        this.mContext = mContext;
-        this.mListBooks = mListBooks;
+    public interface IClickListener {
+        void onClickReadItemBook(BooksModel books);
     }
 
-    public void setData(ArrayList<BooksModel> list) {
+    public SearchBookAdapter(Context context, List<BooksModel> mListBooks, IClickListener mInterfaceClickListener) {
+        this.mContext = context;
+        this.mListBooks = mListBooks;
+        this.mInterfaceClickListener = mInterfaceClickListener;
+    }
+
+    public void setData(List<BooksModel> list) {
         this.mListBooks = list;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public RecentlyReadViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SearchBookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View bookView = LayoutInflater.from(mContext).inflate(R.layout.item_book, parent, false);
-        return new RecentlyReadViewHolder(bookView);
+        return new SearchBookViewHolder(bookView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecentlyReadViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SearchBookViewHolder holder, int position) {
         BooksModel book = mListBooks.get(position);
         if (book == null) {
             return;
@@ -55,35 +56,38 @@ public class RecentlyReadAdapter extends RecyclerView.Adapter<RecentlyReadAdapte
                 .load(book.getImg())
                 .into(holder.imgBook);
         holder.authorBook.setText(book.getAuthor());
+        holder.dateBook.setText(formatDate(book.getDay()));
 
-        // Format and display the timestamp as a readable date
-        long timestamp = book.getTimestamp();
-        Date date = new Date(timestamp);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        String formattedDate = dateFormat.format(date);
-        holder.dateBook.setText(formattedDate);
-
-
+        holder.itemView.setOnClickListener(v -> {
+            if (mInterfaceClickListener != null) {
+                mInterfaceClickListener.onClickReadItemBook(book);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return mListBooks.size();
+        return mListBooks == null ? 0 : mListBooks.size();
     }
 
-    public static class RecentlyReadViewHolder extends RecyclerView.ViewHolder {
+    public static class SearchBookViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgBook;
         private TextView titleBook;
         private TextView authorBook;
         private TextView dateBook;
 
-        public RecentlyReadViewHolder(@NonNull View itemView) {
+        public SearchBookViewHolder(@NonNull View itemView) {
             super(itemView);
             imgBook = itemView.findViewById(R.id.imgBooks);
             titleBook = itemView.findViewById(R.id.title);
-
             authorBook = itemView.findViewById(R.id.author);
             dateBook = itemView.findViewById(R.id.date);
         }
+    }
+
+    // Helper method to format date if needed
+    private String formatDate(String dateString) {
+        // Implement date formatting logic if required
+        return dateString;
     }
 }

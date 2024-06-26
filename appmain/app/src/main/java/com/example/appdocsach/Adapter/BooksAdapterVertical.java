@@ -79,8 +79,6 @@ public class BooksAdapterVertical extends  RecyclerView.Adapter<BooksAdapterVert
             title = itemView.findViewById(R.id.book_title_vertical);
             view = itemView.findViewById(R.id.book_views_vertical);
             gravlv = itemView.findViewById(R.id.gravItemBook_vertical);
-
-
         }
     }
 }
