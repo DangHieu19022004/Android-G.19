@@ -30,7 +30,7 @@ import java.util.Calendar;
 
 public class SignUpActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
-    EditText edUseremail, edPassword, edName;
+    EditText edUseremail, edPassword, edUserName;
     TextView edDate;
     Button btnRegister, btnGoLogin;
     DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -56,12 +56,12 @@ public class SignUpActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         //new code
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-        //
+
 
         edUseremail = findViewById(R.id.edUseremail);
         edPassword = findViewById(R.id.edPassword);
         edDate = findViewById(R.id.edDate);
-        edName = findViewById(R.id.edName);
+        edUserName = findViewById(R.id.edName);
         btnRegister = findViewById(R.id.SignUp);
         btnGoLogin = findViewById(R.id.btnGoLogin);
 
@@ -95,15 +95,15 @@ public class SignUpActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String user = edUseremail.getText().toString();
+                String email = edUseremail.getText().toString();
                 String pwd = edPassword.getText().toString();
-                String name = edName.getText().toString();
+                String user = edUserName.getText().toString();
                 String created_date = edDate.getText().toString();
 
-                if (user.isEmpty() || pwd.isEmpty() || name.isEmpty() || created_date.isEmpty()) {
+                if (user.isEmpty() || pwd.isEmpty() || email.isEmpty() || created_date.isEmpty()) {
                     Toast.makeText(SignUpActivity.this, "Please enter all required fields", Toast.LENGTH_LONG).show();
                 } else {
-                    mAuth.createUserWithEmailAndPassword(user, pwd)
+                    mAuth.createUserWithEmailAndPassword(email, pwd)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -113,17 +113,16 @@ public class SignUpActivity extends AppCompatActivity {
                                         //new code
                                         if (currentUser != null) {
                                             String userId = currentUser.getUid();
-                                            User newUser = new User(name, user, created_date);
-                                            databaseReference.child(userId).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isSuccessful()) {
-                                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                                        startActivity(intent);
-                                                        finish();
-                                                    } else {
-                                                        Toast.makeText(SignUpActivity.this, "Failed to save user data: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                                    }
+                                            User newUser = new User(user, email, created_date);
+                                            databaseReference.child(userId).setValue(newUser).addOnCompleteListener(task1-> {
+                                                if (task1.isSuccessful()) {
+                                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                    intent.putExtra("USERNAME", user);
+                                                    intent.putExtra("EMAIL", email);
+                                                    startActivity(intent);
+                                                    finish();
+                                                } else {
+                                                    Toast.makeText(SignUpActivity.this, "Failed to save user data: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                                 }
                                             });
                                         }

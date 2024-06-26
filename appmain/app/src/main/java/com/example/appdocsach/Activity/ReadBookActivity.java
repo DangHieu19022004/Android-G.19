@@ -54,7 +54,7 @@ public class ReadBookActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String userId = user.getUid();
-            DatabaseReference userBooksRef = FirebaseDatabase.getInstance().getReference("users/" + userId + "/readBooks");
+            DatabaseReference userBooksRef = FirebaseDatabase.getInstance().getReference("Users/" + userId + "/readBooks");
 
             userBooksRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

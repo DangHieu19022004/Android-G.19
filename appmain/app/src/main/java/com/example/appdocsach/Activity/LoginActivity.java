@@ -40,7 +40,7 @@ import java.util.Collections;
 
 public class LoginActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
-    EditText edUseremail, edPassword, edName;
+    EditText edUseremail, edPassword;
     ImageView fbBtn;
     CallbackManager callbackManager;
     GoogleSignInOptions gso;
@@ -70,21 +70,19 @@ public class LoginActivity extends AppCompatActivity {
         //new code firebase
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
-        edName = findViewById(R.id.username);
         edUseremail = findViewById(R.id.EmailAddress);
         edPassword = findViewById(R.id.password);
 
 
         Button loginButton = findViewById(R.id.Login);
         loginButton.setOnClickListener(v -> {
-            String user = edUseremail.getText().toString();
+            String email = edUseremail.getText().toString();
             String pwd = edPassword.getText().toString();
-            String name = edName.getText().toString();
 
-            if (user.isEmpty() || pwd.isEmpty()) {
+            if (pwd.isEmpty() || email.isEmpty()) {
                 Toast.makeText(LoginActivity.this, "Please enter all required fields", Toast.LENGTH_LONG).show();
             } else {
-                mAuth.signInWithEmailAndPassword(user, pwd)
+                mAuth.signInWithEmailAndPassword(email, pwd)
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -93,22 +91,20 @@ public class LoginActivity extends AppCompatActivity {
                                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
                                     //new code
                                     if (firebaseUser != null) {
-                                        String userId = firebaseUser.getUid();
-                                        User loginUser = new User(name, user, "");
-                                        databaseReference.child(userId).setValue(loginUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    //old code
-                                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                                    intent.putExtra("USERNAME", user);
-                                                    intent.putExtra("EMAIL", user);
-                                                    startActivity(intent);
-                                                    finish();
-                                                    //
-                                                } else {
-                                                    Toast.makeText(LoginActivity.this, "Failed to save user data: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                                }
+                                        DatabaseReference userRef = databaseReference.child(firebaseUser.getUid());
+                                        //new code
+                                        userRef.get().addOnCompleteListener(task1 -> {
+                                            if (task1.isSuccessful()) {
+                                                //old code
+                                                String userName = task1.getResult().child("name").getValue(String.class);
+                                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                intent.putExtra("USERNAME", userName);
+                                                intent.putExtra("EMAIL", email);
+                                                startActivity(intent);
+                                                finish();
+                                                //
+                                            } else {
+                                                Toast.makeText(LoginActivity.this, "Failed to save user data: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                             }
                                         });
                                     }

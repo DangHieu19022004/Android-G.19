@@ -20,6 +20,7 @@ import com.example.appdocsach.Adapter.BooksAdapterVertical;
 import com.example.appdocsach.Adapter.RecentlyReadAdapter;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
+import com.example.appdocsach.model.User;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -99,14 +100,6 @@ public class UserFragment extends Fragment {
         booksAdapter = new RecentlyReadAdapter(getActivity(), new ArrayList<>());
         rcvReadBooks.setAdapter(booksAdapter);
 
-        // Setting click listener
-        setting.setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), Setting.class));
-            if (getActivity() != null) {
-                getActivity().finish();
-            }
-        });
-
         //Graph API facebook
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         if (accessToken != null && !accessToken.isExpired()) {
@@ -136,11 +129,32 @@ public class UserFragment extends Fragment {
             }
         });
 
-        // Load recently read books data
+        // Load user data from Firebase
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String userId = user.getUid();
-            DatabaseReference userBooksRef = FirebaseDatabase.getInstance().getReference("users/" + userId + "/readBooks");
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users/" + userId);
+
+            userRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    User userData = snapshot.getValue(User.class);
+                    if (userData != null) {
+                        usernameTextView.setText(userData.getName());
+                        emailTextView.setText(userData.getEmail());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(getActivity(), "Failed to load user data", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            // Load recently read books data
+            DatabaseReference userBooksRef = FirebaseDatabase.getInstance().getReference("Users/" + userId + "/readBooks");
+
+            // Kiểm tra và tạo đường dẫn "readBooks" nếu chưa tồn tại
             userBooksRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -185,6 +199,5 @@ public class UserFragment extends Fragment {
                 }
             });
         }
-
     }
 }
