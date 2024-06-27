@@ -101,14 +101,14 @@ public class SignUpActivity extends AppCompatActivity {
                 String created_date = edDate.getText().toString();
 
                 if (user.isEmpty() || pwd.isEmpty() || email.isEmpty() || created_date.isEmpty()) {
-                    Toast.makeText(SignUpActivity.this, "Please enter all required fields", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignUpActivity.this, "Vui lòng nhập tất cả các trường bắt buộc", Toast.LENGTH_LONG).show();
                 } else {
                     mAuth.createUserWithEmailAndPassword(email, pwd)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(SignUpActivity.this, "Account created successfully.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(SignUpActivity.this, "Tài khoản được tạo thành công.", Toast.LENGTH_SHORT).show();
                                         FirebaseUser currentUser = mAuth.getCurrentUser();
                                         //new code
                                         if (currentUser != null) {
@@ -122,13 +122,13 @@ public class SignUpActivity extends AppCompatActivity {
                                                     startActivity(intent);
                                                     finish();
                                                 } else {
-                                                    Toast.makeText(SignUpActivity.this, "Failed to save user data: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(SignUpActivity.this, "Không lưu được dữ liệu người dùng: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                                 }
                                             });
                                         }
                                         //
                                     } else {
-                                        Toast.makeText(SignUpActivity.this, "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(SignUpActivity.this, "Quá trình xác thực đã thất bại: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });

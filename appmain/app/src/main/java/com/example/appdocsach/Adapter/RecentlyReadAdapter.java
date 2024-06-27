@@ -63,11 +63,7 @@ public class RecentlyReadAdapter extends RecyclerView.Adapter<RecentlyReadAdapte
                 .into(holder.imgBook);
         holder.authorBook.setText(book.getAuthor());
 
-        long timestamp = book.getTimestamp();
-        Date date = new Date(timestamp);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        String formattedDate = dateFormat.format(date);
-        holder.dateBook.setText(formattedDate);
+        holder.dateBook.setText(book.getDay());
 
         holder.itemView.setOnClickListener(v -> mInterfaceClickListener.onClickReadItemBook(book));
     }

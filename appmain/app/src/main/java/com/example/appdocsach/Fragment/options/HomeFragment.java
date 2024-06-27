@@ -148,7 +148,7 @@ public class HomeFragment extends Fragment {
             }
             @Override
             public void onSearchError(String error) {
-                Toast.makeText(getContext(), "Search error: " + error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Lỗi tìm kiếm: " + error, Toast.LENGTH_SHORT).show();
                 clearSearchResults();
             }
         });

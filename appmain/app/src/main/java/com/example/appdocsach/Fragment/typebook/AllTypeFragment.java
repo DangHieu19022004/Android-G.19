@@ -181,7 +181,7 @@ public class AllTypeFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), "Failed to load top liked books: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Không tải được những cuốn sách được yêu thích nhất: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

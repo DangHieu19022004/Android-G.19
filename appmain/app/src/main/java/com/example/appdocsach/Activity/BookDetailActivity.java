@@ -148,7 +148,7 @@ public class BookDetailActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(BookDetailActivity.this, "Failed to load book details: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(BookDetailActivity.this, "Không thể tải chi tiết sách: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -159,7 +159,7 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     private void handleLikeButton() {
-        Toast.makeText(BookDetailActivity.this, "Liked!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(BookDetailActivity.this, "Đã thích!", Toast.LENGTH_SHORT).show();
         changeButtonColor(likeDetail);
         int currentLikes = currentBook.getLikeCount();
         currentBook.setLikeCount(currentLikes + 1);
@@ -167,7 +167,7 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     private void handleDislikeButton() {
-        Toast.makeText(BookDetailActivity.this, "Disliked!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(BookDetailActivity.this, "Không thích!", Toast.LENGTH_SHORT).show();
         changeButtonColor(dislikeDetail);
         int currentDislikes = currentBook.getDislikeCount();
         currentBook.setDislikeCount(Math.max(currentDislikes + 1, 0)); // Ensure dislikes don't go negative
@@ -204,7 +204,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(BookDetailActivity.this, "Failed to update like count: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BookDetailActivity.this, "Không cập nhật được số lượt thích: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -221,7 +221,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(BookDetailActivity.this, "Failed to update dislike count: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BookDetailActivity.this, "Không cập nhật được số lượt không thích: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

@@ -2,6 +2,7 @@ package com.example.appdocsach.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -16,6 +17,10 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.appdocsach.MainActivity;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import android.view.View;
 import android.widget.Toast;
 
@@ -50,9 +55,24 @@ public class ReadBookActivity extends AppCompatActivity {
         BooksModel book = (BooksModel) getIntent().getSerializableExtra("book_content");
         bookContent = book.getContent();
 
+        // Cập nhật sách được đọc gần đây nhất
+        updateRecentlyReadBooks(book);
 
         // show content
         displayPage(currentPage);
+    }
+
+    private void updateRecentlyReadBooks(BooksModel book) {
+        // Lấy ID người dùng hiện tại
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        // Thêm thông tin sách đã đọc vào Firebase Database
+        DatabaseReference userBooksRef = FirebaseDatabase.getInstance().getReference("Users/" + userId + "/readBooks/" + book.getId());
+        userBooksRef.setValue(System.currentTimeMillis()).addOnSuccessListener(aVoid -> {
+            Log.d("ReadBookActivity", "Book read time updated successfully.");
+        }).addOnFailureListener(e -> {
+            Log.e("ReadBookActivity", "Failed to update book read time.", e);
+        });
     }
 
     private void mapping() {
