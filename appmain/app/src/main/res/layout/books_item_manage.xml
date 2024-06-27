@@ -8,6 +8,7 @@
 
     <ImageView
         android:id="@+id/ImageBook_manage"
+        android:scaleType="fitXY"
         android:layout_width="140dp"
         android:layout_height="@dimen/sizebook_manage"
         android:src="@drawable/babylon" />

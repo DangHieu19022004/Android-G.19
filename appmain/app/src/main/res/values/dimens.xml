@@ -13,4 +13,5 @@
     <dimen name="sizeSCRV">80dp</dimen>
     <dimen name="sizebook_manage">180dp</dimen>
     <dimen name="ts_book_saved">35sp</dimen>
+    <dimen name="head_small">24sp</dimen>
 </resources>

@@ -24,4 +24,7 @@
     <string name="author_name">Tác giả: </string>
     <string name="delete">Xóa</string>
     <string name="booksaved">Sách đã lưu</string>
+    <string name="manageBook_Createbook">Đăng sách</string>
+    <string name="manageBook_Manage">Quản lý sách</string>
+    <string name="book_created">Sách đã đăng</string>
 </resources>

@@ -14,10 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.AppDocSach"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Activity.PostBookActivity"
+            android:exported="false" />
         <activity
             android:name=".Activity.ReadBookActivity"
-
             android:exported="false" />
         <activity
             android:name=".Activity.BookDetailActivity"

@@ -81,8 +81,6 @@ public class SavedBookFragment extends Fragment {
         //declare list book
         mListBookManage = new ArrayList<>();
 
-        //get book form sqlite
-//        mListBookManage = databaseHelper.getAllBooks();
 
         //show to screen
         booksAdapterManage = new BooksAdapterManage(mListBookManage, new BooksAdapterManage.IClickListener() {
