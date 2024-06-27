@@ -25,6 +25,8 @@ public class StartActivity extends AppCompatActivity {
             return insets;
         });
 
+//        this.deleteDatabase("books.db");
+
         Button start = findViewById(R.id.button3);
         start.setOnClickListener(v->{
             Intent intent = new Intent(StartActivity.this, LoginActivity.class);

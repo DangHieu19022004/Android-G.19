@@ -80,14 +80,14 @@ public class LoginActivity extends AppCompatActivity {
             String pwd = edPassword.getText().toString();
 
             if (pwd.isEmpty() || email.isEmpty()) {
-                Toast.makeText(LoginActivity.this, "Please enter all required fields", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Vui lòng điền thông tin còn trống ", Toast.LENGTH_LONG).show();
             } else {
                 mAuth.signInWithEmailAndPassword(email, pwd)
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
                                     //new code
                                     if (firebaseUser != null) {
@@ -104,13 +104,13 @@ public class LoginActivity extends AppCompatActivity {
                                                 finish();
                                                 //
                                             } else {
-                                                Toast.makeText(LoginActivity.this, "Failed to save user data: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(LoginActivity.this, "Lưu thông tin thất bai: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                             }
                                         });
                                     }
                                     //
                                 } else {
-                                    Toast.makeText(LoginActivity.this, "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "Quá trình xác thực đã thất bại: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -134,13 +134,13 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onCancel() {
                         // App code
-                        Toast.makeText(LoginActivity.this, "Facebook login canceled", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Đăng nhập Facebook bị hủy", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(@NonNull FacebookException error) {
                         // App code
-                        Toast.makeText(LoginActivity.this, "Facebook login error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Lỗi đăng nhập Facebook: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -191,7 +191,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             } catch (ApiException e) {
                 Log.w("SignIn", "signInResult:failed code=" + e.getStatusCode());
-                Toast.makeText(getApplication(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplication(), "Đã xảy ra lỗi", Toast.LENGTH_SHORT).show();
             }
         }
     }

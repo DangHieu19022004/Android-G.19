@@ -2,13 +2,13 @@ package com.example.appdocsach.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -18,12 +18,14 @@ import com.example.appdocsach.MainActivity;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
 import com.google.firebase.auth.FirebaseAuth;
+
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 
 import android.view.View;
 import android.widget.Toast;
@@ -32,12 +34,15 @@ import android.widget.Toast;
 public class ReadBookActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private BooksModel book;
+
     private ImageView backButtonReadBook, downloadButtonReadBook, discIconReadBook;
     private TextView textContent, textPageNumber;
     private Button btnPrevious, btnNext;
     private ScrollView scrollView;
     private String bookContent;
+
     private String bookId, bookImage, bookTitle, bookAuthor, bookDate;
+
     private int currentPage = 0;
     private int pageSize = 800; // Số ký tự mỗi trang (số ký tự bạn có thể thay đổi tùy vào nhu cầu)
 
@@ -61,56 +66,72 @@ public class ReadBookActivity extends AppCompatActivity {
         book = (BooksModel) getIntent().getSerializableExtra("book_content");
         bookContent = book.getContent();
 
+        // Cập nhật sách được đọc gần đây nhất
+        updateRecentlyReadBooks(book);
 
         // show content
         displayPage(currentPage);
 
-        // Get book details from the intent
-        bookId = book.getId();
-        bookImage = book.getImg();
-        bookTitle = book.getTitle();
-        bookAuthor = book.getAuthor();
-        bookDate = book.getDay();
-
-        // Save the recently read book info
-        saveRecentlyReadBook();
+//<<<<<<< HEAD
+//        // Get book details from the intent
+//        bookId = book.getId();
+//        bookImage = book.getImg();
+//        bookTitle = book.getTitle();
+//        bookAuthor = book.getAuthor();
+//        bookDate = book.getDay();
+//
+//        // Save the recently read book info
+//        saveRecentlyReadBook();
     }
-    private void saveRecentlyReadBook() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            String userId = user.getUid();
-            DatabaseReference userBooksRef = FirebaseDatabase.getInstance().getReference("Users/" + userId + "/readBooks");
+//    private void saveRecentlyReadBook() {
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        if (user != null) {
+//            String userId = user.getUid();
+//            DatabaseReference userBooksRef = FirebaseDatabase.getInstance().getReference("Users/" + userId + "/readBooks");
+//
+//            userBooksRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    if (!snapshot.exists()) {
+//                        // Create the path if it doesn't exist
+//                        userBooksRef.setValue("");
+//                    }
+//
+//                    // Save the recently read book info
+//                    BooksModel book = new BooksModel();
+//                    book.setId(bookId);
+//                    book.setImg(bookImage);
+//                    book.setTitle(bookTitle);
+//                    book.setAuthor(bookAuthor);
+//                    book.setDay(bookDate);
+//                    book.setTimestamp(System.currentTimeMillis());
+//
+//                    userBooksRef.child(bookId).setValue(book);
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//                    // Handle possible errors.
+//                }
+//            });
+//        }
+//    }
+//=======
+    private void updateRecentlyReadBooks(BooksModel book) {
+        // Lấy ID người dùng hiện tại
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            userBooksRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (!snapshot.exists()) {
-                        // Create the path if it doesn't exist
-                        userBooksRef.setValue("");
-                    }
-
-                    // Save the recently read book info
-                    BooksModel book = new BooksModel();
-                    book.setId(bookId);
-                    book.setImg(bookImage);
-                    book.setTitle(bookTitle);
-                    book.setAuthor(bookAuthor);
-                    book.setDay(bookDate);
-                    book.setTimestamp(System.currentTimeMillis());
-
-                    userBooksRef.child(bookId).setValue(book);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    // Handle possible errors.
-                }
-            });
-        }
+        // Thêm thông tin sách đã đọc vào Firebase Database
+        DatabaseReference userBooksRef = FirebaseDatabase.getInstance().getReference("Users/" + userId + "/readBooks/" + book.getId());
+        userBooksRef.setValue(System.currentTimeMillis()).addOnSuccessListener(aVoid -> {
+            Log.d("ReadBookActivity", "Book read time updated successfully.");
+        }).addOnFailureListener(e -> {
+            Log.e("ReadBookActivity", "Failed to update book read time.", e);
+        });
     }
+
     private void mapping() {
         backButtonReadBook = findViewById(R.id.backButtonReadBook);
-        downloadButtonReadBook = findViewById(R.id.downloadButtonReadBook);
 
         discIconReadBook = findViewById(R.id.discIconReadBook);
         textContent = findViewById(R.id.text_content);

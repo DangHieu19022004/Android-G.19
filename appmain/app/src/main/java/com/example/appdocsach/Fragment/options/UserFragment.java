@@ -2,6 +2,7 @@ package com.example.appdocsach.Fragment.options;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,7 +105,9 @@ public class UserFragment extends Fragment {
             public void onClickReadItemBook(BooksModel books) {
                 // Handle book item click
                 Intent intent = new Intent(getActivity(), BookDetailActivity.class);
-                intent.putExtra("book_data", books); ///make serialize
+
+                intent.putExtra("book_data", books);
+
                 startActivity(intent);
             }
         });
@@ -139,10 +142,10 @@ public class UserFragment extends Fragment {
             }
         });
 
-        // Load user data from Firebase
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String userId = user.getUid();
+            // Load user data from Firebase
             DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users/" + userId);
 
             userRef.addValueEventListener(new ValueEventListener() {
@@ -157,56 +160,63 @@ public class UserFragment extends Fragment {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(getActivity(), "Failed to load user data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Không tải được dữ liệu người dùng", Toast.LENGTH_SHORT).show();
                 }
             });
 
             // Load recently read books data
             DatabaseReference userBooksRef = FirebaseDatabase.getInstance().getReference("Users/" + userId + "/readBooks");
 
-            // Kiểm tra và tạo đường dẫn "readBooks" nếu chưa tồn tại
-            userBooksRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            userBooksRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (!snapshot.exists()) {
-                        // Create the path if it doesn't exist
-                        userBooksRef.setValue("");
+                    booksModelList.clear();
+                    List<Pair<String, Long>> bookTimestamps = new ArrayList<>();
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        String bookId = dataSnapshot.getKey();
+                        Long timestamp = dataSnapshot.getValue(Long.class);
+                        if (bookId != null && timestamp != null) {
+                            bookTimestamps.add(new Pair<>(bookId, timestamp));
+                        }
                     }
 
-                    // Now load the recently read books data
-                    userBooksRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            booksModelList.clear();
-                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                BooksModel book = dataSnapshot.getValue(BooksModel.class);
-                                if (book != null) {
-                                    booksModelList.add(book);
-                                }
+                    // Sắp xếp danh sách sách theo thời gian cuối cùng đọc giảm dần
+                    Collections.sort(bookTimestamps, (o1, o2) -> Long.compare(o2.second, o1.second));
+                    // Load book details and update adapter
+                    for (Pair<String, Long> pair : bookTimestamps) {
+                        getBookById(pair.first, book -> {
+                            if (book != null) {
+                                booksModelList.add(book);
+                                booksAdapter.setData(new ArrayList<>(booksModelList));
                             }
-
-                            // Sắp xếp danh sách sách theo timestamp giảm dần
-                            Collections.sort(booksModelList, new Comparator<BooksModel>() {
-                                @Override
-                                public int compare(BooksModel o1, BooksModel o2) {
-                                    return Long.compare(o2.getTimestamp(), o1.getTimestamp());
-                                }
-                            });
-                            booksAdapter.setData(new ArrayList<>(booksModelList));
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            Toast.makeText(getActivity(), "Failed to load books", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                        });
+                    }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    // Handle possible errors.
+                    Toast.makeText(getActivity(), "Không thể tải sách", Toast.LENGTH_SHORT).show();
                 }
             });
         }
+    }
+    private void getBookById(String bookId, OnBookLoadedListener listener) {
+        DatabaseReference bookRef = FirebaseDatabase.getInstance().getReference("books/" + bookId);
+        bookRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                BooksModel book = snapshot.getValue(BooksModel.class);
+                listener.onBookLoaded(book);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Không thể tải sách", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private interface OnBookLoadedListener {
+        void onBookLoaded(BooksModel book);
     }
 }
