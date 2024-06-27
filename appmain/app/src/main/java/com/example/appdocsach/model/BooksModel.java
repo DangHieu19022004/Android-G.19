@@ -1,6 +1,8 @@
 package com.example.appdocsach.model;
 
-public class BooksModel {
+import java.io.Serializable;
+
+public class BooksModel implements Serializable {
 
     private String author;
     private int categoryId;
@@ -12,9 +14,11 @@ public class BooksModel {
     private int view;
     private int likeCount;
     private long timestamp;
+    private int dislikeCount;
+    private String day;
 
-
-    public BooksModel(String author, int categoryId, String content, String id, String img, String subtitle, String title, int view, int likeCount, int dislikeCount, String day, long timestamp) {
+    public BooksModel(String author, int categoryId, String content, String id, String img, String subtitle,
+            String title, int view, int likeCount, int dislikeCount, String day, long timestamp) {
         this.author = author;
         this.categoryId = categoryId;
         this.content = content;
@@ -112,16 +116,19 @@ public class BooksModel {
         this.dislikeCount = dislikeCount;
     }
 
-    private int dislikeCount;
-    private String day;
-
     public int getLikeCount() {
         return likeCount;
     }
+
     public void setLikeCount(int likeCount) {
         this.likeCount = likeCount;
     }
 
-    public long getTimestamp() {return timestamp;}
-    public void setTimestamp(long timestamp) {this.timestamp = timestamp;}
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
 }

@@ -2,6 +2,7 @@ package com.example.appdocsach.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,8 +13,13 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.example.appdocsach.DatabaseHelper;
+import com.example.appdocsach.Fragment.options.HomeFragment;
+import com.example.appdocsach.MainActivity;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -25,8 +31,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class BookDetailActivity extends AppCompatActivity {
-
-    ImageView threeDotsButton;
+    DatabaseHelper db;
+    ImageView threeDotsButton, imgDetailBook, backButton, downloadButton;
+    TextView subtitleDetailBook, headTextDetailBook, ViewCount, authorDetail;
     Button btnstartreadDetail;
     LinearLayout likeDetail, dislikeDetail;
     TextView txtLikeCount, txtDislikeCount;
@@ -41,9 +48,32 @@ public class BookDetailActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
 
+//        this.deleteDatabase("books.db");
+
         mapping();
 
+        // show book clicked
+        getInfoBookclick();
+
+        //click to save into book
+        downloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAlertDialog();
+            }
+        });
+
+        // back homepage
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(BookDetailActivity.this, MainActivity.class);
+                startActivity(it);
+            }
+        });
+
         // Click 3 dots to show up menu options
+
         threeDotsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +87,7 @@ public class BookDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // this is demo. need title to show book!!!
                 Intent it = new Intent(BookDetailActivity.this, ReadBookActivity.class);
+                it.putExtra("book_content", currentBook);
                 startActivity(it);
             }
         });
@@ -78,6 +109,30 @@ public class BookDetailActivity extends AppCompatActivity {
 
         // Load initial like and dislike counts from Firebase
         loadLikeAndDislikeCounts();
+    }
+
+    private void showAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(BookDetailActivity.this);
+        builder.setTitle("Thông báo");
+        builder.setMessage("Tải sách về thết bị?");
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            savetoDevice();
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> {
+            dialog.dismiss();
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void savetoDevice() {
+
+        if(db.addBook(currentBook) == -1){
+            Toast.makeText(BookDetailActivity.this, "Lưu thất bại, vui lòng thử lại sau", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(BookDetailActivity.this, "Lưu thành công", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void loadLikeAndDislikeCounts() {
@@ -117,6 +172,24 @@ public class BookDetailActivity extends AppCompatActivity {
         int currentDislikes = currentBook.getDislikeCount();
         currentBook.setDislikeCount(Math.max(currentDislikes + 1, 0)); // Ensure dislikes don't go negative
         updateDislikeCountInFirebase(currentBook.getId(), currentBook.getDislikeCount());
+    }
+
+    private void getInfoBookclick() {
+        BooksModel book = (BooksModel) getIntent().getSerializableExtra("book_data");
+        if (book != null) {
+            Glide.with(this.imgDetailBook.getContext())
+                    .load(book.getImg())
+                    .into(this.imgDetailBook);
+            txtLikeCount.setText(String.valueOf(book.getLikeCount()));
+            txtDislikeCount.setText(String.valueOf(book.getDislikeCount()));
+            headTextDetailBook.setText(String.valueOf(book.getTitle()));
+            ViewCount.setText(String.valueOf(book.getView()));
+            authorDetail.setText(String.valueOf(book.getAuthor()));
+            subtitleDetailBook.setText(String.valueOf(book.getSubtitle()));
+
+            // Lưu sách hiện tại
+            currentBook = book;
+        }
     }
 
     private void updateLikeCountInFirebase(String bookId, int likeCount) {
@@ -170,8 +243,23 @@ public class BookDetailActivity extends AppCompatActivity {
         btnstartreadDetail = findViewById(R.id.btnstartreadDetail);
         likeDetail = findViewById(R.id.likeDetail);
         dislikeDetail = findViewById(R.id.dislikeDetail);
+
+        //Hieu - mapping click book
+        imgDetailBook = findViewById(R.id.imgDetailBook);
+
+        subtitleDetailBook = findViewById(R.id.subtitleDetailBook);
+        headTextDetailBook = findViewById(R.id.headTextDetailBook);
+        ViewCount = findViewById(R.id.ViewCount);
+        authorDetail = findViewById(R.id.authorDetail);
+        backButton = findViewById(R.id.backButton);
+        downloadButton = findViewById(R.id.downloadButton);
+
+
         txtLikeCount = findViewById(R.id.txtLikeCount);
         txtDislikeCount = findViewById(R.id.txtDislikeCount);
+
+        // declare dtb
+        db = new DatabaseHelper(this);
 
         // Initialize current book object
         currentBook = new BooksModel();

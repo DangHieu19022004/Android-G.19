@@ -1,5 +1,6 @@
 package com.example.appdocsach.Fragment.typebook;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.appdocsach.Activity.BookDetailActivity;
 
 import com.example.appdocsach.Adapter.BooksAdapterHorizontal;
 
@@ -25,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -67,14 +70,14 @@ public class AllTypeFragment extends Fragment {
         booksAdapter = new BooksAdapterHorizontal( mListBooks, new BooksAdapterHorizontal.IClickListener() {
             @Override
             public void onClickReadItemBook(BooksModel books) {
-                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
+                showDetailBook(books);
             }
         });
 
         BooksAdapterHorizontal favoriteBooksAdapter = new BooksAdapterHorizontal(mListFavoriteBooks, new BooksAdapterHorizontal.IClickListener() { // New
             @Override
             public void onClickReadItemBook(BooksModel books) {
-                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
+                showDetailBook(books);
             }
         });
 
@@ -91,17 +94,16 @@ public class AllTypeFragment extends Fragment {
 
         //create list advance
         List<String> mangquangcao = new ArrayList<>();
-        mangquangcao.add("https://firebasestorage.googleapis.com/v0/b/appdocsach-18d2f.appspot.com/o/Image%2FScreenshot%202024-06-11%20001954.png?alt=media&token=a3dd5fc6-1ea2-45a6-b8b0-5a85e9d453aa");
-        mangquangcao.add("https://firebasestorage.googleapis.com/v0/b/appdocsach-18d2f.appspot.com/o/Image%2FScreenshot%202024-06-11%20002148.png?alt=media&token=d7223bba-23b8-4eab-ab28-76ed83798b6b");
-        mangquangcao.add("https://firebasestorage.googleapis.com/v0/b/appdocsach-18d2f.appspot.com/o/Image%2FScreenshot%202024-06-11%20002342.png?alt=media&token=613fec23-ce1e-41fc-bc9c-b19690daec9d");
-        mangquangcao.add("https://firebasestorage.googleapis.com/v0/b/appdocsach-18d2f.appspot.com/o/Image%2FScreenshot%202024-06-11%20002454.png?alt=media&token=d502cbdb-e53b-439e-800f-6dec2fbfd6b9");
-        mangquangcao.add("https://firebasestorage.googleapis.com/v0/b/appdocsach-18d2f.appspot.com/o/Image%2FScreenshot%202024-06-11%20000640.png?alt=media&token=3a540cc7-e93e-4895-9973-d47b7ca75be5");
+        mangquangcao.add("https://firebasestorage.googleapis.com/v0/b/appdocsach-18d2f.appspot.com/o/slide%2FScreenshot%202024-06-16%20220014.png?alt=media&token=8882a5a7-caad-46f6-9d92-985ca31d62d4");
+        mangquangcao.add("https://firebasestorage.googleapis.com/v0/b/appdocsach-18d2f.appspot.com/o/slide%2FScreenshot%202024-06-16%20220122.png?alt=media&token=5c18bb1c-0aae-4a9e-b57c-bbdada5eef5d");
+        mangquangcao.add("https://firebasestorage.googleapis.com/v0/b/appdocsach-18d2f.appspot.com/o/slide%2FScreenshot%202024-06-16%20220254.png?alt=media&token=8c3df2c6-07dc-4f4c-8e41-4c89c71359df");
+        mangquangcao.add("https://firebasestorage.googleapis.com/v0/b/appdocsach-18d2f.appspot.com/o/slide%2FScreenshot%202024-06-16%20220359.png?alt=media&token=c74186c8-9761-42df-97ad-f6524bd2a26d");
+//        mangquangcao.add("https://firebasestorage.googleapis.com/v0/b/appdocsach-18d2f.appspot.com/o/Image%2FScreenshot%202024-06-11%20000640.png?alt=media&token=3a540cc7-e93e-4895-9973-d47b7ca75be5");
 
+        //show to slide + create circleindicator
         viewpagerSlideAdapter = new viewpagerSlide(getContext(), mangquangcao);
         viewPagerSlide.setAdapter(viewpagerSlideAdapter);
-
         circleIndicatorSlide.setViewPager(viewPagerSlide);
-
         viewpagerSlideAdapter.registerDataSetObserver(circleIndicatorSlide.getDataSetObserver());
 
         // Call method to get top viewed books
@@ -109,6 +111,22 @@ public class AllTypeFragment extends Fragment {
 
         //Call method to get top liked books
         getTopLikedBooks(mListFavoriteBooks, favoriteBooksAdapter);
+    }
+
+    private void showDetailBook(BooksModel books) {
+        Intent it = new Intent(getActivity(), BookDetailActivity.class);
+        it.putExtra("book_data", books); ///make serialize
+//        it.putExtra("author", books.getAuthor());
+//        it.putExtra("content", books.getContent());
+//        it.putExtra("day", books.getDay());
+//        it.putExtra("dislike", books.getDislikeCount());
+//        it.putExtra("id", books.getId());
+//        it.putExtra("img", books.getImg());
+//        it.putExtra("like", books.getLike());
+//        it.putExtra("subtitle", books.getSubtitle());
+//        it.putExtra("title", books.getTitle());
+//        it.putExtra("view", books.getView());
+        startActivity(it);
     }
 
     private void getTopLikedBooks(List<BooksModel> listFavoriteBooks, BooksAdapterHorizontal favoriteBooksAdapter) {

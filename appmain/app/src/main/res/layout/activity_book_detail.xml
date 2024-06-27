@@ -50,6 +50,7 @@
         app:layout_constraintTop_toBottomOf="@+id/headerDetailBook" />
 
     <TextView
+        android:layout_marginTop="@dimen/mgtop"
         android:id="@+id/headTextDetailBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -59,6 +60,8 @@
         app:layout_constraintTop_toBottomOf="@+id/imgDetailBook" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginTop="@dimen/mgtop"
+
         android:id="@+id/likedissaveDetail"
         app:layout_constraintTop_toBottomOf="@+id/headTextDetailBook"
         android:layout_width="match_parent"
@@ -83,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/like"
-                android:textSize="@dimen/nameSize" />
+                android:textSize="@dimen/sizecontenttext" />
         </LinearLayout>
 
         <LinearLayout
@@ -97,15 +100,18 @@
 
             <ImageView
                 style="@style/IconDetailLike"
+                android:layout_height="80dp"
+
                 android:padding="@dimen/pdfiximg"
                 android:src="@drawable/dislikeicon" />
 
             <TextView
+                android:textSize="@dimen/sizecontenttext"
                 android:id="@+id/txtDislikeCount"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/like"
-                android:textSize="@dimen/nameSize" />
+                android:text="@string/like" />
         </LinearLayout>
 
         <LinearLayout
@@ -122,7 +128,7 @@
                 android:src="@drawable/saveicon" />
 
             <TextView
-                android:textSize="@dimen/nameSize"
+                android:textSize="@dimen/sizecontenttext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/readafter" />
@@ -130,14 +136,64 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+ <LinearLayout
+     android:layout_marginTop="@dimen/mgtop"
+     app:layout_constraintTop_toBottomOf="@id/likedissaveDetail"
+     android:id="@+id/topofauthor"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content">
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="@string/view_count"
+         android:textSize="@dimen/sizecontenttext"/>
+     <ImageView
+         android:layout_marginLeft="@dimen/mgtop"
+         android:layout_marginRight="@dimen/mgtop"
+         android:layout_width="28dp"
+         android:layout_height="28dp"
+         android:src="@drawable/viewicon" />
+     <TextView
+         android:id="@+id/ViewCount"
+         android:text="@string/view_count"
+         android:textSize="@dimen/sizecontenttext"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"/>
+ </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/mgtop"
+        app:layout_constraintTop_toBottomOf="@id/topofauthor"
+        android:id="@+id/topofdescrip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginRight="@dimen/mgtop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/author_name"
+            android:textSize="@dimen/sizecontenttext"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topofdescrip" />
+        <TextView
+            android:id="@+id/authorDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/author_name"
+            android:textSize="@dimen/sizecontenttext"/>
+    </LinearLayout>
+
+
+
     <TextView
+        android:layout_marginTop="@dimen/mgtop"
         android:id="@+id/discribeDetailhead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/descibe"
         android:textSize="@dimen/sizecontenttext"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/likedissaveDetail" />
+        app:layout_constraintTop_toBottomOf="@+id/topofdescrip" />
 
 
     <ScrollView
@@ -148,7 +204,7 @@
         app:layout_constraintTop_toBottomOf="@+id/discribeDetailhead">
 
         <TextView
-            android:id="@+id/contentdiscribeDetail"
+            android:id="@+id/subtitleDetailBook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/descibe"
