@@ -15,9 +15,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appdocsach.Activity.BookDetailActivity;
 import com.example.appdocsach.Activity.Setting;
 import com.example.appdocsach.Adapter.BooksAdapterVertical;
 import com.example.appdocsach.Adapter.RecentlyReadAdapter;
+import com.example.appdocsach.Adapter.SearchBookAdapter;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
 import com.example.appdocsach.model.User;
@@ -97,7 +99,19 @@ public class UserFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         rcvReadBooks.setLayoutManager(linearLayoutManager);
         booksModelList = new ArrayList<>();
-        booksAdapter = new RecentlyReadAdapter(getActivity(), new ArrayList<>());
+        booksAdapter = new RecentlyReadAdapter(getContext(), booksModelList, new RecentlyReadAdapter.IClickListener() {
+            @Override
+            public void onClickReadItemBook(BooksModel books) {
+                // Handle book item click
+                Intent intent = new Intent(getActivity(), BookDetailActivity.class);
+                intent.putExtra("Id", books.getId());
+                intent.putExtra("Image", books.getImg());
+                intent.putExtra("Title", books.getTitle());
+                intent.putExtra("Author", books.getAuthor());
+                intent.putExtra("Date", books.getDay());
+                startActivity(intent);
+            }
+        });
         rcvReadBooks.setAdapter(booksAdapter);
 
         //Graph API facebook
@@ -182,7 +196,6 @@ public class UserFragment extends Fragment {
                                     return Long.compare(o2.getTimestamp(), o1.getTimestamp());
                                 }
                             });
-
                             booksAdapter.setData(new ArrayList<>(booksModelList));
                         }
 

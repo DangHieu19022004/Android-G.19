@@ -20,18 +20,25 @@ import com.example.appdocsach.model.BooksModel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class RecentlyReadAdapter extends RecyclerView.Adapter<RecentlyReadAdapter.RecentlyReadViewHolder> {
     private Context mContext;
-    private ArrayList<BooksModel> mListBooks;
+    private List<BooksModel> mListBooks;
+    private IClickListener mInterfaceClickListener;
 
-    public RecentlyReadAdapter(Context mContext, ArrayList<BooksModel> mListBooks) {
-        this.mContext = mContext;
-        this.mListBooks = mListBooks;
+    public interface IClickListener {
+        void onClickReadItemBook(BooksModel books);
     }
 
-    public void setData(ArrayList<BooksModel> list) {
+    public RecentlyReadAdapter(Context context, List<BooksModel> mListBooks, IClickListener mInterfaceClickListener) {
+        this.mContext = context;
+        this.mListBooks = mListBooks;
+        this.mInterfaceClickListener = mInterfaceClickListener;
+    }
+
+    public void setData(List<BooksModel> list) {
         this.mListBooks = list;
         notifyDataSetChanged();
     }
@@ -56,14 +63,13 @@ public class RecentlyReadAdapter extends RecyclerView.Adapter<RecentlyReadAdapte
                 .into(holder.imgBook);
         holder.authorBook.setText(book.getAuthor());
 
-        // Format and display the timestamp as a readable date
         long timestamp = book.getTimestamp();
         Date date = new Date(timestamp);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         String formattedDate = dateFormat.format(date);
         holder.dateBook.setText(formattedDate);
 
-
+        holder.itemView.setOnClickListener(v -> mInterfaceClickListener.onClickReadItemBook(book));
     }
 
     @Override
@@ -81,7 +87,6 @@ public class RecentlyReadAdapter extends RecyclerView.Adapter<RecentlyReadAdapte
             super(itemView);
             imgBook = itemView.findViewById(R.id.imgBooks);
             titleBook = itemView.findViewById(R.id.title);
-
             authorBook = itemView.findViewById(R.id.author);
             dateBook = itemView.findViewById(R.id.date);
         }
