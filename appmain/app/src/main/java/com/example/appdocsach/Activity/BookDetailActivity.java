@@ -1,5 +1,6 @@
 package com.example.appdocsach.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,8 +19,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.appdocsach.Adapter.BooksAdapterManage;
 import com.example.appdocsach.DatabaseHelper;
 import com.example.appdocsach.Fragment.options.HomeFragment;
+import com.example.appdocsach.Fragment.options.SavedBookFragment;
 import com.example.appdocsach.MainActivity;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
@@ -32,6 +35,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class BookDetailActivity extends AppCompatActivity {
+
     DatabaseHelper db;
     ImageView threeDotsButton, imgDetailBook, backButton, downloadButton;
     TextView subtitleDetailBook, headTextDetailBook, ViewCount, authorDetail;
@@ -40,6 +44,7 @@ public class BookDetailActivity extends AppCompatActivity {
     TextView txtLikeCount, txtDislikeCount;
     private FirebaseDatabase database;
     private BooksModel currentBook;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,8 +119,10 @@ public class BookDetailActivity extends AppCompatActivity {
     private void showAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(BookDetailActivity.this);
         builder.setTitle("Thông báo");
-        builder.setMessage("Tải sách về thết bị?");
+        builder.setMessage("Tải sách về thiết bị?");
         builder.setPositiveButton("OK", (dialog, which) -> {
+            // Show progress dowload
+            progressDialog = ProgressDialog.show(BookDetailActivity.this, "Đang tải", "Vui lòng chờ...", true);
             savetoDevice();
         });
         builder.setNegativeButton("Cancel", (dialog, which) -> {
@@ -128,14 +135,30 @@ public class BookDetailActivity extends AppCompatActivity {
 
     private void savetoDevice() {
 
-        if(db.addBook(currentBook) == -1){
-            Toast.makeText(BookDetailActivity.this, "Lưu thất bại, vui lòng thử lại sau", Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(BookDetailActivity.this, "Lưu thành công", Toast.LENGTH_SHORT).show();
-        }
+        new Thread(() -> {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            runOnUiThread(() -> {
+                if(db.addBook(currentBook) == -1){
+                    Toast.makeText(BookDetailActivity.this, "Lưu thất bại, vui lòng thử lại sau", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(BookDetailActivity.this, "Lưu thành công", Toast.LENGTH_SHORT).show();
+                    SavedBookFragment.booksAdapterManage.notifyDataSetChanged(); // reset recycle view savedbook
+                }
+                // Tắt ProgressDialog sau khi lưu xong
+                if (progressDialog != null && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+            });
+        }).start();
+
     }
 
-    private void loadLikeAndDislikeCounts() {
+        private void loadLikeAndDislikeCounts() {
         DatabaseReference bookRef = database.getReference("books").child(currentBook.getId());
         bookRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -259,7 +282,6 @@ public class BookDetailActivity extends AppCompatActivity {
     private void shareBook() {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-//        intent.putExtra(Intent.EXTRA_SUBJECT, "Check out this cool Application");
         intent.putExtra(Intent.EXTRA_TEXT, "https://www.sachhayonline.com/");
         startActivity(Intent.createChooser(intent, "Chia sẻ sách"));
     }

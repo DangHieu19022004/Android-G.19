@@ -6,12 +6,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.appdocsach.Adapter.BooksAdapterManage;
 import com.example.appdocsach.model.BooksModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+
 
     private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "books.db";
@@ -77,6 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         long check = db.insert(TABLE_BOOKS, null, values);
         db.close();
+
         return check;
     }
 

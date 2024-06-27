@@ -1,5 +1,6 @@
 package com.example.appdocsach.Fragment.options;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -26,10 +27,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class SavedBookFragment extends Fragment {
-
+    int posisionid;
     private DatabaseHelper databaseHelper;
     private RecyclerView rclvManage;
-    private BooksAdapterManage booksAdapterManage;
+    public static BooksAdapterManage booksAdapterManage;
 
     List<BooksModel> mListBookManage;
 
@@ -81,7 +82,7 @@ public class SavedBookFragment extends Fragment {
         mListBookManage = new ArrayList<>();
 
         //get book form sqlite
-        mListBookManage = databaseHelper.getAllBooks();
+//        mListBookManage = databaseHelper.getAllBooks();
 
         //show to screen
         booksAdapterManage = new BooksAdapterManage(mListBookManage, new BooksAdapterManage.IClickListener() {
@@ -100,11 +101,27 @@ public class SavedBookFragment extends Fragment {
         rclvManage.setLayoutManager(new GridLayoutManager(getContext(), 1));
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateBookList();
+    }
+
+    private void updateBookList() {
+        //get book form sqlite
+        mListBookManage.clear();
+        mListBookManage.addAll(databaseHelper.getAllBooks());
+        booksAdapterManage.notifyDataSetChanged();
+    }
+
+
     private void showAlertDialogDelete(BooksModel books, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Thông báo");
         builder.setMessage("Xóa khỏi thiết bị?");
         builder.setPositiveButton("OK", (dialog, which) -> {
+            posisionid = position;
             DeleteBookFromSQLite(books, position);
         });
         builder.setNegativeButton("Cancel", (dialog, which) -> {
@@ -121,8 +138,8 @@ public class SavedBookFragment extends Fragment {
         }else{
             Toast.makeText(getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
 
-
             mListBookManage.remove(position);
+
             booksAdapterManage.notifyItemRemoved(position);
             booksAdapterManage.notifyItemRangeChanged(position, mListBookManage.size());
         }
