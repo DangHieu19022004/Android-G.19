@@ -61,7 +61,7 @@ public class MentalTypeFragment extends Fragment {
         DatabaseReference myRef = database.getReference("books");
 
         // Update the query condition to fetch books of category "Tâm lý"
-        Query query = myRef.orderByChild("type").equalTo("Tâm lý");
+        Query query = myRef.orderByChild("type").equalTo("Tâm lý học");
 
         query.addChildEventListener(new ChildEventListener() {
             @Override
