@@ -102,16 +102,10 @@ public class UserFragment extends Fragment {
         booksAdapter = new RecentlyReadAdapter(getContext(), booksModelList, new RecentlyReadAdapter.IClickListener() {
             @Override
             public void onClickReadItemBook(BooksModel books) {
-
-
-
                 // Handle book item click
                 Intent intent = new Intent(getActivity(), BookDetailActivity.class);
                 intent.putExtra("book_data", books); ///make serialize
                 startActivity(intent);
-
-
-
             }
         });
         rcvReadBooks.setAdapter(booksAdapter);

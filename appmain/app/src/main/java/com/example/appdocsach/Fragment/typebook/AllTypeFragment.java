@@ -116,16 +116,6 @@ public class AllTypeFragment extends Fragment {
     private void showDetailBook(BooksModel books) {
         Intent it = new Intent(getActivity(), BookDetailActivity.class);
         it.putExtra("book_data", books); ///make serialize
-//        it.putExtra("author", books.getAuthor());
-//        it.putExtra("content", books.getContent());
-//        it.putExtra("day", books.getDay());
-//        it.putExtra("dislike", books.getDislikeCount());
-//        it.putExtra("id", books.getId());
-//        it.putExtra("img", books.getImg());
-//        it.putExtra("like", books.getLike());
-//        it.putExtra("subtitle", books.getSubtitle());
-//        it.putExtra("title", books.getTitle());
-//        it.putExtra("view", books.getView());
         startActivity(it);
     }
 

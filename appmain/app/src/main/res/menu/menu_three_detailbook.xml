@@ -2,7 +2,10 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Chia sẻ" />
-    <item android:title="Báo cáo" />
-    <item android:title="Chặn" />
+    <item android:title="Chia sẻ"
+        android:id="@+id/share_book"/>
+    <item android:title="Báo cáo"
+        android:id="@+id/report_book"/>
+    <item android:title="Chặn"
+        android:id="@+id/block_book"/>
 </menu>

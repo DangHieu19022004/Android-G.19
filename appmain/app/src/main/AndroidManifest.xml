@@ -17,6 +17,7 @@
 
         <activity
             android:name=".Activity.ReadBookActivity"
+
             android:exported="false" />
         <activity
             android:name=".Activity.BookDetailActivity"
