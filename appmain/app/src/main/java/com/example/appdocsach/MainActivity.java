@@ -1,5 +1,6 @@
 package com.example.appdocsach;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -13,18 +14,33 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.appdocsach.Adapter.viewpagerOptions;
+import com.example.appdocsach.Fragment.options.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
     ViewPager viewPagerOption;
     BottomNavigationView bottomNavigationView;
+    boolean isLoggedIn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        // Get user information if logged in
+        if (isLoggedIn) {
+            Intent intent = getIntent();
+            String username = intent.getStringExtra("USERNAME");
+            String email = intent.getStringExtra("EMAIL");
+
+            // Replace fragment only if savedInstanceState is null (first launch)
+            if (savedInstanceState == null) {
+                replaceUserFragment(username, email);
+            }
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -86,6 +102,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+    private void replaceUserFragment(String username, String email) {
+        UserFragment userFragment = UserFragment.newInstance(username, email);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, userFragment)
+                .commit();
+    }
+
     //Ẩn khi tìm kiếm
     public void hideBottomNavigationView() {
         bottomNavigationView.setVisibility(View.GONE);

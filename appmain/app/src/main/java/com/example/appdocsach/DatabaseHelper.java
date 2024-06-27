@@ -28,6 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_LIKE_COUNT = "likeCount";
     private static final String COLUMN_DISLIKE_COUNT = "dislikeCount";
     private static final String COLUMN_DAY = "day";
+    private static final String COLUMN_TIMESTAMP = "timestamp";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -46,7 +47,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_VIEW + " INTEGER,"
                 + COLUMN_LIKE_COUNT + " INTEGER,"
                 + COLUMN_DISLIKE_COUNT + " INTEGER,"
-                + COLUMN_DAY + " TEXT"
+                + COLUMN_DAY + " TEXT,"
+                + COLUMN_TIMESTAMP + " INTEGER"
                 + ")";
         db.execSQL(CREATE_BOOKS_TABLE);
     }
@@ -72,6 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_LIKE_COUNT, book.getLikeCount());
         values.put(COLUMN_DISLIKE_COUNT, book.getDislikeCount());
         values.put(COLUMN_DAY, book.getDay());
+        values.put(COLUMN_TIMESTAMP, book.getTimestamp());
 
         long check = db.insert(TABLE_BOOKS, null, values);
         db.close();
@@ -82,7 +85,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public BooksModel getBook(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_BOOKS, new String[]{COLUMN_ID, COLUMN_AUTHOR, COLUMN_CATEGORY_ID, COLUMN_CONTENT,
-                        COLUMN_IMG, COLUMN_SUBTITLE, COLUMN_TITLE, COLUMN_VIEW, COLUMN_LIKE_COUNT, COLUMN_DISLIKE_COUNT, COLUMN_DAY},
+                        COLUMN_IMG, COLUMN_SUBTITLE, COLUMN_TITLE, COLUMN_VIEW, COLUMN_LIKE_COUNT, COLUMN_DISLIKE_COUNT, COLUMN_DAY, COLUMN_TIMESTAMP},
                 COLUMN_ID + "=?", new String[]{id}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -98,7 +101,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_VIEW)),
                 cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_LIKE_COUNT)),
                 cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_DISLIKE_COUNT)),
-                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DAY))
+                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DAY)),
+                cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_TIMESTAMP))
         );
         cursor.close();
         return book;
@@ -123,7 +127,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_VIEW)),
                         cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_LIKE_COUNT)),
                         cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_DISLIKE_COUNT)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DAY))
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DAY)),
+                        cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_TIMESTAMP))
                 );
                 bookList.add(book);
             } while (cursor.moveToNext());
@@ -146,6 +151,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_LIKE_COUNT, book.getLikeCount());
         values.put(COLUMN_DISLIKE_COUNT, book.getDislikeCount());
         values.put(COLUMN_DAY, book.getDay());
+        values.put(COLUMN_TIMESTAMP, book.getTimestamp());
 
         return db.update(TABLE_BOOKS, values, COLUMN_ID + " = ?", new String[]{book.getId()});
     }

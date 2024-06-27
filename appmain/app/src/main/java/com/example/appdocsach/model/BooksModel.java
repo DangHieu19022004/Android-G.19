@@ -11,11 +11,15 @@ public class BooksModel implements Serializable{
     private String title;
     private int view;
     private int likeCount;
+
     private int dislikeCount;
     private String day;
 
+    private long timestamp;
 
-    public BooksModel(String author, int categoryId, String content, String id, String img, String subtitle, String title, int view, int likeCount, int dislikeCount, String day) {
+
+
+    public BooksModel(String author, int categoryId, String content, String id, String img, String subtitle, String title, int view, int likeCount, int dislikeCount, String day, long timestamp) {
         this.author = author;
         this.categoryId = categoryId;
         this.content = content;
@@ -27,6 +31,7 @@ public class BooksModel implements Serializable{
         this.likeCount = likeCount;
         this.dislikeCount = dislikeCount;
         this.day = day;
+        this.timestamp = timestamp;
     }
 
     public BooksModel() {
@@ -117,9 +122,10 @@ public class BooksModel implements Serializable{
     public int getLikeCount() {
         return likeCount;
     }
-
     public void setLikeCount(int likeCount) {
         this.likeCount = likeCount;
     }
 
+    public long getTimestamp() {return timestamp;}
+    public void setTimestamp(long timestamp) {this.timestamp = timestamp;}
 }

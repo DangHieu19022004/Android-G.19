@@ -7,20 +7,45 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appdocsach.Activity.BookDetailActivity;
 import com.example.appdocsach.Activity.Setting;
+import com.example.appdocsach.Adapter.BooksAdapterVertical;
+import com.example.appdocsach.Adapter.RecentlyReadAdapter;
+import com.example.appdocsach.Adapter.SearchBookAdapter;
 import com.example.appdocsach.R;
+import com.example.appdocsach.model.BooksModel;
+import com.example.appdocsach.model.User;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 public class UserFragment extends Fragment {
+    private RecyclerView rcvReadBooks;
+    private RecentlyReadAdapter booksAdapter;
+    private List<BooksModel> booksModelList;
     GoogleSignInOptions gso;
 
     private static final String ARG_USERNAME = "USERNAME";
@@ -64,9 +89,32 @@ public class UserFragment extends Fragment {
 
         TextView usernameTextView = view.findViewById(R.id.username);
         TextView emailTextView = view.findViewById(R.id.email);
+        ImageView setting = view.findViewById(R.id.setting);
+        rcvReadBooks = view.findViewById(R.id.rcvReadBooks);
 
         usernameTextView.setText(username);
         emailTextView.setText(email);
+
+        // Initialize RecyclerView
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
+        rcvReadBooks.setLayoutManager(linearLayoutManager);
+        booksModelList = new ArrayList<>();
+        booksAdapter = new RecentlyReadAdapter(getContext(), booksModelList, new RecentlyReadAdapter.IClickListener() {
+            @Override
+            public void onClickReadItemBook(BooksModel books) {
+
+
+
+                // Handle book item click
+                Intent intent = new Intent(getActivity(), BookDetailActivity.class);
+                intent.putExtra("book_data", books); ///make serialize
+                startActivity(intent);
+
+
+
+            }
+        });
+        rcvReadBooks.setAdapter(booksAdapter);
 
         //Graph API facebook
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
@@ -90,12 +138,81 @@ public class UserFragment extends Fragment {
         }
 
         //Setting
-        ImageView setting = view.findViewById(R.id.setting);
         setting.setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), Setting.class));
             if (getActivity() != null) {
                 getActivity().finish();
             }
         });
+
+        // Load user data from Firebase
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid();
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users/" + userId);
+
+            userRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    User userData = snapshot.getValue(User.class);
+                    if (userData != null) {
+                        usernameTextView.setText(userData.getName());
+                        emailTextView.setText(userData.getEmail());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(getActivity(), "Failed to load user data", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            // Load recently read books data
+            DatabaseReference userBooksRef = FirebaseDatabase.getInstance().getReference("Users/" + userId + "/readBooks");
+
+            // Kiểm tra và tạo đường dẫn "readBooks" nếu chưa tồn tại
+            userBooksRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (!snapshot.exists()) {
+                        // Create the path if it doesn't exist
+                        userBooksRef.setValue("");
+                    }
+
+                    // Now load the recently read books data
+                    userBooksRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            booksModelList.clear();
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                BooksModel book = dataSnapshot.getValue(BooksModel.class);
+                                if (book != null) {
+                                    booksModelList.add(book);
+                                }
+                            }
+
+                            // Sắp xếp danh sách sách theo timestamp giảm dần
+                            Collections.sort(booksModelList, new Comparator<BooksModel>() {
+                                @Override
+                                public int compare(BooksModel o1, BooksModel o2) {
+                                    return Long.compare(o2.getTimestamp(), o1.getTimestamp());
+                                }
+                            });
+                            booksAdapter.setData(new ArrayList<>(booksModelList));
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(getActivity(), "Failed to load books", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Handle possible errors.
+                }
+            });
+        }
     }
 }

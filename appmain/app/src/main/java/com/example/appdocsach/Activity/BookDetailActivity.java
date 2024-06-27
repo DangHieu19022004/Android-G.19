@@ -48,7 +48,7 @@ public class BookDetailActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
 
-//        this.deleteDatabase("books.db");
+        this.deleteDatabase("books.db");
 
         mapping();
 

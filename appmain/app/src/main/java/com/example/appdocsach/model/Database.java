@@ -1,62 +1,46 @@
 package com.example.appdocsach.model;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Database {
-    private FirebaseFirestore db;
-    private CollectionReference booksRef;
+
+    private DatabaseReference databaseReference;
 
     public Database() {
-        db = FirebaseFirestore.getInstance();
-        booksRef = db.collection("books");
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("books");
     }
 
-    // Function to search books by title
-    public void searchBooksByTitle(String searchText, final OnSearchCompleteListener listener) {
-        List<BooksModel> filteredList = new ArrayList<>();
-        String searchTextLower = searchText.toLowerCase();
-        Query query = booksRef.orderBy("title");
-
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (DocumentSnapshot document : task.getResult()) {
-                        BooksModel book = document.toObject(BooksModel.class);
-                        // Check if the title contains any part of searchText (case-insensitive)
-                        if (normalizeString(book.getTitle()).contains(normalizeString(searchTextLower))) {
-                            filteredList.add(book);
-                        }
-                    }
-                    listener.onSearchComplete(filteredList);
-                } else {
-                    listener.onSearchError(task.getException().getMessage());
-                }
-            }
-        });
-    }
-
-
-    private String normalizeString(String s) {
-        return Normalizer.normalize(s, Normalizer.Form.NFD)
-                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
-                .toLowerCase();
-    }
-
-    // Interface for search completion listener
     public interface OnSearchCompleteListener {
         void onSearchComplete(List<BooksModel> books);
         void onSearchError(String error);
+    }
+
+    public void searchBooksByTitle(String title, OnSearchCompleteListener listener) {
+        databaseReference.orderByChild("title").startAt(title).endAt(title + "\uf8ff")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        List<BooksModel> books = new ArrayList<>();
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            BooksModel book = snapshot.getValue(BooksModel.class);
+                            books.add(book);
+                        }
+                        listener.onSearchComplete(books);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        listener.onSearchError(databaseError.getMessage());
+                    }
+                });
     }
 }
 

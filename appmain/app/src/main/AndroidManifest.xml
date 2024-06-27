@@ -8,15 +8,13 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/bookhead"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/bookhead"
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.AppDocSach"
         tools:targetApi="31">
-<!--        <activity-->
-<!--            android:name=".Adapter.BookAdapter"-->
-<!--            android:exported="false" />-->
+
         <activity
             android:name=".Activity.ReadBookActivity"
             android:exported="false" />
@@ -41,6 +39,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" />
@@ -63,6 +62,8 @@
             android:name=".Activity.LoginActivity"
             android:exported="false" />
         <activity android:name=".Activity.SignUpActivity" />
+
+        <activity android:name=".Activity.Setting" />
     </application>
 
 </manifest>

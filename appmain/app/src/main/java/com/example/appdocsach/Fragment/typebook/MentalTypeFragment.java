@@ -43,7 +43,7 @@ public class MentalTypeFragment extends Fragment {
         recyclerViewMental = view.findViewById(R.id.recyclerViewMental);
 
         mListBookMental = new ArrayList<>();
-        booksAdapterMental = new BooksAdapterVertical( mListBookMental, new BooksAdapterVertical.IClickListener() {
+        booksAdapterMental = new BooksAdapterVertical(mListBookMental, new BooksAdapterVertical.IClickListener() {
             @Override
             public void onClickReadItemBook(BooksModel books) {
                 Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
@@ -51,7 +51,7 @@ public class MentalTypeFragment extends Fragment {
         });
 
         recyclerViewMental.setAdapter(booksAdapterMental);
-        recyclerViewMental.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        recyclerViewMental.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         // Call method to get data from Firebase Realtime Database
         getListRealtimeMental();

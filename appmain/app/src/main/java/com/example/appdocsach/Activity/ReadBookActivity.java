@@ -8,6 +8,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -16,17 +17,27 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.appdocsach.MainActivity;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import android.view.View;
 import android.widget.Toast;
 
 
 public class ReadBookActivity extends AppCompatActivity {
-
+    private FirebaseDatabase database;
+    private BooksModel book;
     private ImageView backButtonReadBook, downloadButtonReadBook, discIconReadBook;
     private TextView textContent, textPageNumber;
     private Button btnPrevious, btnNext;
     private ScrollView scrollView;
     private String bookContent;
+    private String bookId, bookImage, bookTitle, bookAuthor, bookDate;
     private int currentPage = 0;
     private int pageSize = 800; // Số ký tự mỗi trang (số ký tự bạn có thể thay đổi tùy vào nhu cầu)
 
@@ -47,14 +58,56 @@ public class ReadBookActivity extends AppCompatActivity {
         });
 
         // get content book from detailbook
-        BooksModel book = (BooksModel) getIntent().getSerializableExtra("book_content");
+        book = (BooksModel) getIntent().getSerializableExtra("book_content");
         bookContent = book.getContent();
 
 
         // show content
         displayPage(currentPage);
-    }
 
+        // Get book details from the intent
+        bookId = book.getId();
+        bookImage = book.getImg();
+        bookTitle = book.getTitle();
+        bookAuthor = book.getAuthor();
+        bookDate = book.getDay();
+
+        // Save the recently read book info
+        saveRecentlyReadBook();
+    }
+    private void saveRecentlyReadBook() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid();
+            DatabaseReference userBooksRef = FirebaseDatabase.getInstance().getReference("Users/" + userId + "/readBooks");
+
+            userBooksRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (!snapshot.exists()) {
+                        // Create the path if it doesn't exist
+                        userBooksRef.setValue("");
+                    }
+
+                    // Save the recently read book info
+                    BooksModel book = new BooksModel();
+                    book.setId(bookId);
+                    book.setImg(bookImage);
+                    book.setTitle(bookTitle);
+                    book.setAuthor(bookAuthor);
+                    book.setDay(bookDate);
+                    book.setTimestamp(System.currentTimeMillis());
+
+                    userBooksRef.child(bookId).setValue(book);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Handle possible errors.
+                }
+            });
+        }
+    }
     private void mapping() {
         backButtonReadBook = findViewById(R.id.backButtonReadBook);
         downloadButtonReadBook = findViewById(R.id.downloadButtonReadBook);

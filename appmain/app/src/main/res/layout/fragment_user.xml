@@ -92,7 +92,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/rcvReadBooks"
             android:layout_width="350dp"
             android:layout_height="196dp"
             android:layout_marginTop="16dp"
