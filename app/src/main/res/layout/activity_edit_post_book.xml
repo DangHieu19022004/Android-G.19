@@ -59,7 +59,7 @@
             android:id="@+id/imgeditbook"
             android:layout_width="140dp"
             android:layout_height="@dimen/sizebook_manage"
-            android:src="@drawable/alchemy"
+            android:src="@drawable/images"
             android:layout_gravity="center"
             />
 
