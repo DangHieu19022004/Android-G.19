@@ -282,7 +282,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private void shareBook() {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, "https://www.sachhayonline.com/");
+        intent.putExtra(Intent.EXTRA_TEXT, "https://www.sachhay.org/");
         startActivity(Intent.createChooser(intent, "Chia sẻ sách"));
     }
 
