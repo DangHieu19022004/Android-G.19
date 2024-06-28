@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInClient gsc;
     ImageView googleBtn;
     DatabaseReference databaseReference;
+    Button edForget;
 
     @Override
     protected void onStart() {
@@ -72,7 +73,12 @@ public class LoginActivity extends AppCompatActivity {
 
         edUseremail = findViewById(R.id.EmailAddress);
         edPassword = findViewById(R.id.password);
+        edForget = findViewById(R.id.forget);
 
+        edForget.setOnClickListener(v->{
+            startActivity(new Intent(LoginActivity.this, ForgetPassActivity.class));
+            finish();
+        });
 
         Button loginButton = findViewById(R.id.Login);
         loginButton.setOnClickListener(v -> {
