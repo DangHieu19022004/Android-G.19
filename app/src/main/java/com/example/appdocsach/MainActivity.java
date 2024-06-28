@@ -144,27 +144,5 @@ public class MainActivity extends AppCompatActivity {
         chatFragment.show(fragmentManager, "chat_fragment");
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
 
-        // Đăng ký BroadcastReceiver khi Activity được hiển thị
-        if (!isReceiverRegistered) {
-            registerReceiver(internetBroadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-            isReceiverRegistered = true;
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        // Hủy đăng ký BroadcastReceiver khi Activity không còn hiển thị
-        try {
-            if (isReceiverRegistered) {
-                unregisterReceiver(internetBroadcastReceiver);
-                isReceiverRegistered = false;
-            }
-        } catch (Exception e){
-        }
-    }
 }

@@ -1,6 +1,8 @@
 package com.example.appdocsach.Activity;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -10,9 +12,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.appdocsach.BroadcastReceiver.Internet;
 import com.example.appdocsach.R;
 
 public class StartActivity extends AppCompatActivity {
+
+    private Internet internetBroadcastReceiver;
+    private boolean isReceiverRegistered = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,5 +39,28 @@ public class StartActivity extends AppCompatActivity {
             startActivity(intent);
 
         });
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Đăng ký BroadcastReceiver khi Activity được hiển thị
+        if (!isReceiverRegistered) {
+            registerReceiver(internetBroadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+            isReceiverRegistered = true;
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Hủy đăng ký BroadcastReceiver khi Activity không còn hiển thị
+        try {
+            if (isReceiverRegistered) {
+                unregisterReceiver(internetBroadcastReceiver);
+                isReceiverRegistered = false;
+            }
+        } catch (Exception e){
+        }
     }
 }
