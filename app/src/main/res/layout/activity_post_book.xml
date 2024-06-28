@@ -113,7 +113,7 @@
         <EditText
             android:id="@+id/ContentPost"
             android:layout_width="match_parent"
-            android:layout_height="111dp"
+            android:layout_height="86dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/background_gray"
             android:gravity="top"
@@ -146,5 +146,3 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-

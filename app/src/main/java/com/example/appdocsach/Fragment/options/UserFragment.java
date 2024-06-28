@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -54,6 +55,7 @@ public class UserFragment extends Fragment {
 
     private String username;
     private String email;
+    TextView ctact;
 
     public UserFragment() {
         // Required empty public constructor
@@ -105,9 +107,7 @@ public class UserFragment extends Fragment {
             public void onClickReadItemBook(BooksModel books) {
                 // Handle book item click
                 Intent intent = new Intent(getActivity(), BookDetailActivity.class);
-
                 intent.putExtra("book_data", books);
-
                 startActivity(intent);
             }
         });
@@ -137,7 +137,22 @@ public class UserFragment extends Fragment {
         //Setting
         setting.setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), Setting.class));
-
+            if (getActivity() != null) {
+                getActivity().finish();
+            }
+        });
+        //contact
+        ctact = view.findViewById(R.id.contact);
+        ctact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Replace current fragment with ContactFragment
+                ContactFragment contactFragment = new ContactFragment();
+                FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, contactFragment);
+                transaction.addToBackStack(null); // Optional: Add to back stack
+                transaction.commit();
+            }
         });
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

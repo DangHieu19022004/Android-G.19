@@ -17,6 +17,7 @@ import com.example.appdocsach.Activity.BookDetailActivity;
 import com.example.appdocsach.Adapter.BooksAdapterVertical;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -60,9 +61,14 @@ public class MentalTypeFragment extends Fragment {
     }
 
     private void showDetailBook(BooksModel books) {
-            Intent it = new Intent(getActivity(), BookDetailActivity.class);
-            it.putExtra("book_data", books); ///make serialize
-            startActivity(it);
+        Intent it = new Intent(getActivity(), BookDetailActivity.class);
+        it.putExtra("book_data", books); ///make serialize
+        startActivity(it);
+        // Log event with item_id and item_name
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, String.valueOf(books.getId()));
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, books.getTitle());
+        FirebaseAnalytics.getInstance(requireContext()).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 
     private void getListRealtimeMental() {
@@ -116,6 +122,3 @@ public class MentalTypeFragment extends Fragment {
         });
     }
 }
-
-
-

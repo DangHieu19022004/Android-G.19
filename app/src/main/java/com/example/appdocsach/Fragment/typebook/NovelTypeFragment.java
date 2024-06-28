@@ -17,6 +17,7 @@ import com.example.appdocsach.Activity.BookDetailActivity;
 import com.example.appdocsach.Adapter.BooksAdapterVertical;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,6 +50,7 @@ public class NovelTypeFragment extends Fragment {
             @Override
             public void onClickReadItemBook(BooksModel books) {
                 showDetailBook(books);
+                logSelectContentEvent(books);
             }
         });
         recyclerViewNovel.setAdapter(booksAdapterNovel);
@@ -112,5 +114,11 @@ public class NovelTypeFragment extends Fragment {
             }
         });
     }
-}
+    private void logSelectContentEvent(BooksModel books) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, String.valueOf(books.getId()));
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, books.getTitle());
+        FirebaseAnalytics.getInstance(requireContext()).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+    }
 
+}

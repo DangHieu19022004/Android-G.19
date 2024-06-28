@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,7 +18,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.example.appdocsach.Adapter.BooksAdapterManage;
 import com.example.appdocsach.DatabaseHelper;
 import com.example.appdocsach.Fragment.options.HomeFragment;
 import com.example.appdocsach.Fragment.options.SavedBookFragment;
@@ -35,7 +33,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class BookDetailActivity extends AppCompatActivity {
-
     DatabaseHelper db;
     ImageView threeDotsButton, imgDetailBook, backButton, downloadButton;
     TextView subtitleDetailBook, headTextDetailBook, ViewCount, authorDetail;
@@ -46,6 +43,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private BooksModel currentBook;
     private ProgressDialog progressDialog;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +51,6 @@ public class BookDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_detail);
 
         database = FirebaseDatabase.getInstance();
-
 
 
         mapping();
@@ -73,11 +70,13 @@ public class BookDetailActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent it = new Intent(BookDetailActivity.this, MainActivity.class);
+                startActivity(it);
             }
         });
 
         // Click 3 dots to show up menu options
+
         threeDotsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,7 +156,7 @@ public class BookDetailActivity extends AppCompatActivity {
 
     }
 
-        private void loadLikeAndDislikeCounts() {
+    private void loadLikeAndDislikeCounts() {
         DatabaseReference bookRef = database.getReference("books").child(currentBook.getId());
         bookRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -257,36 +256,11 @@ public class BookDetailActivity extends AppCompatActivity {
     private void showPopupmenu() {
         PopupMenu popupMenu = new PopupMenu(this, threeDotsButton);
         popupMenu.getMenuInflater().inflate(R.menu.menu_three_detailbook, popupMenu.getMenu());
-
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                int itemId = item.getItemId();
-
-                if (itemId == R.id.share_book) {
-                    shareBook();
-                } else if (itemId == R.id.report_book) {
-                    Toast.makeText(BookDetailActivity.this, "report click", Toast.LENGTH_SHORT).show();
-                } else if (itemId == R.id.block_book) {
-                    Toast.makeText(BookDetailActivity.this, "block click", Toast.LENGTH_SHORT).show();
-                }
-
-                return false;
-            }
-        });
-
         popupMenu.show();
     }
 
-    private void shareBook() {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, "https://www.sachhay.org/");
-        startActivity(Intent.createChooser(intent, "Chia sẻ sách"));
-    }
-
     private void mapping() {
-        threeDotsButton = findViewById(R.id.threeDotsButtonDetail);
+        threeDotsButton = findViewById(R.id.threeDotsButton);
         btnstartreadDetail = findViewById(R.id.btnstartreadDetail);
         likeDetail = findViewById(R.id.likeDetail);
         dislikeDetail = findViewById(R.id.dislikeDetail);

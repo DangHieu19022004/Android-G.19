@@ -1,3 +1,4 @@
+
 package com.example.appdocsach.Fragment.typebook;
 
 import android.content.Intent;
@@ -21,6 +22,7 @@ import com.example.appdocsach.Adapter.BooksAdapterHorizontal;
 import com.example.appdocsach.Adapter.viewpagerSlide;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,11 +46,13 @@ public class AllTypeFragment extends Fragment {
     private RecyclerView recyclerViewBooktrending, recyclerViewFavorite;
     List<BooksModel> mListBooks;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private FirebaseAnalytics mFirebaseAnalytics;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        FirebaseAnalytics.getInstance(requireContext()).setAnalyticsCollectionEnabled(true);
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_all_type, container, false);
     }
@@ -62,6 +66,9 @@ public class AllTypeFragment extends Fragment {
         recyclerViewBooktrending = view.findViewById(R.id.recyclerViewTrending);
         recyclerViewFavorite = view.findViewById(R.id.recyclerViewFavorite);
 
+        // Initialize FirebaseAnalytics instance
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(requireContext());
+
         //declare list book
         mListBooks = new ArrayList<>();
         List<BooksModel> mListFavoriteBooks = new ArrayList<>();
@@ -71,6 +78,7 @@ public class AllTypeFragment extends Fragment {
             @Override
             public void onClickReadItemBook(BooksModel books) {
                 showDetailBook(books);
+                logViewItemEvent(books);
             }
         });
 
@@ -115,8 +123,14 @@ public class AllTypeFragment extends Fragment {
 
     private void showDetailBook(BooksModel books) {
         Intent it = new Intent(getActivity(), BookDetailActivity.class);
-        it.putExtra("book_data", books); ///make serialize
+
+        it.putExtra("book_data", books);
         startActivity(it);
+        // Log event with item_id and item_name
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, String.valueOf(books.getId()));
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, books.getTitle());
+        FirebaseAnalytics.getInstance(requireContext()).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 
     private void getTopLikedBooks(List<BooksModel> listFavoriteBooks, BooksAdapterHorizontal favoriteBooksAdapter) {
@@ -246,5 +260,12 @@ public class AllTypeFragment extends Fragment {
                 return Integer.compare(o2.getLikeCount(), o1.getLikeCount());
             }
         });
+    }
+    //Ghi lại dữ liệu khi người dùng xem chi tiết sách
+    private void logViewItemEvent(BooksModel books) {
+        Bundle params = new Bundle();
+        params.putString(FirebaseAnalytics.Param.ITEM_ID, String.valueOf(books.getId()));
+        params.putString(FirebaseAnalytics.Param.ITEM_NAME, books.getTitle());
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, params);
     }
 }

@@ -39,4 +39,3 @@ public class User {
         this.date = date;
     }
 }
-

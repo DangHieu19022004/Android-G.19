@@ -40,7 +40,6 @@ import java.util.List;
 
 public class ManageBookFragment extends Fragment {
 
-
     private RecyclerView rcvBookManagePost;
 
     int posisionid;
@@ -178,13 +177,13 @@ public class ManageBookFragment extends Fragment {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
                 if(booksModel == null || mListBookManage == null || mListBookManage.isEmpty()){return;}
 
-                    for (int i = 0; i < mListBookManage.size(); i++) {
-                        if (booksModel.getId().equals(mListBookManage.get(i).getId())) {
-                            mListBookManage.set(i, booksModel);
-                            break;
-                        }
+                for (int i = 0; i < mListBookManage.size(); i++) {
+                    if (booksModel.getId().equals(mListBookManage.get(i).getId())) {
+                        mListBookManage.set(i, booksModel);
+                        break;
                     }
-                    booksAdapterPost.notifyDataSetChanged();
+                }
+                booksAdapterPost.notifyDataSetChanged();
 
             }
 
@@ -193,13 +192,13 @@ public class ManageBookFragment extends Fragment {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
                 if(booksModel == null || mListBookManage == null || mListBookManage.isEmpty()){return;}
 
-                    for (int i = 0; i < mListBookManage.size(); i++) {
-                        if (booksModel.getId().equals(mListBookManage.get(i).getId())) {
-                            mListBookManage.remove(i);
-                            break;
-                        }
+                for (int i = 0; i < mListBookManage.size(); i++) {
+                    if (booksModel.getId().equals(mListBookManage.get(i).getId())) {
+                        mListBookManage.remove(i);
+                        break;
                     }
-                    booksAdapterPost.notifyDataSetChanged();
+                }
+                booksAdapterPost.notifyDataSetChanged();
 
             }
 
@@ -222,8 +221,6 @@ public class ManageBookFragment extends Fragment {
         startActivity(it);
     }
     private void mapping(View view) {
-
-
         createbooknewbtnmanage = view.findViewById(R.id.createbooknewbtnmanage);
         rcvBookManagePost = view.findViewById(R.id.rcvBookManagePost);
     }

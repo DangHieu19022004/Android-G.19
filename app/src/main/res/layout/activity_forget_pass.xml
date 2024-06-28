@@ -61,4 +61,3 @@
         app:srcCompat="@drawable/book" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

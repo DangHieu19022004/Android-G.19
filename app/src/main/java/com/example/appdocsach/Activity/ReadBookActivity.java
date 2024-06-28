@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -26,23 +25,28 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import com.example.appdocsach.Services.TextToSpeechService;
+import com.example.appdocsach.model.BooksModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import android.view.View;
 import android.widget.Toast;
 
+import org.checkerframework.common.returnsreceiver.qual.This;
+
 
 public class ReadBookActivity extends AppCompatActivity {
     private FirebaseDatabase database;
-    private BooksModel book;
 
     private ImageView backButtonReadBook, downloadButtonReadBook, discIconReadBook;
+    private BooksModel book;
     private TextView textContent, textPageNumber;
     private Button btnPrevious, btnNext;
     private ScrollView scrollView;
-    private String bookContent;
-
     private String bookId, bookImage, bookTitle, bookAuthor, bookDate;
-
+    private String bookContent;
     private int currentPage = 0;
     private int pageSize = 800; // Số ký tự mỗi trang (số ký tự bạn có thể thay đổi tùy vào nhu cầu)
 
@@ -53,13 +57,26 @@ public class ReadBookActivity extends AppCompatActivity {
 
         // mapping
         mapping();
-
         backButtonReadBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent it = new Intent(ReadBookActivity.this, MainActivity.class);
+                startActivity(it);
             }
         });
+        discIconReadBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ReadBookActivity.this, "Đọc sách", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(ReadBookActivity.this, TextToSpeechService.class);
+                intent.putExtra("textToSpeak", bookContent);
+                startActivity(intent);
+
+
+            }
+        });
+
 
         // get content book from detailbook
         book = (BooksModel) getIntent().getSerializableExtra("book_content");
@@ -71,51 +88,8 @@ public class ReadBookActivity extends AppCompatActivity {
         // show content
         displayPage(currentPage);
 
-//<<<<<<< HEAD
-//        // Get book details from the intent
-//        bookId = book.getId();
-//        bookImage = book.getImg();
-//        bookTitle = book.getTitle();
-//        bookAuthor = book.getAuthor();
-//        bookDate = book.getDay();
-//
-//        // Save the recently read book info
-//        saveRecentlyReadBook();
     }
-//    private void saveRecentlyReadBook() {
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        if (user != null) {
-//            String userId = user.getUid();
-//            DatabaseReference userBooksRef = FirebaseDatabase.getInstance().getReference("Users/" + userId + "/readBooks");
-//
-//            userBooksRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                    if (!snapshot.exists()) {
-//                        // Create the path if it doesn't exist
-//                        userBooksRef.setValue("");
-//                    }
-//
-//                    // Save the recently read book info
-//                    BooksModel book = new BooksModel();
-//                    book.setId(bookId);
-//                    book.setImg(bookImage);
-//                    book.setTitle(bookTitle);
-//                    book.setAuthor(bookAuthor);
-//                    book.setDay(bookDate);
-//                    book.setTimestamp(System.currentTimeMillis());
-//
-//                    userBooksRef.child(bookId).setValue(book);
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//                    // Handle possible errors.
-//                }
-//            });
-//        }
-//    }
-//=======
+
     private void updateRecentlyReadBooks(BooksModel book) {
         // Lấy ID người dùng hiện tại
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -131,7 +105,6 @@ public class ReadBookActivity extends AppCompatActivity {
 
     private void mapping() {
         backButtonReadBook = findViewById(R.id.backButtonReadBook);
-
         discIconReadBook = findViewById(R.id.discIconReadBook);
         textContent = findViewById(R.id.text_content);
         btnPrevious = findViewById(R.id.btn_previous);
@@ -147,6 +120,7 @@ public class ReadBookActivity extends AppCompatActivity {
         String pageContent = bookContent.substring(start, end);
         textContent.setText(pageContent);
 
+
         // update count page present
         int currentPageNumber = page + 1; // page = 0
         int totalPages = calculateTotalPages(bookContent, pageSize);
@@ -160,14 +134,11 @@ public class ReadBookActivity extends AppCompatActivity {
         btnPrevious.setEnabled(page > 0);
         btnNext.setEnabled(end < bookContent.length());
     }
-
     private int calculateTotalPages(String content, int pageSize) {
         int contentLength = content.length();
         int totalPages = (int) Math.ceil((double) contentLength / pageSize);
         return totalPages;
     }
-
-
     // click button previous
     public void showPreviousPage(View view) {
 
@@ -181,7 +152,6 @@ public class ReadBookActivity extends AppCompatActivity {
     // click button next
     public void showNextPage(View view) {
         int start = (currentPage + 1) * pageSize;
-
         if (start < bookContent.length()) {
             currentPage++;
             displayPage(currentPage);

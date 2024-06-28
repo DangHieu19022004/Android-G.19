@@ -29,4 +29,5 @@
     <string name="book_created">Sách đã đăng</string>
     <string name="edit">Sửa</string>
     <string name="huy">Hủy</string>
+    <string name="google_translate_api_key">AIzaSyD08BNFPgoObwGSHmalUhkAuagg9afUVgY</string>
 </resources>

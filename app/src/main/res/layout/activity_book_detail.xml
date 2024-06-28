@@ -13,30 +13,31 @@
         android:id="@+id/headerDetailBook"
         android:layout_width="match_parent"
         android:layout_height="73dp"
-        android:gravity="center_vertical"
         android:background="@drawable/navbottombackground"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_marginLeft="@dimen/mgborder"
             android:id="@+id/backButton"
             style="@style/IconStyle"
-            android:src="@drawable/baseline_arrow_back_ios_24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/mgborder"
+            android:src="@drawable/baseline_arrow_back_ios_24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <ImageView
                 android:id="@+id/downloadButton"
                 style="@style/IconStyle"
@@ -46,15 +47,16 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:layout_marginRight="@dimen/mgborder"
-                android:id="@+id/threeDotsButtonDetail"
+                android:id="@+id/threeDotsButton"
                 style="@style/IconStyle"
+                android:layout_marginRight="@dimen/mgborder"
                 android:src="@drawable/threedotsicon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
     </LinearLayout>
+
 
     <ImageView
         android:id="@+id/imgDetailBook"
@@ -240,3 +242,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
