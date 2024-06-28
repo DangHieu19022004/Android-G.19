@@ -80,8 +80,7 @@ public class PostBookActivity extends AppCompatActivity {
         destroyPostbook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(PostBookActivity.this, MainActivity.class);
-                startActivity(it);
+              onBackPressed();
             }
         });
 

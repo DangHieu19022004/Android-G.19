@@ -137,9 +137,7 @@ public class UserFragment extends Fragment {
         //Setting
         setting.setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), Setting.class));
-            if (getActivity() != null) {
-                getActivity().finish();
-            }
+
         });
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

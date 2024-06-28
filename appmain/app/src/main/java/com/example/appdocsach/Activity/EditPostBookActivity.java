@@ -80,8 +80,7 @@ public class EditPostBookActivity extends AppCompatActivity {
         destroyEditbook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(EditPostBookActivity.this, MainActivity.class);
-                startActivity(it);
+                onBackPressed();
             }
         });
 

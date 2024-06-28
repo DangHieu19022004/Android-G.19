@@ -48,7 +48,8 @@
                 <ImageView
                     android:id="@+id/setting"
                     style="@style/IconStyle"
-                    android:src="@drawable/settingicon"></ImageView>
+                    android:src="@drawable/settingicon"/>
+
             </LinearLayout>
 
             <LinearLayout

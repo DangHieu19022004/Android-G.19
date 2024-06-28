@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.appdocsach.Activity.BookDetailActivity;
@@ -38,6 +39,7 @@ import java.util.List;
 
 
 public class ManageBookFragment extends Fragment {
+
 
     private RecyclerView rcvBookManagePost;
 
@@ -220,6 +222,8 @@ public class ManageBookFragment extends Fragment {
         startActivity(it);
     }
     private void mapping(View view) {
+
+
         createbooknewbtnmanage = view.findViewById(R.id.createbooknewbtnmanage);
         rcvBookManagePost = view.findViewById(R.id.rcvBookManagePost);
     }

@@ -6,7 +6,7 @@
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.options.ManageBookFragment">
+    tools:context=".Activity.EditPostBookActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -22,12 +22,13 @@
             android:id="@+id/destroyEditbook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hủy"
+            android:text="@string/huy"
             android:layout_marginStart="16dp"
             android:textSize="@dimen/head_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/tvBookSaved"
             android:layout_width="wrap_content"

@@ -18,6 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Setting extends AppCompatActivity {
+    private ImageView backigm;
     FirebaseAuth auth;
     GoogleSignInClient gsc;
     GoogleSignInOptions gso;
@@ -29,6 +30,14 @@ public class Setting extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
 
         auth = FirebaseAuth.getInstance();
+
+        backigm = findViewById(R.id.imageView);
+        backigm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         ImageView logout = findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
