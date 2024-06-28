@@ -1,5 +1,6 @@
 package com.example.appdocsach.Fragment.options;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,6 +17,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appdocsach.Activity.BookDetailActivity;
 import com.example.appdocsach.Adapter.SearchBookAdapter;
 import com.example.appdocsach.Adapter.viewpagerTypeBookAdapter;
 import com.example.appdocsach.R;
@@ -93,6 +95,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClickReadItemBook(BooksModel books) {
                 // Handle book item click
+                Intent intent = new Intent(getActivity(), BookDetailActivity.class);
+                intent.putExtra("book_data", books);
+                startActivity(intent);
             }
         });
         searchResultsRecyclerView.setAdapter(booksAdapter);
