@@ -60,8 +60,7 @@ public class ReadBookActivity extends AppCompatActivity {
         backButtonReadBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(ReadBookActivity.this, MainActivity.class);
-                startActivity(it);
+               onBackPressed();
             }
         });
         discIconReadBook.setOnClickListener(new View.OnClickListener() {

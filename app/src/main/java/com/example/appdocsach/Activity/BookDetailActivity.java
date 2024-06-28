@@ -70,8 +70,7 @@ public class BookDetailActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(BookDetailActivity.this, MainActivity.class);
-                startActivity(it);
+                onBackPressed();
             }
         });
 

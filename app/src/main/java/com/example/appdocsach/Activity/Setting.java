@@ -11,7 +11,11 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.appdocsach.Fragment.options.UserFragment;
 import com.example.appdocsach.MainActivity;
 import com.example.appdocsach.R;
 import com.facebook.login.LoginManager;
@@ -39,6 +43,8 @@ public class Setting extends AppCompatActivity {
 
         mapping();
 
+
+
         sharedPreferences = getSharedPreferences("AppSettings", MODE_PRIVATE);
         boolean isNightMode = sharedPreferences.getBoolean("NightMode", false);
         updateNightModeUI(isNightMode);
@@ -60,7 +66,9 @@ public class Setting extends AppCompatActivity {
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+//                onBackPressed();
+                Intent it = new Intent(Setting.this, MainActivity.class);
+                startActivity(it);
             }
         });
 
