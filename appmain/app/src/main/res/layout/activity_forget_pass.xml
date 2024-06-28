@@ -37,19 +37,7 @@
             android:paddingStart="16dp"
             android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/newpass"
-            android:layout_width="340dp"
-            android:layout_height="50dp"
-            android:inputType="text"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/custom_input"
-            android:ems="10"
-            android:hint="Enter your new pass"
-            android:paddingStart="16dp"
-            android:textSize="18sp"/>
+
 
         <Button
             android:id="@+id/resetbtn"
@@ -73,3 +61,4 @@
         app:srcCompat="@drawable/book" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
