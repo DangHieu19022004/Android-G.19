@@ -15,11 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.appdocsach.Activity.BookDetailActivity;
+import com.example.appdocsach.Activity.EditPostBookActivity;
 import com.example.appdocsach.Activity.PostBookActivity;
-import com.example.appdocsach.Adapter.BooksAdapterManage;
+import com.example.appdocsach.Adapter.BooksAdapterPost;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -40,9 +42,9 @@ public class ManageBookFragment extends Fragment {
     private RecyclerView rcvBookManagePost;
 
     int posisionid;
-    private ImageButton createbooknewbtnmanage;
+    private ImageView createbooknewbtnmanage;
     List<BooksModel> mListBookManage;
-    public static BooksAdapterManage booksAdapterManage;
+    public static BooksAdapterPost booksAdapterPost;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     String author = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -92,7 +94,7 @@ public class ManageBookFragment extends Fragment {
 
 
         //show to screen
-        booksAdapterManage = new BooksAdapterManage(mListBookManage, new BooksAdapterManage.IClickListener() {
+        booksAdapterPost = new BooksAdapterPost(mListBookManage, new BooksAdapterPost.IClickListener() {
             @Override
             public void onClickReadItemBook(BooksModel books) {
                 showDetailBook(books);
@@ -102,9 +104,14 @@ public class ManageBookFragment extends Fragment {
             public void onClickDeleteItemBook(BooksModel books, int position) {
                 showAlertDialogDelete(books, position);
             }
+
+            @Override
+            public void onClickEditItemBook(BooksModel books, int position) {
+                editbook(books, position);
+            }
         });
 
-        rcvBookManagePost.setAdapter(booksAdapterManage);
+        rcvBookManagePost.setAdapter(booksAdapterPost);
         rcvBookManagePost.setLayoutManager(new GridLayoutManager(getContext(), 1));
 
         //get book from user
@@ -120,6 +127,15 @@ public class ManageBookFragment extends Fragment {
         });
 
     }
+
+    private void editbook(BooksModel books, int position) {
+        Intent intent = new Intent(getActivity(), EditPostBookActivity.class);
+
+        intent.putExtra("book_data", books);
+
+        startActivity(intent);
+    }
+
     private void showAlertDialogDelete(BooksModel books, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Thông báo");
@@ -151,7 +167,7 @@ public class ManageBookFragment extends Fragment {
                 BooksModel booksModel = snapshot.getValue(BooksModel.class);
                 if (booksModel != null) {
                     mListBookManage.add(booksModel);
-                    booksAdapterManage.notifyDataSetChanged();
+                    booksAdapterPost.notifyDataSetChanged();
                 }
             }
 
@@ -166,7 +182,7 @@ public class ManageBookFragment extends Fragment {
                             break;
                         }
                     }
-                    booksAdapterManage.notifyDataSetChanged();
+                    booksAdapterPost.notifyDataSetChanged();
 
             }
 
@@ -181,7 +197,7 @@ public class ManageBookFragment extends Fragment {
                             break;
                         }
                     }
-                    booksAdapterManage.notifyDataSetChanged();
+                    booksAdapterPost.notifyDataSetChanged();
 
             }
 

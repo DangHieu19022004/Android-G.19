@@ -27,4 +27,5 @@
     <string name="manageBook_Createbook">Đăng sách</string>
     <string name="manageBook_Manage">Quản lý sách</string>
     <string name="book_created">Sách đã đăng</string>
+    <string name="edit">Sửa</string>
 </resources>

@@ -8,39 +8,39 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.options.ManageBookFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="match_parent"
-            android:layout_height="73dp"
-            android:background="@drawable/navbottombackground"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:background="@drawable/navbottombackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/destroyEditbook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hủy"
+            android:layout_marginStart="16dp"
+            android:textSize="@dimen/head_small"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tvBookSaved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sửa sách"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ts_book_saved"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-            <TextView
-                android:id="@+id/destroyPostbook"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hủy"
-                android:layout_marginStart="16dp"
-                android:textSize="@dimen/head_small"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-            <TextView
-                android:id="@+id/tvBookSaved"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Đăng sách"
-                android:textColor="@color/white"
-                android:textSize="@dimen/ts_book_saved"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <LinearLayout
@@ -52,27 +52,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
-        <ProgressBar
-            android:layout_gravity="center"
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="gone"/>
-
         <ImageView
             android:scaleType="fitXY"
-            android:id="@+id/imgpostbook"
+            android:id="@+id/imgeditbook"
             android:layout_width="140dp"
             android:layout_height="@dimen/sizebook_manage"
             android:src="@drawable/alchemy"
             android:layout_gravity="center"
             />
 
-
-
         <TextView
-            android:id="@+id/choosePicture"
+            android:layout_marginTop="10dp"
+            android:id="@+id/chooseEditPicture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -81,7 +72,7 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/titlePost"
+            android:id="@+id/titleEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -91,7 +82,7 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/subtitlePost"
+            android:id="@+id/subtitleEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -101,7 +92,7 @@
             android:textSize="18sp" />
 
         <Spinner
-            android:id="@+id/spinnerCategoryPost"
+            android:id="@+id/spinnerCategoryEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -111,35 +102,26 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/ContentPost"
+            android:id="@+id/ContentEdit"
             android:layout_width="match_parent"
             android:layout_height="111dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/background_gray"
             android:gravity="top"
-            android:hint="Nội dung sách"
-            android:maxLines="4"
-            android:minHeight="150dp"
-            android:overScrollMode="always"
-            android:padding="12dp"
             android:scrollbars="vertical"
+            android:overScrollMode="always"
+            android:maxLines="4"
+            android:hint="Nội dung sách"
+            android:minHeight="150dp"
+            android:padding="12dp"
             android:textSize="18sp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Gợi ý: bạn có thể viết ra word và coppy vào đây để tránh mất dữ liệu không mong muốn"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="12sp" />
-
-
         <Button
-            android:id="@+id/btnPostBook"
+            android:id="@+id/btnEditBook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp"
-            android:text="Đăng sách"
+            android:text="Xác nhận"
             android:textSize="18sp" />
 
     </LinearLayout>
