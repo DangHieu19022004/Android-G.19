@@ -127,6 +127,7 @@ public class EditPostBookActivity extends AppCompatActivity {
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 if (error == null) {
                     Toast.makeText(EditPostBookActivity.this, "Chỉnh sửa thành công", Toast.LENGTH_SHORT).show();
+                    onBackPressed();
                 } else {
                     Toast.makeText(EditPostBookActivity.this, "Chỉnh sửa thất bại: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
