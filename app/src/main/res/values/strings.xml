@@ -22,5 +22,11 @@
     <string name="no_content"> Không còn nội dung</string>
     <string name="view_count">Lượt xem:</string>
     <string name="author_name">Tác giả: </string>
+    <string name="delete">Xóa</string>
+    <string name="booksaved">Sách đã lưu</string>
+    <string name="manageBook_Createbook">Đăng sách</string>
+    <string name="manageBook_Manage">Quản lý sách</string>
+    <string name="book_created">Sách đã đăng</string>
+    <string name="edit">Sửa</string>
     <string name="google_translate_api_key">AIzaSyD08BNFPgoObwGSHmalUhkAuagg9afUVgY</string>
 </resources>

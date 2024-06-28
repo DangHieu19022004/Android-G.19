@@ -16,19 +16,16 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appdocsach.Adapter.BooksAdapterVertical;
+import com.example.appdocsach.Adapter.SearchBookAdapter;
 import com.example.appdocsach.Adapter.viewpagerTypeBookAdapter;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
 import com.example.appdocsach.model.Database;
 import com.example.appdocsach.widget.CustomViewPager;
-import com.google.android.material.internal.ContextUtils;
 import com.google.android.material.tabs.TabLayout;
 
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class HomeFragment extends Fragment {
     private TabLayout tabLayout;
@@ -40,11 +37,12 @@ public class HomeFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
-    private Database database;
+
     private EditText searchInput;
     private ImageView searchIcon;
     private RecyclerView searchResultsRecyclerView;
-    private BooksAdapterVertical booksAdapter;
+    private SearchBookAdapter booksAdapter;
+    private Database database;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -91,10 +89,10 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         searchResultsRecyclerView.setLayoutManager(layoutManager);
         booksList = new ArrayList<>();
-        booksAdapter = new BooksAdapterVertical(booksList, new BooksAdapterVertical.IClickListener() {
+        booksAdapter = new SearchBookAdapter(getContext(), booksList, new SearchBookAdapter.IClickListener() {
             @Override
             public void onClickReadItemBook(BooksModel books) {
-                // Handle item click if needed
+                // Handle book item click
             }
         });
         searchResultsRecyclerView.setAdapter(booksAdapter);
@@ -150,7 +148,7 @@ public class HomeFragment extends Fragment {
             }
             @Override
             public void onSearchError(String error) {
-                Toast.makeText(getContext(), "Search error: " + error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Lỗi tìm kiếm: " + error, Toast.LENGTH_SHORT).show();
                 clearSearchResults();
             }
         });
@@ -159,7 +157,7 @@ public class HomeFragment extends Fragment {
     // Hiển thị kết quả
     private void displaySearchResults(List<BooksModel> books) {
         booksList.clear();
-        if (books == null) {
+        if (books != null) {
             booksList.addAll(books);
         }
         booksAdapter.notifyDataSetChanged();

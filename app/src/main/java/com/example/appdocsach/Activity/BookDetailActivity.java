@@ -2,6 +2,7 @@ package com.example.appdocsach.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,9 +13,11 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.appdocsach.DatabaseHelper;
 import com.example.appdocsach.Fragment.options.HomeFragment;
 import com.example.appdocsach.MainActivity;
 import com.example.appdocsach.R;
@@ -28,8 +31,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class BookDetailActivity extends AppCompatActivity {
-
-    ImageView threeDotsButton, imgDetailBook, backButton;
+    DatabaseHelper db;
+    ImageView threeDotsButton, imgDetailBook, backButton, downloadButton;
     TextView subtitleDetailBook, headTextDetailBook, ViewCount, authorDetail;
     Button btnstartreadDetail;
     LinearLayout likeDetail, dislikeDetail;
@@ -45,10 +48,20 @@ public class BookDetailActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
 
+//        this.deleteDatabase("books.db");
+
         mapping();
 
         // show book clicked
         getInfoBookclick();
+
+        //click to save into book
+        downloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAlertDialog();
+            }
+        });
 
         // back homepage
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +111,30 @@ public class BookDetailActivity extends AppCompatActivity {
         loadLikeAndDislikeCounts();
     }
 
+    private void showAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(BookDetailActivity.this);
+        builder.setTitle("Thông báo");
+        builder.setMessage("Tải sách về thết bị?");
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            savetoDevice();
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> {
+            dialog.dismiss();
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void savetoDevice() {
+
+        if(db.addBook(currentBook) == -1){
+            Toast.makeText(BookDetailActivity.this, "Lưu thất bại, vui lòng thử lại sau", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(BookDetailActivity.this, "Lưu thành công", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void loadLikeAndDislikeCounts() {
         DatabaseReference bookRef = database.getReference("books").child(currentBook.getId());
         bookRef.addValueEventListener(new ValueEventListener() {
@@ -111,7 +148,7 @@ public class BookDetailActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(BookDetailActivity.this, "Failed to load book details: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(BookDetailActivity.this, "Không thể tải chi tiết sách: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -122,7 +159,7 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     private void handleLikeButton() {
-        Toast.makeText(BookDetailActivity.this, "Liked!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(BookDetailActivity.this, "Đã thích!", Toast.LENGTH_SHORT).show();
         changeButtonColor(likeDetail);
         int currentLikes = currentBook.getLikeCount();
         currentBook.setLikeCount(currentLikes + 1);
@@ -130,7 +167,7 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     private void handleDislikeButton() {
-        Toast.makeText(BookDetailActivity.this, "Disliked!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(BookDetailActivity.this, "Không thích!", Toast.LENGTH_SHORT).show();
         changeButtonColor(dislikeDetail);
         int currentDislikes = currentBook.getDislikeCount();
         currentBook.setDislikeCount(Math.max(currentDislikes + 1, 0)); // Ensure dislikes don't go negative
@@ -167,7 +204,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(BookDetailActivity.this, "Failed to update like count: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BookDetailActivity.this, "Không cập nhật được số lượt thích: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -184,7 +221,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(BookDetailActivity.this, "Failed to update dislike count: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BookDetailActivity.this, "Không cập nhật được số lượt không thích: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -215,10 +252,14 @@ public class BookDetailActivity extends AppCompatActivity {
         ViewCount = findViewById(R.id.ViewCount);
         authorDetail = findViewById(R.id.authorDetail);
         backButton = findViewById(R.id.backButton);
+        downloadButton = findViewById(R.id.downloadButton);
+
 
         txtLikeCount = findViewById(R.id.txtLikeCount);
         txtDislikeCount = findViewById(R.id.txtDislikeCount);
 
+        // declare dtb
+        db = new DatabaseHelper(this);
 
         // Initialize current book object
         currentBook = new BooksModel();

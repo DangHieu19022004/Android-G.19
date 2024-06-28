@@ -17,24 +17,29 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appdocsach.MainActivity;
 import com.example.appdocsach.R;
+import com.example.appdocsach.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
 public class SignUpActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
-    EditText edUseremail, edPassword, edName;
+    EditText edUseremail, edPassword, edUserName;
     TextView edDate;
     Button btnRegister, btnGoLogin;
     DatePickerDialog.OnDateSetListener mDateSetListener;
 
+    //new code
+    DatabaseReference databaseReference;
+
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -49,10 +54,14 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         mAuth = FirebaseAuth.getInstance();
+        //new code
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+
+
         edUseremail = findViewById(R.id.edUseremail);
         edPassword = findViewById(R.id.edPassword);
         edDate = findViewById(R.id.edDate);
-        edName = findViewById(R.id.edName);
+        edUserName = findViewById(R.id.edName);
         btnRegister = findViewById(R.id.SignUp);
         btnGoLogin = findViewById(R.id.btnGoLogin);
 
@@ -86,23 +95,40 @@ public class SignUpActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String user = edUseremail.getText().toString();
+                String email = edUseremail.getText().toString();
                 String pwd = edPassword.getText().toString();
-                String name = edName.getText().toString();
+                String user = edUserName.getText().toString();
                 String created_date = edDate.getText().toString();
 
-                if (user.isEmpty() || pwd.isEmpty() || name.isEmpty() || created_date.isEmpty()) {
-                    Toast.makeText(SignUpActivity.this, "Please enter all required fields", Toast.LENGTH_LONG).show();
+                if (user.isEmpty() || pwd.isEmpty() || email.isEmpty() || created_date.isEmpty()) {
+                    Toast.makeText(SignUpActivity.this, "Vui lòng nhập tất cả các trường bắt buộc", Toast.LENGTH_LONG).show();
                 } else {
-                    mAuth.createUserWithEmailAndPassword(user, pwd)
+                    mAuth.createUserWithEmailAndPassword(email, pwd)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(SignUpActivity.this, "Account created successfully.", Toast.LENGTH_SHORT).show();
-                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        Toast.makeText(SignUpActivity.this, "Tài khoản được tạo thành công.", Toast.LENGTH_SHORT).show();
+                                        FirebaseUser currentUser = mAuth.getCurrentUser();
+                                        //new code
+                                        if (currentUser != null) {
+                                            String userId = currentUser.getUid();
+                                            User newUser = new User(user, email, created_date);
+                                            databaseReference.child(userId).setValue(newUser).addOnCompleteListener(task1-> {
+                                                if (task1.isSuccessful()) {
+                                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                    intent.putExtra("USERNAME", user);
+                                                    intent.putExtra("EMAIL", email);
+                                                    startActivity(intent);
+                                                    finish();
+                                                } else {
+                                                    Toast.makeText(SignUpActivity.this, "Không lưu được dữ liệu người dùng: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        }
+                                        //
                                     } else {
-                                        Toast.makeText(SignUpActivity.this, "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(SignUpActivity.this, "Quá trình xác thực đã thất bại: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });

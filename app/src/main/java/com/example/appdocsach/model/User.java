@@ -1,13 +1,11 @@
 package com.example.appdocsach.model;
 
-import com.google.firebase.auth.FirebaseUser;
-
 public class User {
     public String name;
     public String email;
     public String date;
 
-    public User(String name, FirebaseUser user, String created_date) {
+    public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 

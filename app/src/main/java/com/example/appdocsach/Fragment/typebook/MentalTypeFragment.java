@@ -1,5 +1,6 @@
 package com.example.appdocsach.Fragment.typebook;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appdocsach.Activity.BookDetailActivity;
 import com.example.appdocsach.Adapter.BooksAdapterVertical;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
@@ -44,26 +46,36 @@ public class MentalTypeFragment extends Fragment {
         recyclerViewMental = view.findViewById(R.id.recyclerViewMental);
 
         mListBookMental = new ArrayList<>();
-        booksAdapterMental = new BooksAdapterVertical( mListBookMental, new BooksAdapterVertical.IClickListener() {
+        booksAdapterMental = new BooksAdapterVertical(mListBookMental, new BooksAdapterVertical.IClickListener() {
             @Override
             public void onClickReadItemBook(BooksModel books) {
-                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
-                logSelectContentEvent(books);
+                showDetailBook(books);
             }
         });
 
         recyclerViewMental.setAdapter(booksAdapterMental);
-        recyclerViewMental.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        recyclerViewMental.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         // Call method to get data from Firebase Realtime Database
         getListRealtimeMental();
+    }
+
+    private void showDetailBook(BooksModel books) {
+        Intent it = new Intent(getActivity(), BookDetailActivity.class);
+        it.putExtra("book_data", books); ///make serialize
+        startActivity(it);
+        // Log event with item_id and item_name
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, String.valueOf(books.getId()));
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, books.getTitle());
+        FirebaseAnalytics.getInstance(requireContext()).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 
     private void getListRealtimeMental() {
         DatabaseReference myRef = database.getReference("books");
 
         // Update the query condition to fetch books of category "Tâm lý"
-        Query query = myRef.orderByChild("type").equalTo("Tâm lý");
+        Query query = myRef.orderByChild("type").equalTo("Tâm lý học");
 
         query.addChildEventListener(new ChildEventListener() {
             @Override
@@ -109,13 +121,6 @@ public class MentalTypeFragment extends Fragment {
             }
         });
     }
-    private void logSelectContentEvent(BooksModel books) {
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, String.valueOf(books.getId()));
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, books.getTitle());
-        FirebaseAnalytics.getInstance(requireContext()).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-    }
-
 }
 
 

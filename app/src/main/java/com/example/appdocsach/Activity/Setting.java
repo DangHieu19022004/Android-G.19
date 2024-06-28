@@ -61,7 +61,7 @@ public class Setting extends AppCompatActivity {
                         finish();
                     } else {
                         // Sign out failed
-                        Toast.makeText(Setting.this, "Sign out failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Setting.this, "Đăng xuất không thành công", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

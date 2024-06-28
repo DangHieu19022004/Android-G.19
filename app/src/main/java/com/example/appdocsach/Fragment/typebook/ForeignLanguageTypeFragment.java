@@ -1,5 +1,6 @@
 package com.example.appdocsach.Fragment.typebook;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appdocsach.Activity.BookDetailActivity;
 import com.example.appdocsach.Adapter.BooksAdapterVertical;
 import com.example.appdocsach.R;
 import com.example.appdocsach.model.BooksModel;
@@ -59,7 +61,11 @@ public class ForeignLanguageTypeFragment extends Fragment {
         // Call method to get data from Firebase Realtime Database
         getListRealtimeDTB();
     }
-
+    private void showDetailBook(BooksModel books) {
+        Intent it = new Intent(getActivity(), BookDetailActivity.class);
+        it.putExtra("book_data", books); ///make serialize
+        startActivity(it);
+    }
     private void getListRealtimeDTB() {
         DatabaseReference myRef = database.getReference("books");
 

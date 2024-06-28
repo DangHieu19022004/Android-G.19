@@ -20,6 +20,12 @@
         <item name="android:scaleType">centerInside</item>
     </style>
 
+    <style name="IconFloatbtn">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
+
     <style name="ImageBookVertical">
         <item name="android:scaleType">fitXY</item>
         <item name="android:background">@drawable/shape_img</item>

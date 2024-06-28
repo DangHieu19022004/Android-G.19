@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:contentDescription="@string/viewpager_content_description"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.options.ManageBookFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:background="@drawable/navbottombackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/destroyEditbook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hủy"
+            android:layout_marginStart="16dp"
+            android:textSize="@dimen/head_small"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tvBookSaved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sửa sách"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ts_book_saved"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/light_gray"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        <ImageView
+            android:scaleType="fitXY"
+            android:id="@+id/imgeditbook"
+            android:layout_width="140dp"
+            android:layout_height="@dimen/sizebook_manage"
+            android:src="@drawable/alchemy"
+            android:layout_gravity="center"
+            />
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/chooseEditPicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Chọn ảnh từ thiết bị"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/titleEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/background_gray"
+            android:hint="Tiêu đề"
+            android:padding="12dp"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/subtitleEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/background_gray"
+            android:hint="Mô tả"
+            android:padding="12dp"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/spinnerCategoryEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/background_gray"
+            android:padding="12dp"
+            android:spinnerMode="dropdown"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/ContentEdit"
+            android:layout_width="match_parent"
+            android:layout_height="111dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/background_gray"
+            android:gravity="top"
+            android:scrollbars="vertical"
+            android:overScrollMode="always"
+            android:maxLines="4"
+            android:hint="Nội dung sách"
+            android:minHeight="150dp"
+            android:padding="12dp"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btnEditBook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="Xác nhận"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -1,0 +1,14 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- State when the view is pressed -->
+    <item android:state_pressed="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/checkedcolor" />
+        </shape>
+    </item>
+    <!-- Default state -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/light_gray" />
+        </shape>
+    </item>
+</selector>

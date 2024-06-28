@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.ForgetPassActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="371dp"
+        android:layout_height="350dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/background"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.379">
+
+        <EditText
+            android:id="@+id/EmailAddress"
+            android:layout_width="340dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/custom_input"
+            android:ems="10"
+            android:hint="Enter your email"
+            android:inputType="textEmailAddress"
+            android:paddingStart="16dp"
+            android:textSize="18sp" />
+
+
+
+        <Button
+            android:id="@+id/resetbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="50sp"
+            android:layout_marginTop="60dp"
+            android:text="Reset Password" />
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView15"
+        android:layout_width="345dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.044"
+        app:srcCompat="@drawable/book" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

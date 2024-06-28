@@ -77,12 +77,12 @@
         android:layout_width="263dp"
         android:layout_height="96dp"
         android:layout_marginTop="52dp"
-        android:layout_marginEnd="72dp"
         android:gravity="center"
         android:text="Access hundreds of top-notch books on the go. Your next read is just a tap below!"
         android:textColor="#ffffff"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
     <Button
@@ -90,10 +90,10 @@
         android:layout_width="235dp"
         android:layout_height="49dp"
         android:layout_marginTop="48dp"
-        android:layout_marginEnd="88dp"
         android:background="@drawable/startcolor"
         android:text="Start renting books"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

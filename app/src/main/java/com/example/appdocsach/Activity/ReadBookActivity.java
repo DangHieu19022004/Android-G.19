@@ -1,6 +1,7 @@
 package com.example.appdocsach.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -15,6 +16,10 @@ import com.example.appdocsach.MainActivity;
 import com.example.appdocsach.R;
 import com.example.appdocsach.Services.TextToSpeechService;
 import com.example.appdocsach.model.BooksModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import android.view.View;
 import android.widget.Toast;
 
@@ -22,11 +27,14 @@ import org.checkerframework.common.returnsreceiver.qual.This;
 
 
 public class ReadBookActivity extends AppCompatActivity {
+    private FirebaseDatabase database;
 
     private ImageView backButtonReadBook, downloadButtonReadBook, discIconReadBook;
+    private BooksModel book;
     private TextView textContent, textPageNumber;
     private Button btnPrevious, btnNext;
     private ScrollView scrollView;
+    private String bookId, bookImage, bookTitle, bookAuthor, bookDate;
     private String bookContent;
     private int currentPage = 0;
     private int pageSize = 800; // Số ký tự mỗi trang (số ký tự bạn có thể thay đổi tùy vào nhu cầu)
@@ -46,8 +54,6 @@ public class ReadBookActivity extends AppCompatActivity {
         discIconReadBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 Toast.makeText(ReadBookActivity.this, "Đọc sách", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(ReadBookActivity.this, TextToSpeechService.class);
@@ -61,14 +67,32 @@ public class ReadBookActivity extends AppCompatActivity {
 
 
         // get content book from detailbook
-        BooksModel book = (BooksModel) getIntent().getSerializableExtra("book_content");
+        book = (BooksModel) getIntent().getSerializableExtra("book_content");
         bookContent = book.getContent();
+
+        // Cập nhật sách được đọc gần đây nhất
+        updateRecentlyReadBooks(book);
+
         // show content
         displayPage(currentPage);
+
     }
+
+    private void updateRecentlyReadBooks(BooksModel book) {
+        // Lấy ID người dùng hiện tại
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        // Thêm thông tin sách đã đọc vào Firebase Database
+        DatabaseReference userBooksRef = FirebaseDatabase.getInstance().getReference("Users/" + userId + "/readBooks/" + book.getId());
+        userBooksRef.setValue(System.currentTimeMillis()).addOnSuccessListener(aVoid -> {
+            Log.d("ReadBookActivity", "Book read time updated successfully.");
+        }).addOnFailureListener(e -> {
+            Log.e("ReadBookActivity", "Failed to update book read time.", e);
+        });
+    }
+
     private void mapping() {
         backButtonReadBook = findViewById(R.id.backButtonReadBook);
-        downloadButtonReadBook = findViewById(R.id.downloadButtonReadBook);
         discIconReadBook = findViewById(R.id.discIconReadBook);
         textContent = findViewById(R.id.text_content);
         btnPrevious = findViewById(R.id.btn_previous);

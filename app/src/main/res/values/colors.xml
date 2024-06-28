@@ -6,4 +6,6 @@
     <color name="checkedcolor">#FFF385</color>
     <color name="colorBule">#0000FF</color>
     <color name="backgroundSlide">#C8C7C7</color>
+    <color name="light_gray">#F5F5F5</color>
+
 </resources>

@@ -11,6 +11,9 @@
     <dimen name="pdfiximg">20dp</dimen>
     <dimen name="sizecontenttext">20sp</dimen>
     <dimen name="sizeSCRV">80dp</dimen>
+    <dimen name="sizebook_manage">180dp</dimen>
+    <dimen name="ts_book_saved">35sp</dimen>
+    <dimen name="head_small">24sp</dimen>
     <dimen name="chat_fragment_margin_end">5dp</dimen>
     <dimen name="chat_fragment_margin_bottom">110dp</dimen>
 </resources>

@@ -25,13 +25,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/downloadButtonReadBook"
-                style="@style/IconStyle"
-                android:src="@drawable/downloadicon"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/discIconReadBook"
-                app:layout_constraintTop_toTopOf="parent" />
+
 
             <ImageView
                 android:layout_marginRight="@dimen/mgborder"
@@ -40,9 +34,7 @@
                 android:src="@drawable/discicon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:onClick="startTextToSpeech"/>
-
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
