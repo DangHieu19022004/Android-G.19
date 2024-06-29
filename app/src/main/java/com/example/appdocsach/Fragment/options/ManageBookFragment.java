@@ -140,7 +140,7 @@ public class ManageBookFragment extends Fragment {
     private void showAlertDialogDelete(BooksModel books, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Thông báo");
-        builder.setMessage("Xóa khỏi thiết bị?");
+        builder.setMessage("Gỡ sách khỏi app?");
         builder.setPositiveButton("OK", (dialog, which) -> {
             posisionid = position;
             DeleteBookFromFirebase(books);

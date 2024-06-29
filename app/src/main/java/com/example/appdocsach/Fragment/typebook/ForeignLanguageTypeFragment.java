@@ -56,7 +56,7 @@ public class ForeignLanguageTypeFragment extends Fragment {
         });
 
         recyclerView.setAdapter(booksAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         // Call method to get data from Firebase Realtime Database
         getListRealtimeDTB();

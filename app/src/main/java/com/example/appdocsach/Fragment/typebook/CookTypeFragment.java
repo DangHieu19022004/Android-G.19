@@ -55,7 +55,7 @@ public class CookTypeFragment extends Fragment {
         });
 
         recyclerViewCook.setAdapter(booksAdapterCook);
-        recyclerViewCook.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        recyclerViewCook.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         // Call method to get data from Firebase Realtime Database
         getListRealtimeCook();

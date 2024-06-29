@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -255,7 +256,32 @@ public class BookDetailActivity extends AppCompatActivity {
     private void showPopupmenu() {
         PopupMenu popupMenu = new PopupMenu(this, threeDotsButton);
         popupMenu.getMenuInflater().inflate(R.menu.menu_three_detailbook, popupMenu.getMenu());
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int itemId = item.getItemId();
+
+                if (itemId == R.id.share_book) {
+                    shareBook();
+                } else if (itemId == R.id.report_book) {
+                    Toast.makeText(BookDetailActivity.this, "report click", Toast.LENGTH_SHORT).show();
+                } else if (itemId == R.id.block_book) {
+                    Toast.makeText(BookDetailActivity.this, "block click", Toast.LENGTH_SHORT).show();
+                }
+
+                return false;
+            }
+        });
+
         popupMenu.show();
+    }
+
+    private void shareBook() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, "https://www.sachhay.org/");
+        startActivity(Intent.createChooser(intent, "Chia sẻ sách"));
     }
 
     private void mapping() {

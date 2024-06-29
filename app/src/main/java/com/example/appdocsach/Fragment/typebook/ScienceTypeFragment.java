@@ -55,7 +55,7 @@ public class ScienceTypeFragment extends Fragment {
         });
 
         recyclerViewScience.setAdapter(booksAdapterScience);
-        recyclerViewScience.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        recyclerViewScience.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         // Call method to get data from Firebase Realtime Database
         getListRealtimeDTB();

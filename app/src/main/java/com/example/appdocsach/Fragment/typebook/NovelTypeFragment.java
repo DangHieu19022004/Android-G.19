@@ -54,7 +54,7 @@ public class NovelTypeFragment extends Fragment {
             }
         });
         recyclerViewNovel.setAdapter(booksAdapterNovel);
-        recyclerViewNovel.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        recyclerViewNovel.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         // Call method to get data from Firebase Realtime Database
         getListRealtimeNovel();
